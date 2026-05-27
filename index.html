@@ -15,12 +15,16 @@
         body {
             background: #f4f2ee;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            padding: 2rem 1rem;
-            color: #2c3e2f;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 700px;
+            width: 100%;
             margin: 0 auto;
             background: white;
             border-radius: 24px;
@@ -31,13 +35,13 @@
 
         .header {
             background: white;
-            padding: 2rem 2rem 1rem 2rem;
+            padding: 1.8rem 1.5rem 1rem 1.5rem;
             text-align: left;
             border-bottom: 2px solid #f0ebe5;
         }
 
         .header h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #2c3e2f;
             margin-bottom: 0.5rem;
@@ -50,15 +54,16 @@
 
         .header p {
             color: #6b7c6a;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
         .card {
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         label {
@@ -66,15 +71,15 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: #2c3e2f;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         input, textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 14px;
             border: 1px solid #d4ccc4;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-family: inherit;
             background: #fefcf8;
             transition: all 0.2s;
@@ -87,7 +92,7 @@
         }
 
         textarea {
-            min-height: 200px;
+            min-height: 180px;
             resize: vertical;
             line-height: 1.5;
         }
@@ -96,46 +101,52 @@
             background: #fefcf8;
             border: 1px solid #f0ebe5;
             border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
         }
 
         .preview h3 {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #8b7a6b;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .preview-content {
             font-family: 'Georgia', serif;
             color: #3a4a38;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.5;
-            max-height: 150px;
+            max-height: 120px;
             overflow-y: auto;
         }
 
+        /* BOTÕES EM COLUNA (UM ABAIXO DO OUTRO) */
         .button-group {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
         }
 
         .btn {
-            flex: 1;
-            padding: 12px 20px;
+            width: 100%;
+            padding: 14px 20px;
             border: none;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
         }
 
         .btn-primary {
@@ -145,7 +156,6 @@
 
         .btn-primary:hover {
             background: #1f2c21;
-            transform: translateY(-1px);
         }
 
         .btn-secondary {
@@ -158,27 +168,50 @@
         }
 
         .status {
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             padding: 12px;
             border-radius: 16px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             background: #f4f2ee;
             color: #5a6b55;
             text-align: center;
+            line-height: 1.4;
         }
 
         .footer {
             text-align: center;
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-top: 1px solid #f0ebe5;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #8b7a6b;
             background: white;
         }
 
-        @media (max-width: 600px) {
-            .card { padding: 1.5rem; }
-            .header { padding: 1.5rem; }
+        /* Responsivo para telas muito pequenas */
+        @media (max-width: 480px) {
+            body {
+                padding: 0.8rem;
+            }
+            .header {
+                padding: 1.2rem 1rem 0.8rem 1rem;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .btn {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Ajuste para tablets */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                max-width: 600px;
+            }
         }
     </style>
 </head>
@@ -186,21 +219,25 @@
     <div class="container">
         <div class="header">
             <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator</h1>
-            <p>Gerador de páginas de leitura <strong>apenas com texto</strong> — use o recurso nativo do navegador para ouvir com voz Thalita</p>
+            <p>Gerador de páginas de leitura apenas com texto — use o recurso nativo do navegador para ouvir com voz Thalita</p>
         </div>
         <div class="card">
             <div class="form-group">
                 <label><i class="fa-regular fa-file-lines"></i> Título da história/página</label>
                 <input type="text" id="titulo" placeholder="Ex: Peter Pan - Capítulo 1">
             </div>
+
             <div class="form-group">
                 <label><i class="fa-regular fa-message"></i> Conteúdo</label>
                 <textarea id="conteudo" placeholder="Digite ou cole o texto aqui..."></textarea>
             </div>
+
             <div class="preview">
                 <h3><i class="fa-regular fa-eye"></i> Prévia do conteúdo</h3>
                 <div class="preview-content" id="preview">Nada para visualizar ainda.</div>
             </div>
+
+            <!-- BOTÕES UM ABAIXO DO OUTRO -->
             <div class="button-group">
                 <button class="btn btn-primary" id="criarBtn">
                     <i class="fa-solid fa-download"></i> Gerar página .HTML
@@ -209,6 +246,7 @@
                     <i class="fa-solid fa-eraser"></i> Limpar campos
                 </button>
             </div>
+
             <div class="status" id="status">
                 <i class="fa-regular fa-lightbulb"></i> Preencha o conteúdo e clique em "Gerar página"
             </div>
@@ -263,7 +301,7 @@
                 let conteudoEscapado = escapeHTML(conteudo).replace(/\n/g, '<br>');
                 let dataGeracao = new Date().toLocaleDateString('pt-BR');
 
-                // Página HTML SEM BOTÕES - apenas o texto puro e bonito
+                // Página HTML SEM BOTÕES - apenas o texto puro
                 let paginaHTML = `<!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -280,12 +318,16 @@
         body {
             background: #f4f2ee;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            padding: 2rem 1rem;
-            color: #2c3e2f;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 700px;
+            width: 100%;
             margin: 0 auto;
             background: white;
             border-radius: 24px;
@@ -295,12 +337,12 @@
         }
 
         .story-header {
-            padding: 2rem 2rem 0.5rem 2rem;
+            padding: 1.8rem 1.5rem 0.5rem 1.5rem;
             text-align: left;
         }
 
         .story-header h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #2c3e2f;
             margin-bottom: 0.5rem;
@@ -308,16 +350,16 @@
         }
 
         .story-header hr {
-            margin: 1rem 0;
+            margin: 0.8rem 0;
             border: none;
             height: 1px;
             background: linear-gradient(to right, #e6e0d8, transparent);
         }
 
         .story-content {
-            padding: 1rem 2rem 2rem 2rem;
+            padding: 0.8rem 1.5rem 1.8rem 1.5rem;
             font-family: 'Georgia', serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.7;
             color: #2c3e2f;
             text-align: justify;
@@ -326,16 +368,17 @@
         .story-footer {
             background: #fefcf8;
             border-top: 1px solid #f0ebe5;
-            padding: 1rem;
+            padding: 0.8rem;
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #b9aa99;
         }
 
         @media (max-width: 600px) {
-            body { padding: 1rem; }
-            .story-header h1 { font-size: 1.4rem; }
-            .story-content { font-size: 1rem; padding: 1rem 1.5rem; }
+            body { padding: 0.8rem; }
+            .story-header { padding: 1.2rem 1rem 0.3rem 1rem; }
+            .story-header h1 { font-size: 1.3rem; }
+            .story-content { font-size: 0.95rem; padding: 0.5rem 1rem 1.2rem 1rem; }
         }
     </style>
 </head>
@@ -349,7 +392,7 @@
         ${conteudoEscapado}
     </div>
     <div class="story-footer">
-        <i class="fa-regular fa-clock"></i> Gerado em ${dataGeracao}
+        📖 Gerado em ${dataGeracao}
     </div>
 </div>
 </body>
