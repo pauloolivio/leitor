@@ -3,337 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Leitor Thalita - Funciona no Android</title>
+    <title>VoicePage Creator - Simples</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            font-family: 'Inter', system-ui, sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
+            padding: 20px;
         }
 
-        .app {
-            max-width: 800px;
-            width: 100%;
-            background: white;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            padding: 20px 24px;
-            color: white;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .header h1 {
-            margin: 0;
-            font-size: 1.5rem;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #c084fc, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .content {
-            padding: 24px;
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        label {
+            display: block;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
         textarea {
-            width: 100%;
-            height: 320px;
-            padding: 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 1rem;
-            line-height: 1.5;
-            font-family: monospace;
+            min-height: 180px;
             resize: vertical;
+        }
+
+        input:focus, textarea:focus {
             outline: none;
+            border-color: #60a5fa;
         }
 
-        textarea:focus {
-            border-color: #2a5298;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-
-        .control-group {
-            flex: 1;
-        }
-
-        .control-group label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #4a5568;
-        }
-
-        select, input[type="range"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e0;
+        .preview {
+            background: #0f172a;
+            padding: 16px;
             border-radius: 12px;
+            margin-bottom: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            color: #94a3b8;
+            font-size: 0.9rem;
         }
 
         .buttons {
             display: flex;
             gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
         }
 
         button {
             flex: 1;
-            padding: 14px;
+            padding: 12px;
             border: none;
-            border-radius: 60px;
-            font-weight: bold;
+            border-radius: 40px;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
         }
 
         button:active {
             transform: scale(0.97);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        .btn-create {
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
             color: white;
         }
 
-        .btn-danger {
-            background: #fee2e2;
-            color: #b91c1c;
+        .btn-clear {
+            background: #334155;
+            color: #e2e8f0;
         }
 
         .status {
-            background: #f0fdf4;
+            margin-top: 20px;
             padding: 12px;
             border-radius: 12px;
-            text-align: center;
+            background: rgba(96,165,250,0.1);
+            color: #60a5fa;
             font-size: 0.85rem;
         }
 
-        .status.error {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .info {
-            font-size: 0.7rem;
+        .footer {
             text-align: center;
-            margin-top: 16px;
-            padding: 10px;
-            background: #f1f5f9;
-            border-radius: 12px;
+            margin-top: 30px;
+            color: #475569;
+            font-size: 0.75rem;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fa-solid fa-microphone-lines"></i> VoicePage Creator</h1>
+            <p>Gere páginas HTML com leitor de voz Thalita</p>
+        </div>
 
-<div class="app">
-    <div class="header">
-        <h1>🎙️ Leitor com Voz Thalita</h1>
-        <p>Funciona no Chrome, Firefox, Safari e qualquer navegador Android</p>
+        <div class="card">
+            <label>📌 Título</label>
+            <input type="text" id="titulo" placeholder="Título da página">
+
+            <label>📖 Conteúdo</label>
+            <textarea id="conteudo" placeholder="Digite ou cole o texto aqui..."></textarea>
+
+            <div class="preview" id="preview"></div>
+
+            <div class="buttons">
+                <button class="btn-create" id="criarBtn">
+                    <i class="fa-solid fa-download"></i> Gerar HTML
+                </button>
+                <button class="btn-clear" id="limparBtn">
+                    <i class="fa-solid fa-eraser"></i> Limpar
+                </button>
+            </div>
+
+            <div class="status" id="status">
+                <i class="fa-solid fa-info-circle"></i> Preencha os campos e clique em Gerar
+            </div>
+        </div>
+
+        <div class="footer">
+            🔊 Páginas com suporte a voz Thalita (Google TTS) - Web Speech API
+        </div>
     </div>
 
-    <div class="content">
-        <textarea id="textContent" placeholder="📄 Cole seu texto aqui..."></textarea>
+    <script>
+        // Elementos
+        var tituloInput = document.getElementById('titulo');
+        var conteudoTextarea = document.getElementById('conteudo');
+        var previewDiv = document.getElementById('preview');
+        var criarBtn = document.getElementById('criarBtn');
+        var limparBtn = document.getElementById('limparBtn');
+        var statusDiv = document.getElementById('status');
 
-        <div class="controls">
-            <div class="control-group">
-                <label>🗣️ VOZ</label>
-                <select id="voiceSelect">
-                    <option value="pt-BR-Wavenet-C">🌟 Thalita (Google Wavenet - Feminino)</option>
-                    <option value="pt-BR-Wavenet-A">Ricardo (Google Wavenet - Masculino)</option>
-                    <option value="pt-BR-Standard-A">Standard Feminino</option>
-                </select>
-            </div>
-            <div class="control-group">
-                <label>⚡ VELOCIDADE <span id="rateDisplay">1.0</span></label>
-                <input type="range" id="rateSlider" min="0.5" max="2.0" step="0.05" value="1.0">
-            </div>
-        </div>
-
-        <div class="buttons">
-            <button id="speakBtn" class="btn-primary">🔊 OUVIR</button>
-            <button id="stopBtn" class="btn-danger">⏹️ PARAR</button>
-        </div>
-
-        <div class="status" id="statusMsg">
-            ✅ Pronto! Clique em Ouvir.
-        </div>
-        
-        <div class="info">
-            💡 Usando Google Cloud TTS (voz Thalita/Wavenet-C) - Qualidade neural, funciona em qualquer navegador.
-        </div>
-    </div>
-</div>
-
-<script>
-    const textArea = document.getElementById('textContent');
-    const voiceSelect = document.getElementById('voiceSelect');
-    const rateSlider = document.getElementById('rateSlider');
-    const rateDisplay = document.getElementById('rateDisplay');
-    const speakBtn = document.getElementById('speakBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const statusDiv = document.getElementById('statusMsg');
-
-    let currentAudio = null;
-
-    function updateStatus(msg, isError = false) {
-        statusDiv.textContent = msg;
-        statusDiv.className = isError ? 'status error' : 'status';
-    }
-
-    // Função principal usando Google Cloud TTS via API pública
-    async function speakWithGoogleTTS(text, voiceName, rate) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                updateStatus('🎙️ Gerando áudio com Thalita...');
-
-                // API pública do Google Cloud TTS (requer chave, mas vamos usar um proxy gratuito)
-                // Infelizmente o Google Cloud TTS não tem API pública gratuita sem chave.
-                // Vamos usar o método do Google Translate que funciona em qualquer lugar.
-                
-                const encodedText = encodeURIComponent(text);
-                // Usando Google Translate TTS (funciona SEMPRE, qualidade boa)
-                const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=pt&client=tw-ob&ttsspeed=${rate}`;
-                
-                updateStatus('🔄 Baixando áudio...');
-                
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error('Falha na requisição');
-                }
-                
-                const audioBlob = await response.blob();
-                const audioUrl = URL.createObjectURL(audioBlob);
-                
-                if (currentAudio) {
-                    currentAudio.pause();
-                    if (currentAudio.src) URL.revokeObjectURL(currentAudio.src);
-                }
-                
-                currentAudio = new Audio(audioUrl);
-                
-                currentAudio.onplay = () => {
-                    updateStatus('🔊 Lendo com Google TTS (qualidade natural)');
-                };
-                
-                currentAudio.onended = () => {
-                    updateStatus('✅ Leitura finalizada.');
-                    URL.revokeObjectURL(audioUrl);
-                    resolve();
-                };
-                
-                currentAudio.onerror = (err) => {
-                    console.error(err);
-                    updateStatus('❌ Erro ao reproduzir', true);
-                    reject(err);
-                };
-                
-                await currentAudio.play();
-                
-            } catch (error) {
-                console.error(error);
-                updateStatus('❌ Falha ao gerar áudio. Verifique sua internet.', true);
-                reject(error);
+        // Atualizar preview
+        function atualizarPreview() {
+            var texto = conteudoTextarea.value;
+            if (texto.length > 200) {
+                previewDiv.innerHTML = texto.substring(0, 200) + '...';
+            } else {
+                previewDiv.innerHTML = texto || '📭 Nenhum conteúdo para visualizar';
             }
-        });
-    }
+        }
 
-    // Fallback usando Web Speech API (para quando não houver internet)
-    function fallbackWebSpeech(text, rate) {
-        if (!window.speechSynthesis) {
-            updateStatus('❌ Seu navegador não suporta leitura.', true);
-            return;
+        // Escapar HTML
+        function escaparHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
-        
-        window.speechSynthesis.cancel();
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'pt-BR';
-        utterance.rate = rate;
-        
-        // Tenta encontrar a voz Thalita no sistema
-        const voices = window.speechSynthesis.getVoices();
-        const thalitaVoice = voices.find(v => v.name.toLowerCase().includes('thalita') || 
-                                                 (v.lang === 'pt-BR' && v.name.includes('Google')));
-        if (thalitaVoice) {
-            utterance.voice = thalitaVoice;
-        }
-        
-        utterance.onstart = () => updateStatus('🔊 Lendo (modo offline)...');
-        utterance.onend = () => updateStatus('✅ Leitura finalizada.');
-        utterance.onerror = () => updateStatus('❌ Erro na leitura', true);
-        
-        window.speechSynthesis.speak(utterance);
-    }
 
-    async function startReading() {
-        const text = textArea.value.trim();
-        
-        if (text === "") {
-            updateStatus("⚠️ Cole um texto na tela em branco.", true);
-            return;
-        }
-        
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio = null;
-        }
-        
-        const rate = parseFloat(rateSlider.value);
-        
-        try {
-            await speakWithGoogleTTS(text, 'pt-BR', rate);
-        } catch (error) {
-            // Fallback para Web Speech
-            updateStatus('🔄 Usando modo alternativo...');
-            fallbackWebSpeech(text, rate);
-        }
-    }
-    
-    function stopReading() {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio = null;
-        }
-        if (window.speechSynthesis) {
-            window.speechSynthesis.cancel();
-        }
-        updateStatus('⏹️ Leitura interrompida.');
-    }
-    
-    rateSlider.addEventListener('input', () => {
-        rateDisplay.textContent = rateSlider.value;
-    });
-    
-    speakBtn.addEventListener('click', startReading);
-    stopBtn.addEventListener('click', stopReading);
-    
-    // Texto de exemplo
-    textArea.value = `Olá! Este é o leitor com voz Thalita funcionando no seu Android.
+        // Gerar página HTML
+        function gerarPagina() {
+            var titulo = tituloInput.value.trim();
+            var conteudo = conteudoTextarea.value.trim();
 
-Cole qualquer texto aqui e clique em "Ouvir". A qualidade da voz é natural e funciona em todos os navegadores.
+            if (!conteudo) {
+                statusDiv.innerHTML = '<i class="fa-solid fa-warning"></i> ❌ Por favor, insira algum conteúdo!';
+                statusDiv.style.background = 'rgba(239,68,68,0.1)';
+                statusDiv.style.color = '#f87171';
+                return;
+            }
 
-Teste agora mesmo copiando uma notícia ou trecho de livro.`;
-    
-    updateStatus('✅ Pronto! Clique em Ouvir.');
-</script>
+            var tituloFinal = titulo || 'Leitura com Voz';
+            var tituloEscapado = escaparHtml(tituloFinal);
+            var conteudoEscapado = escaparHtml(conteudo).replace(/\n/g, '<br>');
+            var data = new Date().toLocaleString('pt-BR');
+
+            var html = '<!DOCTYPE html>\n';
+            html += '<html lang="pt-br">\n';
+            html += '<head>\n';
+            html += '    <meta charset="UTF-8">\n';
+            html += '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n';
+            html += '    <title>' + tituloEscapado + '</title>\n';
+            html += '    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\n';
+            html += '    <style>\n';
+            html += '        * { margin: 0; padding: 0; box-sizing: border-box; }\n';
+            html += '        body {\n';
+            html += '            background: linear-gradient(135deg, #0f172a, #1e293b);\n';
+            html += '            font-family: Arial, sans-serif;\n';
+            html += '            padding: 20px;\n';
+            html += '            min-height: 100vh;\n';
+            html += '        }\n';
+            html += '        .container {\n';
+            html += '            max-width: 800px;\n';
+            html += '            margin: 0 auto;\n';
+            html += '            background: white;\n';
+            html += '            border-radius: 20px;\n';
+            html += '            overflow: hidden;\n';
+            html += '            box-shadow: 0 20px 40px rgba(0,0,0,0.3);\n';
+            html += '        }\n';
+            html += '        .header {\n';
+            html += '            background: linear-gradient(135deg, #60a5fa, #a855f7);\n';
+            html += '            padding: 30px;\n';
+            html += '            color: white;\n';
+            html += '        }\n';
+            html += '        .header h1 { font-size: 1.8rem; margin-bottom: 10px; }\n';
+            html += '        .header p { opacity: 0.9; font-size: 0.9rem; }\n';
+            html += '        .player {\n';
+            html += '            background: #f1f5f9;\n';
+            html += '            padding: 25px;\n';
+            html += '            border-bottom: 1px solid #e2e8f0;\n';
+            html += '        }\n';
+            html += '        .btn-group {\n';
+            html += '            display: flex;\n';
+            html += '            gap: 10px;\n';
+            html += '            flex-wrap: wrap;\n';
+            html += '            margin-bottom: 15px;\n';
+            html += '        }\n';
+            html += '        button {\n';
+            html += '            flex: 1;\n';
+            html += '            padding: 12px;\n';
+            html += '            border: none;\n';
+            html += '            border-radius: 40px;\n';
+            html += '            font-weight: bold;\n';
+            html += '            cursor: pointer;\n';
+            html += '            display: flex;\n';
+            html += '            align-items: center;\n';
+            html += '            justify-content: center;\n';
+            html += '            gap: 8px;\n';
+            html += '            transition: transform 0.1s;\n';
+            html += '        }\n';
+            html += '        button:active { transform: scale(0.97); }\n';
+            html += '        .btn-speak { background: linear-gradient(135deg, #60a5fa, #a855f7); color: white; }\n';
+            html += '        .btn-pause { background: #fef3c7; color: #92400e; }\n';
+            html += '        .btn-stop { background: #fee2e2; color: #b91c1c; }\n';
+            html += '        .speed {\n';
+            html += '            display: flex;\n';
+            html += '            align-items: center;\n';
+            html += '            gap: 15px;\n';
+            html += '            margin-top: 15px;\n';
+            html += '        }\n';
+            html += '        input[type="range"] { flex: 1; }\n';
+            html += '        .content {\n';
+            html += '            padding: 30px;\n';
+            html += '            line-height: 1.8;\n';
+            html += '            font-size: 1.1rem;\n';
+            html += '        }\n';
+            html += '        .status-msg {\n';
+            html += '            margin-top: 15px;\n';
+            html += '            padding: 10px;\n';
+            html += '            background: #e2e8f0;\n';
+            html += '            border-radius: 10px;\n';
+            html += '            text-align: center;\n';
+            html += '            font-size: 0.85rem;\n';
+            html += '        }\n';
+            html += '        .footer {\n';
+            html += '            background: #f8fafc;\n';
+            html += '            padding: 15px;\n';
+            html += '            text-align: center;\n';
+            html += '            font-size: 0.75rem;\n';
+            html += '            color: #64748b;\n';
+            html += '        }\n';
+            html += '    </style>\n';
+            html += '</head>\n';
+            html += '<body>\n';
+            html += '    <div class="container">\n';
+            html += '        <div class="header">\n';
+            html += '            <h1>' + tituloEscapado + '</h1>\n';
+            html += '            <p><i class="fa-regular fa-calendar"></i> Gerado em ' + data + '</p>\n';
+            html += '        </div>\n';
+            html += '        <div class="player">\n';
+            html += '            <div class="btn-group">\n';
+            html += '                <button id="speakBtn" class="btn-speak"><i class="fa-solid fa-play"></i> Ouvir</button>\n';
+            html += '                <button id="pauseBtn" class="btn-pause"><i class="fa-solid fa-pause"></i> Pausar</button>\n';
+            html += '                <button id="stopBtn" class="btn-stop"><i class="fa-solid fa-stop"></i> Parar</button>\n';
+            html += '            </div>\n';
+            html += '            <div class="speed">\n';
+            html += '                <label>Velocidade:</label>\n';
+            html += '                <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">\n';
+            html += '                <span id="rateValue">1.0x</span>\n';
+            html += '            </div>\n';
+            html += '            <div id="statusMsg" class="status-msg">✅ Pronto para ler</div>\n';
+            html += '        </div>\n';
+            html += '        <div class="content" id="textoParaLer">\n';
+            html += '            ' + conteudoEscapado + '\n';
+            html += '        </div>\n';
+            html += '        <div class="footer">\n';
+            html += '            🔊 Leitor de voz com suporte a Thalita (Google TTS)\n';
+            html += '        </div>\n';
+            html += '    </div>\n';
+            html += '    <script>\n';
+            html += '        var texto = document.getElementById("textoParaLer").innerText;\n';
+            html += '        var speakBtn = document.getElementById("speakBtn");\n';
+            html += '        var pauseBtn = document.getElementById("pauseBtn");\n';
+            html += '        var stopBtn = document.getElementById("stopBtn");\n';
+            html += '        var rateSlider = document.getElementById("rate");\n';
+            html += '        var rateValue = document.getElementById("rateValue");\n';
+            html += '        var statusMsg = document.getElementById("statusMsg");\n';
+            html += '        var synth = window.speechSynthesis;\n';
+            html += '        var utterance = null;\n';
+            html += '        function getVozThalita() {\n';
+            html += '            var voices = synth.getVoices();\n';
+            html += '            return voices.find(function(v) { return v.name && v.name.toLowerCase().indexOf("thalita") !== -1; }) ||\n';
+            html += '                   voices.find(function(v) { return v.lang === "pt-BR"; }) || null;\n';
+            html += '        }\n';
+            html += '        function falar() {\n';
+            html += '            if (!texto) return;\n';
+            html += '            synth.cancel();\n';
+            html += '            utterance = new SpeechSynthesisUtterance(texto);\n';
+            html += '            var voz = getVozThalita();\n';
+            html += '            if (voz) utterance.voice = voz;\n';
+            html += '            utterance.lang = "pt-BR";\n';
+            html += '            utterance.rate = parseFloat(rateSlider.value);\n';
+            html += '            utterance.onstart = function() { statusMsg.innerHTML = "🔊 Lendo..."; };\n';
+            html += '            utterance.onend = function() { statusMsg.innerHTML = "✅ Leitura finalizada"; };\n';
+            html += '            utterance.onerror = function() { statusMsg.innerHTML = "❌ Erro na leitura"; };\n';
+            html += '            synth.speak(utterance);\n';
+            html += '        }\n';
+            html += '        speakBtn.onclick = falar;\n';
+            html += '        pauseBtn.onclick = function() { synth.pause(); statusMsg.innerHTML = "⏸️ Pausado"; };\n';
+            html += '        stopBtn.onclick = function() { synth.cancel(); statusMsg.innerHTML = "⏹️ Parado"; };\n';
+            html += '        rateSlider.oninput = function() {\n';
+            html += '            rateValue.innerText = rateSlider.value + "x";\n';
+            html += '            if (utterance) utterance.rate = parseFloat(rateSlider.value);\n';
+            html += '        };\n';
+            html += '        if (synth.onvoiceschanged !== undefined) {\n';
+            html += '            synth.onvoiceschanged = function() {\n';
+            html += '                var voz = getVozThalita();\n';
+            html += '                if (voz) statusMsg.innerHTML = "✅ Voz carregada: " + voz.name;\n';
+            html += '            };\n';
+            html += '        }\n';
+            html += '    <\/script>\n';
+            html += '</body>\n';
+            html += '</html>';
+
+            // Baixar arquivo
+            var blob = new Blob([html], { type: 'text/html' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            var nomeArquivo = (tituloFinal.replace(/[^a-z0-9]/gi, '_') || 'pagina_voz') + '.html';
+            a.download = nomeArquivo;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            statusDiv.innerHTML = '<i class="fa-solid fa-check-circle"></i> ✅ Página gerada com sucesso! Arquivo: ' + nomeArquivo;
+            statusDiv.style.background = 'rgba(34,197,94,0.1)';
+            statusDiv.style.color = '#4ade80';
+        }
+
+        // Limpar campos
+        function limpar() {
+            tituloInput.value = '';
+            conteudoTextarea.value = '';
+            atualizarPreview();
+            statusDiv.innerHTML = '<i class="fa-solid fa-eraser"></i> Campos limpos!';
+            statusDiv.style.background = 'rgba(96,165,250,0.1)';
+            statusDiv.style.color = '#60a5fa';
+        }
+
+        // Eventos
+        conteudoTextarea.addEventListener('input', atualizarPreview);
+        criarBtn.addEventListener('click', gerarPagina);
+        limparBtn.addEventListener('click', limpar);
+
+        // Texto inicial
+        conteudoTextarea.value = 'A evolução da leitura digital transformou a maneira como consumimos informação.\n\nHoje, é possível ouvir livros inteiros, artigos e documentos com vozes naturais.\n\nO leitor de voz Thalita oferece uma experiência de audição fluida e profissional.\n\nExperimente ouvir este texto clicando no botão "Ouvir" após gerar a página!';
+        atualizarPreview();
+    </script>
 </body>
 </html>
