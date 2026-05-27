@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>VoicePage Creator - Estilo Histórias para Dormir</title>
+    <title>VoicePage Creator - Apenas Texto</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ESTILO DO CRIADOR - similar ao site de exemplo */
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +13,8 @@
         }
 
         body {
-            background: #f4f2ee; /* fundo claro, como no site */
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: #f4f2ee;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             padding: 2rem 1rem;
             color: #2c3e2f;
         }
@@ -25,15 +24,15 @@
             margin: 0 auto;
             background: white;
             border-radius: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             border: 1px solid #e6e0d8;
         }
 
         .header {
-            background: #ffffff;
+            background: white;
             padding: 2rem 2rem 1rem 2rem;
-            text-align: center;
+            text-align: left;
             border-bottom: 2px solid #f0ebe5;
         }
 
@@ -187,16 +186,16 @@
     <div class="container">
         <div class="header">
             <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator</h1>
-            <p>Gerador de páginas no estilo <strong>Histórias para Dormir</strong> com leitor de voz</p>
+            <p>Gerador de páginas de leitura <strong>apenas com texto</strong> — use o recurso nativo do navegador para ouvir com voz Thalita</p>
         </div>
         <div class="card">
             <div class="form-group">
-                <label><i class="fa-regular fa-file-lines"></i> Título do capítulo/história</label>
+                <label><i class="fa-regular fa-file-lines"></i> Título da história/página</label>
                 <input type="text" id="titulo" placeholder="Ex: Peter Pan - Capítulo 1">
             </div>
             <div class="form-group">
-                <label><i class="fa-regular fa-message"></i> Conteúdo da história</label>
-                <textarea id="conteudo" placeholder="Digite ou cole o texto da história aqui..."></textarea>
+                <label><i class="fa-regular fa-message"></i> Conteúdo</label>
+                <textarea id="conteudo" placeholder="Digite ou cole o texto aqui..."></textarea>
             </div>
             <div class="preview">
                 <h3><i class="fa-regular fa-eye"></i> Prévia do conteúdo</h3>
@@ -215,13 +214,12 @@
             </div>
         </div>
         <div class="footer">
-            <p>🎧 As páginas geradas terão o mesmo visual do site Histórias para Dormir + leitor de voz com suporte a Thalita (Google TTS)</p>
+            <p>📖 As páginas geradas contêm APENAS o texto — sem botões de player. Para ouvir, use o recurso nativo do seu navegador: <strong>menu → "Ler em voz alta"</strong> ou atalho de voz (voz Thalita no Android).</p>
         </div>
     </div>
 
     <script>
         (function() {
-            // Elementos
             const tituloInput = document.getElementById('titulo');
             const conteudoTextarea = document.getElementById('conteudo');
             const previewDiv = document.getElementById('preview');
@@ -229,7 +227,6 @@
             const limparBtn = document.getElementById('limparBtn');
             const statusDiv = document.getElementById('status');
 
-            // Atualizar preview
             function atualizarPreview() {
                 let texto = conteudoTextarea.value;
                 if (!texto.trim()) {
@@ -240,7 +237,6 @@
                 previewDiv.innerHTML = resumo.replace(/\n/g, '<br>');
             }
 
-            // Função para escapar HTML (proteção)
             function escapeHTML(str) {
                 if (!str) return '';
                 return str.replace(/[&<>]/g, function(m) {
@@ -248,37 +244,32 @@
                     if (m === '<') return '&lt;';
                     if (m === '>') return '&gt;';
                     return m;
-                }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-                    return c;
                 });
             }
 
-            // Função principal que gera a página HTML no estilo do site de exemplo
             function gerarPagina() {
                 let titulo = tituloInput.value.trim();
                 let conteudo = conteudoTextarea.value.trim();
 
                 if (!conteudo) {
-                    statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ❌ Erro: Insira o texto da história primeiro.';
+                    statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ❌ Erro: Insira o texto primeiro.';
                     statusDiv.style.background = '#fef2f0';
                     statusDiv.style.color = '#b33';
                     return;
                 }
 
-                // Define título padrão se vazio
-                let tituloFinal = titulo || 'História para Dormir';
+                let tituloFinal = titulo || 'Página de Leitura';
                 let tituloEscapado = escapeHTML(tituloFinal);
                 let conteudoEscapado = escapeHTML(conteudo).replace(/\n/g, '<br>');
                 let dataGeracao = new Date().toLocaleDateString('pt-BR');
 
-                // Template da página gerada (mesmo estilo do link: claro, fonte georgia, layout centralizado)
+                // Página HTML SEM BOTÕES - apenas o texto puro e bonito
                 let paginaHTML = `<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>${tituloEscapado} | Histórias para Dormir</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>${tituloEscapado} | Leitura</title>
     <style>
         * {
             margin: 0;
@@ -303,36 +294,11 @@
             border: 1px solid #e6e0d8;
         }
 
-        /* Cabeçalho com navegação */
-        .nav-bar {
-            background: white;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid #f0ebe5;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .nav-bar a {
-            text-decoration: none;
-            color: #8b7a6b;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .nav-bar a:hover {
-            color: #b8860b;
-        }
-        .nav-bar .separator {
-            color: #ddd4ca;
-        }
-
-        /* Header da história */
         .story-header {
             padding: 2rem 2rem 0.5rem 2rem;
             text-align: left;
         }
+
         .story-header h1 {
             font-size: 1.8rem;
             font-weight: 600;
@@ -340,6 +306,7 @@
             margin-bottom: 0.5rem;
             font-family: 'Georgia', serif;
         }
+
         .story-header hr {
             margin: 1rem 0;
             border: none;
@@ -347,71 +314,6 @@
             background: linear-gradient(to right, #e6e0d8, transparent);
         }
 
-        /* Player de voz personalizado (leve e minimalista) */
-        .voice-player {
-            background: #fefcf8;
-            margin: 0 2rem 1rem 2rem;
-            padding: 1rem;
-            border-radius: 20px;
-            border: 1px solid #f0ebe5;
-        }
-        .player-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .player-btn {
-            flex: 1;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 0.85rem;
-            cursor: pointer;
-            background: #f4f2ee;
-            color: #2c3e2f;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        .player-btn i { font-size: 0.9rem; }
-        .player-btn:hover { background: #e8e2da; transform: translateY(-1px); }
-        .btn-speak { background: #2c3e2f; color: white; }
-        .btn-speak:hover { background: #1f2c21; }
-        .speed-control {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-            font-size: 0.8rem;
-        }
-        input[type="range"] {
-            flex: 1;
-            height: 4px;
-            border-radius: 10px;
-            background: #ddd4ca;
-            -webkit-appearance: none;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #b8860b;
-            cursor: pointer;
-        }
-        .status-reader {
-            margin-top: 12px;
-            font-size: 0.75rem;
-            color: #8b7a6b;
-            text-align: center;
-        }
-
-        /* Conteúdo principal (texto da história) */
         .story-content {
             padding: 1rem 2rem 2rem 2rem;
             font-family: 'Georgia', serif;
@@ -420,11 +322,7 @@
             color: #2c3e2f;
             text-align: justify;
         }
-        .story-content p {
-            margin-bottom: 1rem;
-        }
 
-        /* Footer */
         .story-footer {
             background: #fefcf8;
             border-top: 1px solid #f0ebe5;
@@ -438,126 +336,29 @@
             body { padding: 1rem; }
             .story-header h1 { font-size: 1.4rem; }
             .story-content { font-size: 1rem; padding: 1rem 1.5rem; }
-            .voice-player { margin: 0 1rem 1rem 1rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="nav-bar">
-        <a href="#"><i class="fa-solid fa-book"></i> Histórias para Dormir</a>
-        <span class="separator">←</span>
-        <a href="#">Voltar para a biblioteca</a>
-    </div>
     <div class="story-header">
         <h1>${tituloEscapado}</h1>
         <hr>
     </div>
-
-    <div class="voice-player">
-        <div class="player-controls">
-            <button id="speakBtn" class="player-btn btn-speak"><i class="fa-solid fa-play"></i> Ouvir história</button>
-            <button id="pauseBtn" class="player-btn"><i class="fa-solid fa-pause"></i> Pausar</button>
-            <button id="stopBtn" class="player-btn"><i class="fa-solid fa-stop"></i> Parar</button>
-        </div>
-        <div class="speed-control">
-            <label><i class="fa-solid fa-gauge-high"></i> Velocidade:</label>
-            <input type="range" id="rateSlider" min="0.5" max="2" step="0.1" value="1.0">
-            <span id="rateValue" class="speed-value">1.0x</span>
-        </div>
-        <div id="readerStatus" class="status-reader">🎤 Pronto para ler. Clique em "Ouvir história".</div>
-    </div>
-
-    <div class="story-content" id="textoHistoria">
+    <div class="story-content">
         ${conteudoEscapado}
     </div>
-
     <div class="story-footer">
-        <i class="fa-regular fa-clock"></i> Gerado em ${dataGeracao} · Leitor de voz com suporte a Thalita
+        <i class="fa-regular fa-clock"></i> Gerado em ${dataGeracao}
     </div>
 </div>
-
-<script>
-    (function(){
-        const textoElemento = document.getElementById('textoHistoria');
-        const textoCompleto = textoElemento.innerText;
-        const speakBtn = document.getElementById('speakBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const rateSlider = document.getElementById('rateSlider');
-        const rateValue = document.getElementById('rateValue');
-        const statusMsg = document.getElementById('readerStatus');
-        
-        let synth = window.speechSynthesis;
-        let utterance = null;
-        let vozSelecionada = null;
-
-        function carregarVozThalita() {
-            if (!synth) return null;
-            let voices = synth.getVoices();
-            let voz = voices.find(v => v.name && v.name.toLowerCase().indexOf('thalita') !== -1);
-            if(!voz) voz = voices.find(v => v.lang === 'pt-BR' && v.name.toLowerCase().indexOf('google') !== -1);
-            if(!voz) voz = voices.find(v => v.lang === 'pt-BR');
-            return voz;
-        }
-
-        function falar() {
-            if(!textoCompleto) {
-                statusMsg.innerHTML = '⚠️ Nenhum texto disponível.';
-                return;
-            }
-            if(synth.speaking) synth.cancel();
-            
-            setTimeout(function(){
-                utterance = new SpeechSynthesisUtterance(textoCompleto);
-                let voz = carregarVozThalita();
-                if(voz) {
-                    utterance.voice = voz;
-                    utterance.lang = voz.lang;
-                    statusMsg.innerHTML = '🎤 Usando voz: ' + voz.name;
-                } else {
-                    utterance.lang = 'pt-BR';
-                    statusMsg.innerHTML = '🎤 Voz padrão do sistema';
-                }
-                utterance.rate = parseFloat(rateSlider.value);
-                utterance.onstart = function(){ statusMsg.innerHTML = '🔊 Lendo história...'; };
-                utterance.onend = function(){ statusMsg.innerHTML = '✅ Leitura finalizada.'; };
-                utterance.onerror = function(){ statusMsg.innerHTML = '❌ Erro na leitura.'; };
-                synth.speak(utterance);
-            }, 50);
-        }
-
-        speakBtn.addEventListener('click', falar);
-        pauseBtn.addEventListener('click', function(){
-            if(synth.speaking) synth.pause();
-            statusMsg.innerHTML = '⏸️ Leitura pausada.';
-        });
-        stopBtn.addEventListener('click', function(){
-            if(synth.speaking || synth.pending) synth.cancel();
-            statusMsg.innerHTML = '⏹️ Leitura interrompida.';
-        });
-        rateSlider.addEventListener('input', function(){
-            let val = parseFloat(rateSlider.value);
-            rateValue.innerText = val.toFixed(1) + 'x';
-            if(utterance) utterance.rate = val;
-        });
-        
-        if(synth && synth.onvoiceschanged !== undefined) {
-            synth.onvoiceschanged = function(){
-                let voz = carregarVozThalita();
-                if(voz) statusMsg.innerHTML = '✅ Voz Thalita carregada: ' + voz.name;
-            };
-        }
-    })();
-<\/script>
 </body>
 </html>`;
 
-                // Criar e baixar o arquivo .html
                 let blob = new Blob([paginaHTML], { type: 'text/html;charset=utf-8' });
                 let url = URL.createObjectURL(blob);
                 let a = document.createElement('a');
-                let nomeArquivo = (tituloFinal.replace(/[^a-z0-9áéíóúâêôãõç]/gi, '_').substring(0, 40) || 'historia') + '.html';
+                let nomeArquivo = (tituloFinal.replace(/[^a-z0-9áéíóúâêôãõç]/gi, '_').substring(0, 40) || 'leitura') + '.html';
                 a.href = url;
                 a.download = nomeArquivo;
                 document.body.appendChild(a);
@@ -579,19 +380,16 @@
                 statusDiv.style.color = '#5a6b55';
             }
 
-            // Eventos
             conteudoTextarea.addEventListener('input', atualizarPreview);
             criarBtn.addEventListener('click', gerarPagina);
             limparBtn.addEventListener('click', limparCampos);
 
-            // Texto de exemplo (semelhante ao capítulo)
+            // Texto de exemplo
             conteudoTextarea.value = `Todas as crianças, menos uma, crescem. Elas entendem isso rápido. Wendy descobriu esse fato com apenas dois anos. Nesse dia, a pequena brincava em um jardim, colheu outra flor do chão e decidiu levá-la correndo para sua mãe. Provavelmente, estava tão encantadora que a senhora Darling, ao vê-la, pôs as mãos no peito e suspirou:
 
 — Ah, por que você não fica assim para sempre?
 
-Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente, crescer. Todos nós sabemos disso. Percebemos logo após alcançarmos os dois anos de idade. Dois anos é o começo do fim.
-
-A família morava na casa nº 14. Antes de Wendy chegar, sua mãe mandava em tudo. Era uma pessoa adorável, com a cabeça cheia de ideias românticas e palavras doces e provocadoras.`;
+Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente, crescer. Todos nós sabemos disso. Percebemos logo após alcançarmos os dois anos de idade. Dois anos é o começo do fim.`;
             atualizarPreview();
         })();
     </script>
