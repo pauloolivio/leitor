@@ -685,7 +685,7 @@
             <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: JPG, PNG, GIF, BMP, WEBP</p>
             <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
             <br>
-            <button class="btn btn-secondary" style="margin-top: 12px; width: auto;" id="selectImagesBtn">
+            <button class="btn btn-secondary" style="margin-top: 12px; width: auto;" onclick="document.getElementById('fileInput').click()">
                 <i class="fa-solid fa-folder-open"></i> Selecionar Imagens
             </button>
         </div>
@@ -932,7 +932,6 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
     const uploadArea = document.getElementById('uploadArea');
     const fileInputOCR = document.getElementById('fileInput');
     const ocrStatusDiv = document.getElementById('ocrStatus');
-    const selectImagesBtn = document.getElementById('selectImagesBtn');
 
     function showOCRStatus(message, type) {
         ocrStatusDiv.innerHTML = `<i class="${type === 'success' ? 'fa-regular fa-check-circle' : type === 'error' ? 'fa-solid fa-circle-exclamation' : 'fa-regular fa-lightbulb'}"></i> ${message}`;
@@ -947,66 +946,27 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         }, 3000);
     }
 
-    // CORREÇÃO PRINCIPAL: Função específica para abrir seletor de arquivos sem duplicação
-    function openFileSelector(event) {
-        if (event) {
-            event.stopPropagation();
-            event.preventDefault();
-        }
-        // Reset do input antes de abrir para garantir que funcione corretamente no Android
-        fileInputOCR.value = '';
-        // Usar um pequeno delay para garantir que o reset foi processado
-        setTimeout(() => {
-            fileInputOCR.click();
-        }, 10);
-    }
-
-    // Configurar eventos sem duplicação
-    uploadArea.addEventListener('click', (e) => {
-        // Evita que o clique no botão dentro da área dispare duas vezes
-        if (e.target === selectImagesBtn || selectImagesBtn.contains(e.target)) {
-            return;
-        }
-        openFileSelector(e);
-    });
-
-    // Botão separado para selecionar imagens
-    selectImagesBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openFileSelector(e);
-    });
-
+    uploadArea.addEventListener('click', () => fileInputOCR.click());
     uploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         uploadArea.classList.add('drag-over');
     });
-    
     uploadArea.addEventListener('dragleave', () => {
         uploadArea.classList.remove('drag-over');
     });
-    
     uploadArea.addEventListener('drop', (e) => {
         e.preventDefault();
         uploadArea.classList.remove('drag-over');
         const files = Array.from(e.dataTransfer.files);
         handleFiles(files);
     });
-    
     fileInputOCR.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            handleFiles(Array.from(e.target.files));
-        }
-        // Limpar o input para permitir selecionar o mesmo arquivo novamente
+        handleFiles(Array.from(e.target.files));
         fileInputOCR.value = '';
     });
 
     function handleFiles(files) {
         const imageFiles = files.filter(file => file.type.startsWith('image/'));
-        if (imageFiles.length === 0) {
-            showOCRStatus('Nenhuma imagem válida selecionada', 'error');
-            return;
-        }
-        
         imageFiles.forEach(file => {
             const reader = new FileReader();
             reader.onload = (e) => {
