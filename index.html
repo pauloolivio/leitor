@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Tesseract.js para OCR -->
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <!-- heic2any para converter HEIC/HEIF -->
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <!-- Biblioteca para ler EXIF e corrigir orientação -->
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
     <style>
         * {
             margin: 0;
@@ -578,6 +582,20 @@
             background: white;
         }
 
+        .heic-badge, .rotate-badge {
+            display: inline-block;
+            background: #2c3e2f;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+
+        .rotate-badge {
+            background: #b8860b;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 0.8rem;
@@ -632,7 +650,7 @@
 
     <div class="header">
         <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator + OCR</h1>
-        <p>Crie páginas de leitura ou extraia texto de imagens com OCR</p>
+        <p>Crie páginas de leitura ou extraia texto de imagens com OCR <span class="heic-badge"><i class="fa-regular fa-image"></i> HEIC/HEIF</span> <span class="rotate-badge"><i class="fa-solid fa-rotate-right"></i> Correção automática de orientação</span></p>
     </div>
 
     <!-- Abas -->
@@ -682,8 +700,8 @@
         <div class="upload-area" id="uploadArea">
             <div class="upload-icon"><i class="fa-solid fa-cloud-upload-alt"></i></div>
             <h3>Clique ou arraste imagens aqui</h3>
-            <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: JPG, PNG, GIF, BMP, WEBP</p>
-            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+            <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: JPG, PNG, GIF, BMP, WEBP, HEIC/HEIF | <strong>Correção automática de orientação</strong></p>
+            <input type="file" id="fileInput" multiple accept="image/*,.heic,.heif" style="display: none;">
             <br>
             <button class="btn btn-secondary" style="margin-top: 12px; width: auto;" onclick="document.getElementById('fileInput').click()">
                 <i class="fa-solid fa-folder-open"></i> Selecionar Imagens
@@ -748,12 +766,12 @@
         </div>
 
         <div class="status" id="ocrStatus">
-            <i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto
+            <i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto (Correção automática de orientação aplicada)
         </div>
     </div>
 
     <div class="footer">
-        <p><i class="fa-regular fa-clock"></i> Páginas geradas localmente | OCR processado no navegador — suas imagens não são enviadas para servidores</p>
+        <p><i class="fa-regular fa-clock"></i> Páginas geradas localmente | OCR processado no navegador — suas imagens não são enviadas para servidores | HEIC/HEIF convertidos automaticamente | Orientação corrigida automaticamente</p>
     </div>
 </div>
 
@@ -803,6 +821,121 @@
 </aside>
 
 <script>
+    // ==================== FUNÇÃO DE CORREÇÃO DE ORIENTAÇÃO ====================
+    async function correctImageOrientation(file) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            const url = URL.createObjectURL(file);
+            
+            img.onload = function() {
+                URL.revokeObjectURL(url);
+                
+                // Ler EXIF para obter orientação
+                EXIF.getData(img, function() {
+                    const orientation = EXIF.getTag(this, 'Orientation');
+                    
+                    // Se não houver orientação ou for normal (1), resolve com o blob original
+                    if (!orientation || orientation === 1) {
+                        resolve(file);
+                        return;
+                    }
+                    
+                    // Criar canvas para corrigir orientação
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Determinar rotação necessária
+                    let width = img.width;
+                    let height = img.height;
+                    let transform = '';
+                    
+                    switch(orientation) {
+                        case 2: // Espelhado horizontal
+                            transform = 'scale(-1, 1)';
+                            break;
+                        case 3: // Rotacionado 180°
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.translate(width, height);
+                            ctx.rotate(Math.PI);
+                            break;
+                        case 4: // Espelhado vertical
+                            transform = 'scale(1, -1)';
+                            break;
+                        case 5: // Rotacionado 90° anti-horário + espelhado
+                            canvas.width = height;
+                            canvas.height = width;
+                            ctx.translate(height, 0);
+                            ctx.rotate(Math.PI / 2);
+                            transform = 'scale(-1, 1)';
+                            break;
+                        case 6: // Rotacionado 90° horário (mais comum)
+                            canvas.width = height;
+                            canvas.height = width;
+                            ctx.translate(height, 0);
+                            ctx.rotate(Math.PI / 2);
+                            break;
+                        case 7: // Rotacionado 90° anti-horário + espelhado
+                            canvas.width = height;
+                            canvas.height = width;
+                            ctx.translate(0, width);
+                            ctx.rotate(-Math.PI / 2);
+                            transform = 'scale(-1, 1)';
+                            break;
+                        case 8: // Rotacionado 90° anti-horário
+                            canvas.width = height;
+                            canvas.height = width;
+                            ctx.translate(0, width);
+                            ctx.rotate(-Math.PI / 2);
+                            break;
+                        default:
+                            canvas.width = width;
+                            canvas.height = height;
+                    }
+                    
+                    // Aplicar transformações
+                    if (transform) {
+                        ctx.save();
+                        ctx.transform(...parseTransform(transform));
+                        ctx.drawImage(img, 0, 0, width, height);
+                        ctx.restore();
+                    } else {
+                        ctx.drawImage(img, 0, 0, width, height);
+                    }
+                    
+                    // Converter canvas para blob
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            const correctedFile = new File([blob], file.name, { type: 'image/jpeg' });
+                            resolve(correctedFile);
+                        } else {
+                            resolve(file);
+                        }
+                    }, 'image/jpeg', 0.95);
+                });
+            };
+            
+            img.onerror = () => {
+                URL.revokeObjectURL(url);
+                reject(new Error('Erro ao carregar imagem para correção'));
+            };
+            
+            img.src = url;
+        });
+    }
+    
+    function parseTransform(transform) {
+        // Função auxiliar para parse de transformações CSS
+        const matrix = [1, 0, 0, 1, 0, 0];
+        if (transform.includes('scale(-1, 1)')) {
+            matrix[0] = -1;
+        }
+        if (transform.includes('scale(1, -1)')) {
+            matrix[3] = -1;
+        }
+        return matrix;
+    }
+
     // ==================== ABA CRIADOR DE TEXTO ====================
     (function() {
         const tituloInput = document.getElementById('titulo');
@@ -925,7 +1058,7 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         atualizarPreview();
     })();
 
-    // ==================== ABA OCR DE IMAGENS ====================
+    // ==================== ABA OCR DE IMAGENS COM SUPORTE A HEIC E CORREÇÃO DE ORIENTAÇÃO ====================
     let images = [];
     let draggedItem = null;
 
@@ -941,9 +1074,81 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
             if (ocrStatusDiv.innerHTML.includes(message)) {
                 ocrStatusDiv.style.background = '#f4f2ee';
                 ocrStatusDiv.style.color = '#5a6b55';
-                ocrStatusDiv.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto';
+                ocrStatusDiv.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto (Correção de orientação automática)';
             }
         }, 3000);
+    }
+
+    // Função para converter HEIC para JPEG
+    async function convertHeicToJpeg(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const blob = new Blob([e.target.result], { type: 'application/octet-stream' });
+                    const result = await heic2any({
+                        blob: blob,
+                        toType: 'image/jpeg',
+                        quality: 0.9
+                    });
+                    resolve(result);
+                } catch (error) {
+                    console.error('Erro na conversão HEIC:', error);
+                    reject(error);
+                }
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    // Função para processar arquivo (com suporte a HEIC e correção de orientação)
+    async function processFile(file) {
+        try {
+            let imageFile = file;
+            let fileName = file.name;
+            let wasHeic = false;
+            let wasRotated = false;
+            
+            // Verificar se é HEIC/HEIF
+            const isHeic = file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
+            
+            if (isHeic) {
+                showOCRStatus(`Convertendo HEIC: ${fileName}...`, 'info');
+                const convertedBlob = await convertHeicToJpeg(file);
+                imageFile = new File([convertedBlob], fileName.replace(/\.(heic|heif)$/i, '.jpg'), { type: 'image/jpeg' });
+                fileName = imageFile.name;
+                wasHeic = true;
+            }
+            
+            // Corrigir orientação da imagem
+            showOCRStatus(`Corrigindo orientação: ${fileName}...`, 'info');
+            const correctedFile = await correctImageOrientation(imageFile);
+            if (correctedFile !== imageFile) {
+                wasRotated = true;
+            }
+            
+            const imageUrl = URL.createObjectURL(correctedFile);
+            
+            const imageData = {
+                id: Date.now() + Math.random(),
+                name: fileName,
+                url: imageUrl,
+                originalFile: correctedFile,
+                isHeic: wasHeic,
+                wasRotated: wasRotated,
+                text: '',
+                order: images.length,
+                status: 'pending',
+                error: null
+            };
+            images.push(imageData);
+            renderImages();
+            await processImage(imageData);
+        } catch (error) {
+            console.error('Erro ao processar arquivo:', error);
+            showOCRStatus(`Erro ao processar ${file.name}: ${error.message}`, 'error');
+        }
     }
 
     uploadArea.addEventListener('click', () => fileInputOCR.click());
@@ -954,45 +1159,47 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
     uploadArea.addEventListener('dragleave', () => {
         uploadArea.classList.remove('drag-over');
     });
-    uploadArea.addEventListener('drop', (e) => {
+    uploadArea.addEventListener('drop', async (e) => {
         e.preventDefault();
         uploadArea.classList.remove('drag-over');
         const files = Array.from(e.dataTransfer.files);
-        handleFiles(files);
+        const imageFiles = files.filter(file => 
+            file.type.startsWith('image/') || 
+            file.name.toLowerCase().endsWith('.heic') || 
+            file.name.toLowerCase().endsWith('.heif')
+        );
+        
+        for (const file of imageFiles) {
+            await processFile(file);
+        }
+        if (imageFiles.length > 0) {
+            showOCRStatus(`${imageFiles.length} arquivo(s) adicionado(s) e corrigidos`, 'success');
+        }
     });
-    fileInputOCR.addEventListener('change', (e) => {
-        handleFiles(Array.from(e.target.files));
+    
+    fileInputOCR.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files);
+        const imageFiles = files.filter(file => 
+            file.type.startsWith('image/') || 
+            file.name.toLowerCase().endsWith('.heic') || 
+            file.name.toLowerCase().endsWith('.heif')
+        );
+        
+        for (const file of imageFiles) {
+            await processFile(file);
+        }
+        if (imageFiles.length > 0) {
+            showOCRStatus(`${imageFiles.length} arquivo(s) adicionado(s) e corrigidos`, 'success');
+        }
         fileInputOCR.value = '';
     });
-
-    function handleFiles(files) {
-        const imageFiles = files.filter(file => file.type.startsWith('image/'));
-        imageFiles.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const imageData = {
-                    id: Date.now() + Math.random(),
-                    name: file.name,
-                    url: e.target.result,
-                    text: '',
-                    order: images.length,
-                    status: 'pending',
-                    error: null
-                };
-                images.push(imageData);
-                renderImages();
-                processImage(imageData);
-                showOCRStatus(`${imageFiles.length} imagem(ns) adicionada(s)`, 'success');
-            };
-            reader.readAsDataURL(file);
-        });
-    }
 
     async function processImage(image) {
         try {
             image.status = 'processing';
             renderImages();
 
+            // Usar a imagem já corrigida e convertida
             const worker = await Tesseract.createWorker('por');
             await worker.loadLanguage('por');
             await worker.initialize('por');
@@ -1018,7 +1225,7 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         const processedCount = document.getElementById('processedCount');
         
         if (images.length === 0) {
-            grid.innerHTML = '<div class="empty-state"><i class="fa-regular fa-images" style="font-size: 48px; margin-bottom: 12px; display: block;"></i><p>Nenhuma imagem enviada</p><p style="font-size: 0.75rem;">Envie imagens para extrair o texto</p></div>';
+            grid.innerHTML = '<div class="empty-state"><i class="fa-regular fa-images" style="font-size: 48px; margin-bottom: 12px; display: block;"></i><p>Nenhuma imagem enviada</p><p style="font-size: 0.75rem;">Envie imagens para extrair o texto (HEIC/HEIF suportado)</p></div>';
             infoBar.style.display = 'none';
             orderControls.style.display = 'none';
             return;
@@ -1033,7 +1240,12 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         
         const sortedImages = [...images].sort((a, b) => a.order - b.order);
         
-        grid.innerHTML = sortedImages.map(image => `
+        grid.innerHTML = sortedImages.map(image => {
+            let badges = [];
+            if (image.isHeic) badges.push('<span style="font-size: 0.65rem; background: #2c3e2f; color: white; padding: 2px 6px; border-radius: 12px;">HEIC→JPG</span>');
+            if (image.wasRotated) badges.push('<span style="font-size: 0.65rem; background: #b8860b; color: white; padding: 2px 6px; border-radius: 12px;"><i class="fa-solid fa-rotate-right"></i> Corrigida</span>');
+            
+            return `
             <div class="image-card" draggable="true" data-id="${image.id}">
                 <div class="drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
                 <div class="image-preview">
@@ -1041,14 +1253,14 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
                 </div>
                 <div class="image-info">
                     <div class="image-order"><i class="fa-regular fa-flag"></i> Ordem: ${image.order + 1}</div>
-                    <div class="image-name"><i class="fa-regular fa-file-image"></i> ${escapeHtml(image.name)}</div>
+                    <div class="image-name"><i class="fa-regular fa-file-image"></i> ${escapeHtml(image.name)} ${badges.join(' ')}</div>
                     <div class="status-text ${image.status === 'success' ? 'success' : image.status === 'error' ? 'error' : ''}">
                         ${getStatusText(image.status)}
                     </div>
                     ${image.status === 'success' && image.text ? `<div class="text-preview"><i class="fa-regular fa-message"></i> ${escapeHtml(image.text.substring(0, 60))}${image.text.length > 60 ? '...' : ''}</div>` : ''}
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
         
         const cards = document.querySelectorAll('.image-card');
         cards.forEach(card => {
@@ -1148,6 +1360,7 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         successfulImages.forEach((img, index) => {
             sequentialText += `═══════════════════════════════════\n`;
             sequentialText += `📄 [${img.order + 1}] ${img.name}\n`;
+            if (img.wasRotated) sequentialText += `🔄 Orientação corrigida automaticamente\n`;
             sequentialText += `═══════════════════════════════════\n\n`;
             sequentialText += `${img.text}\n\n\n`;
         });
@@ -1201,6 +1414,11 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
 
     window.clearAllImages = function() {
         if (confirm('Tem certeza que deseja limpar todas as imagens e textos?')) {
+            images.forEach(image => {
+                if (image.url && image.url.startsWith('blob:')) {
+                    URL.revokeObjectURL(image.url);
+                }
+            });
             images = [];
             renderImages();
             displayOCRText('Envie imagens, ordene arrastando e clique em "Gerar Texto na Ordem"...');
