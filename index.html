@@ -36,7 +36,7 @@
             position: relative;
         }
 
-        /* ===== MENU HAMBURGUER ===== */
+        /* ===== MENU HAMBURGUER (3 RISCOS) ===== */
         .menu-toggle {
             position: absolute;
             top: 1.2rem;
@@ -67,6 +67,7 @@
             border-radius: 4px;
             transition: 0.2s;
         }
+        /* Overlay escuro */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -84,6 +85,7 @@
             visibility: visible;
             opacity: 1;
         }
+        /* Menu lateral expandido */
         .side-menu {
             position: fixed;
             top: 0;
@@ -168,6 +170,7 @@
             background: #ede5db;
         }
 
+        /* header com espaço para o ícone */
         .header {
             background: white;
             padding: 1.8rem 1.5rem 1rem 1.5rem;
@@ -575,16 +578,6 @@
             background: white;
         }
 
-        .quality-badge {
-            display: inline-block;
-            background: #48bb78;
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-left: 8px;
-        }
-
         @media (max-width: 768px) {
             body {
                 padding: 0.8rem;
@@ -689,8 +682,8 @@
         <div class="upload-area" id="uploadArea">
             <div class="upload-icon"><i class="fa-solid fa-cloud-upload-alt"></i></div>
             <h3>Clique ou arraste imagens aqui</h3>
-            <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: PNG, JPG, JPEG, GIF, BMP, WEBP</p>
-            <input type="file" id="fileInput" multiple accept="image/png,image/jpeg,image/jpg,image/gif,image/bmp,image/webp" style="display: none;">
+            <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: JPG, PNG, GIF, BMP, WEBP</p>
+            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
             <br>
             <button class="btn btn-secondary" style="margin-top: 12px; width: auto;" id="selectImagesBtn">
                 <i class="fa-solid fa-folder-open"></i> Selecionar Imagens
@@ -705,7 +698,7 @@
                     <i class="fa-regular fa-check-circle"></i> <span id="processedCount">0</span> processadas
                 </div>
                 <div>
-                    <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem;" id="reprocessBtn">
+                    <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem;" onclick="reprocessAllImages()">
                         <i class="fa-solid fa-rotate-right"></i> Reprocessar
                     </button>
                 </div>
@@ -728,16 +721,16 @@
 
         <!-- Botões de ação OCR -->
         <div class="btn-group-ocr">
-            <button class="btn btn-primary" id="generateTextBtn">
+            <button class="btn btn-primary" onclick="generateSequentialText()">
                 <i class="fa-solid fa-list-ol"></i> Gerar Texto na Ordem
             </button>
-            <button class="btn btn-secondary" id="copyOrderedBtn">
+            <button class="btn btn-secondary" onclick="copySequentialText()">
                 <i class="fa-regular fa-copy"></i> Copiar Ordenado
             </button>
-            <button class="btn btn-secondary" id="copyAllBtn">
+            <button class="btn btn-secondary" onclick="copyAllTextOCR()">
                 <i class="fa-regular fa-clipboard"></i> Copiar Todos
             </button>
-            <button class="btn btn-secondary" id="clearImagesBtn">
+            <button class="btn btn-secondary" onclick="clearAllImages()">
                 <i class="fa-solid fa-trash-alt"></i> Limpar Imagens
             </button>
         </div>
@@ -775,31 +768,31 @@
         <p>Selecione uma categoria para inspiração</p>
     </div>
     <div class="menu-items">
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/livros_escola.html">
             <i class="fa-solid fa-graduation-cap"></i>
             <span>Livros da escola</span>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/contos_monica.html">
             <i class="fa-solid fa-smile"></i>
             <span>Contos da Turma da Mônica</span>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/contos_charadas.html">
             <i class="fa-solid fa-question-circle"></i>
             <span>Contos com charadas</span>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/contos_princesas.html">
             <i class="fa-solid fa-crown"></i>
             <span>Contos de princesas</span>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/contos_grimm.html">
             <i class="fa-solid fa-ghost"></i>
             <span>Contos dos Irmãos Grimm</span>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/contos_english.html">
             <i class="fa-solid fa-flag-usa"></i>
             <span>Contos em Inglês</span>
         </a>
-        <a class="menu-item" href="#">
+        <a class="menu-item" href="/contos_francais.html">
             <i class="fa-solid fa-flag"></i>
             <span>Contos em Francês</span>
         </a>
@@ -810,78 +803,6 @@
 </aside>
 
 <script>
-    // ==================== FUNÇÃO PARA MELHORAR A QUALIDADE DA IMAGEM PARA OCR ====================
-    async function enhanceImageForOCR(file) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            const url = URL.createObjectURL(file);
-            
-            img.onload = () => {
-                URL.revokeObjectURL(url);
-                
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                
-                let width = img.width;
-                let height = img.height;
-                
-                // Limitar tamanho máximo para não travar o navegador
-                const maxDimension = 2000;
-                if (width > maxDimension || height > maxDimension) {
-                    const scale = maxDimension / Math.max(width, height);
-                    width = Math.floor(width * scale);
-                    height = Math.floor(height * scale);
-                }
-                
-                canvas.width = width;
-                canvas.height = height;
-                
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                // Melhorar contraste para texto
-                const imageData = ctx.getImageData(0, 0, width, height);
-                const data = imageData.data;
-                
-                for (let i = 0; i < data.length; i += 4) {
-                    let r = data[i];
-                    let g = data[i + 1];
-                    let b = data[i + 2];
-                    
-                    // Aplicar correção de contraste suave
-                    const contrast = 1.15;
-                    const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
-                    
-                    let newR = factor * (r - 128) + 128;
-                    let newG = factor * (g - 128) + 128;
-                    let newB = factor * (b - 128) + 128;
-                    
-                    data[i] = Math.min(255, Math.max(0, newR));
-                    data[i + 1] = Math.min(255, Math.max(0, newG));
-                    data[i + 2] = Math.min(255, Math.max(0, newB));
-                }
-                
-                ctx.putImageData(imageData, 0, 0);
-                
-                canvas.toBlob((blob) => {
-                    if (blob) {
-                        const enhancedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '.png'), { type: 'image/png' });
-                        const enhancedUrl = URL.createObjectURL(enhancedFile);
-                        resolve({ url: enhancedUrl, file: enhancedFile });
-                    } else {
-                        resolve({ url: url, file: file });
-                    }
-                }, 'image/png');
-            };
-            
-            img.onerror = () => {
-                URL.revokeObjectURL(url);
-                reject(new Error('Erro ao carregar imagem'));
-            };
-            
-            img.src = url;
-        });
-    }
-
     // ==================== ABA CRIADOR DE TEXTO ====================
     (function() {
         const tituloInput = document.getElementById('titulo');
@@ -1010,57 +931,101 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
 
     const uploadArea = document.getElementById('uploadArea');
     const fileInputOCR = document.getElementById('fileInput');
-    const selectImagesBtn = document.getElementById('selectImagesBtn');
-    const reprocessBtn = document.getElementById('reprocessBtn');
-    const generateTextBtn = document.getElementById('generateTextBtn');
-    const copyOrderedBtn = document.getElementById('copyOrderedBtn');
-    const copyAllBtn = document.getElementById('copyAllBtn');
-    const clearImagesBtn = document.getElementById('clearImagesBtn');
     const ocrStatusDiv = document.getElementById('ocrStatus');
+    const selectImagesBtn = document.getElementById('selectImagesBtn');
 
     function showOCRStatus(message, type) {
         ocrStatusDiv.innerHTML = `<i class="${type === 'success' ? 'fa-regular fa-check-circle' : type === 'error' ? 'fa-solid fa-circle-exclamation' : 'fa-regular fa-lightbulb'}"></i> ${message}`;
         ocrStatusDiv.style.background = type === 'success' ? '#e6f0e4' : type === 'error' ? '#fef2f0' : '#f4f2ee';
         ocrStatusDiv.style.color = type === 'success' ? '#2c6e2c' : type === 'error' ? '#b33' : '#5a6b55';
+        setTimeout(() => {
+            if (ocrStatusDiv.innerHTML.includes(message)) {
+                ocrStatusDiv.style.background = '#f4f2ee';
+                ocrStatusDiv.style.color = '#5a6b55';
+                ocrStatusDiv.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto';
+            }
+        }, 3000);
     }
 
-    async function handleFiles(files) {
+    // CORREÇÃO PRINCIPAL: Função específica para abrir seletor de arquivos sem duplicação
+    function openFileSelector(event) {
+        if (event) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
+        // Reset do input antes de abrir para garantir que funcione corretamente no Android
+        fileInputOCR.value = '';
+        // Usar um pequeno delay para garantir que o reset foi processado
+        setTimeout(() => {
+            fileInputOCR.click();
+        }, 10);
+    }
+
+    // Configurar eventos sem duplicação
+    uploadArea.addEventListener('click', (e) => {
+        // Evita que o clique no botão dentro da área dispare duas vezes
+        if (e.target === selectImagesBtn || selectImagesBtn.contains(e.target)) {
+            return;
+        }
+        openFileSelector(e);
+    });
+
+    // Botão separado para selecionar imagens
+    selectImagesBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openFileSelector(e);
+    });
+
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('drag-over');
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
+    });
+    
+    fileInputOCR.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            handleFiles(Array.from(e.target.files));
+        }
+        // Limpar o input para permitir selecionar o mesmo arquivo novamente
+        fileInputOCR.value = '';
+    });
+
+    function handleFiles(files) {
         const imageFiles = files.filter(file => file.type.startsWith('image/'));
-        
         if (imageFiles.length === 0) {
-            showOCRStatus('Por favor, selecione arquivos de imagem válidos (PNG, JPG, JPEG, GIF, BMP, WEBP)', 'error');
+            showOCRStatus('Nenhuma imagem válida selecionada', 'error');
             return;
         }
         
-        showOCRStatus(`Processando ${imageFiles.length} imagem(ns)...`, 'info');
-        
-        for (let i = 0; i < imageFiles.length; i++) {
-            const file = imageFiles[i];
-            try {
-                showOCRStatus(`Otimizando imagem ${i + 1}/${imageFiles.length}: ${file.name}`, 'info');
-                const enhanced = await enhanceImageForOCR(file);
-                
+        imageFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
                 const imageData = {
-                    id: Date.now() + Math.random() + i,
-                    name: enhanced.file.name,
-                    url: enhanced.url,
-                    originalFile: enhanced.file,
+                    id: Date.now() + Math.random(),
+                    name: file.name,
+                    url: e.target.result,
                     text: '',
                     order: images.length,
-                    status: 'pending'
+                    status: 'pending',
+                    error: null
                 };
                 images.push(imageData);
                 renderImages();
-                
-                // Processar uma imagem por vez para não sobrecarregar
-                await processImage(imageData);
-            } catch (error) {
-                console.error('Erro ao processar arquivo:', error);
-                showOCRStatus(`Erro ao processar ${file.name}: ${error.message}`, 'error');
-            }
-        }
-        
-        showOCRStatus(`${imageFiles.length} imagem(ns) processada(s) com sucesso!`, 'success');
+                processImage(imageData);
+                showOCRStatus(`${imageFiles.length} imagem(ns) adicionada(s)`, 'success');
+            };
+            reader.readAsDataURL(file);
+        });
     }
 
     async function processImage(image) {
@@ -1068,29 +1033,19 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
             image.status = 'processing';
             renderImages();
 
-            showOCRStatus(`Reconhecendo texto em: ${image.name}`, 'info');
-            
-            const worker = await Tesseract.createWorker();
+            const worker = await Tesseract.createWorker('por');
             await worker.loadLanguage('por');
             await worker.initialize('por');
             
             const { data: { text } } = await worker.recognize(image.url);
             await worker.terminate();
             
-            let cleanedText = text.trim();
-            if (cleanedText.length === 0) {
-                cleanedText = 'Nenhum texto encontrado na imagem. Verifique se a imagem contém texto legível.';
-            }
-            
-            image.text = cleanedText;
+            image.text = text.trim() || 'Nenhum texto encontrado na imagem.';
             image.status = 'success';
-            
-            showOCRStatus(`Texto extraído de: ${image.name}`, 'success');
         } catch (error) {
             console.error('Erro no OCR:', error);
             image.status = 'error';
-            image.text = `Erro ao extrair texto: ${error.message}`;
-            showOCRStatus(`Erro ao processar ${image.name}: ${error.message}`, 'error');
+            image.text = 'Erro ao extrair texto da imagem.';
         }
         renderImages();
     }
@@ -1103,7 +1058,7 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         const processedCount = document.getElementById('processedCount');
         
         if (images.length === 0) {
-            grid.innerHTML = '<div class="empty-state"><i class="fa-regular fa-images" style="font-size: 48px; margin-bottom: 12px; display: block;"></i><p>Nenhuma imagem enviada</p><p style="font-size: 0.75rem;">Clique ou arraste imagens para começar</p></div>';
+            grid.innerHTML = '<div class="empty-state"><i class="fa-regular fa-images" style="font-size: 48px; margin-bottom: 12px; display: block;"></i><p>Nenhuma imagem enviada</p><p style="font-size: 0.75rem;">Envie imagens para extrair o texto</p></div>';
             infoBar.style.display = 'none';
             orderControls.style.display = 'none';
             return;
@@ -1207,7 +1162,7 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
     function getStatusText(status) {
         switch(status) {
             case 'pending': return '<i class="fa-regular fa-clock"></i> Aguardando processamento...';
-            case 'processing': return '<span class="loading"></span> Processando OCR...';
+            case 'processing': return '<span class="loading"></span> Processando...';
             case 'success': return '<i class="fa-regular fa-check-circle"></i> Texto extraído com sucesso!';
             case 'error': return '<i class="fa-solid fa-exclamation-circle"></i> Erro no processamento';
             default: return '';
@@ -1219,14 +1174,14 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         resultDiv.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
     }
 
-    function generateSequentialText() {
+    window.generateSequentialText = function() {
         const sortedImages = [...images].sort((a, b) => a.order - b.order);
-        const successfulImages = sortedImages.filter(img => img.status === 'success' && img.text && !img.text.includes('Nenhum texto'));
+        const successfulImages = sortedImages.filter(img => img.status === 'success' && img.text);
         
         if (successfulImages.length === 0) {
-            displayOCRText('Nenhuma imagem processada com sucesso. Aguarde o processamento ou verifique se as imagens contêm texto legível.');
+            displayOCRText('Nenhuma imagem processada com sucesso. Aguarde o processamento ou verifique as imagens.');
             showOCRStatus('Nenhuma imagem processada ainda', 'error');
-            return null;
+            return;
         }
         
         let sequentialText = '';
@@ -1240,22 +1195,24 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         displayOCRText(sequentialText);
         showOCRStatus(`Texto gerado com ${successfulImages.length} imagem(ns) na ordem definida`, 'success');
         return sequentialText;
-    }
+    };
 
-    function copySequentialText() {
+    window.copySequentialText = function() {
         const text = generateSequentialText();
-        if (text) {
+        if (text && !text.includes('Nenhuma imagem processada')) {
             navigator.clipboard.writeText(text).then(() => {
                 showOCRStatus('Texto ordenado copiado para a área de transferência!', 'success');
             }).catch(() => {
                 showOCRStatus('Erro ao copiar texto', 'error');
             });
+        } else {
+            showOCRStatus('Nenhum texto para copiar', 'error');
         }
-    }
+    };
 
-    function copyAllTextOCR() {
+    window.copyAllTextOCR = function() {
         const allText = images
-            .filter(img => img.text && !img.text.includes('Nenhum texto'))
+            .filter(img => img.text)
             .map((img, index) => `═══════ ${img.name} ═══════\n${img.text}`)
             .join('\n\n');
         
@@ -1268,9 +1225,9 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         } else {
             showOCRStatus('Nenhum texto para copiar', 'error');
         }
-    }
+    };
 
-    function reprocessAllImages() {
+    window.reprocessAllImages = function() {
         images.forEach(image => {
             if (image.status !== 'processing') {
                 image.status = 'pending';
@@ -1280,59 +1237,22 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         });
         renderImages();
         showOCRStatus('Reprocessando todas as imagens...', 'info');
-    }
+    };
 
-    function clearAllImages() {
+    window.clearAllImages = function() {
         if (confirm('Tem certeza que deseja limpar todas as imagens e textos?')) {
-            images.forEach(image => {
-                if (image.url && image.url.startsWith('blob:')) {
-                    URL.revokeObjectURL(image.url);
-                }
-            });
             images = [];
             renderImages();
             displayOCRText('Envie imagens, ordene arrastando e clique em "Gerar Texto na Ordem"...');
             showOCRStatus('Tudo foi limpo! Envie novas imagens para começar.', 'info');
         }
-    }
+    };
 
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
-
-    // Eventos de upload
-    uploadArea.addEventListener('click', () => fileInputOCR.click());
-    selectImagesBtn.addEventListener('click', () => fileInputOCR.click());
-    
-    uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('drag-over');
-    });
-    
-    uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('drag-over');
-    });
-    
-    uploadArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('drag-over');
-        const files = Array.from(e.dataTransfer.files);
-        handleFiles(files);
-    });
-    
-    fileInputOCR.addEventListener('change', (e) => {
-        handleFiles(Array.from(e.target.files));
-        fileInputOCR.value = '';
-    });
-    
-    // Botões de ação
-    generateTextBtn.addEventListener('click', generateSequentialText);
-    copyOrderedBtn.addEventListener('click', copySequentialText);
-    copyAllBtn.addEventListener('click', copyAllTextOCR);
-    clearImagesBtn.addEventListener('click', clearAllImages);
-    reprocessBtn.addEventListener('click', reprocessAllImages);
 
     // ==================== SISTEMA DE ABAS ====================
     const tabs = document.querySelectorAll('.tab');
@@ -1361,17 +1281,14 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         overlayMenu.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    
     function closeMenu() {
         sideMenu.classList.remove('open');
         overlayMenu.classList.remove('active');
         document.body.style.overflow = '';
     }
-    
     menuToggle.addEventListener('click', openMenu);
     closeMenuBtn.addEventListener('click', closeMenu);
     overlayMenu.addEventListener('click', closeMenu);
-    
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && sideMenu.classList.contains('open')) {
             closeMenu();
