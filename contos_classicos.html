@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Contos Clássicos - Biblioteca de Histórias</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f0e8;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            background: #fffef7;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #d4c9b0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8B4513 0%, #5c2e0e 100%);
+            padding: 2rem 1.8rem;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 i {
+            color: #ffd700;
+            margin-right: 10px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .stats-bar {
+            background: #f5ede0;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #d4c9b0;
+            font-size: 0.8rem;
+            color: #8B4513;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-left i {
+            color: #8B4513;
+        }
+
+        .btn-voltar {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            background: #5c2e0e;
+            transform: scale(1.02);
+        }
+
+        .biblioteca-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e8dcc8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #d4a030;
+            font-size: 1.2rem;
+        }
+
+        /* CONTOS - ACORDEON */
+        .conto-item {
+            background: #ffffff;
+            border: 1px solid #e8dcc8;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .conto-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            background: #ffffff;
+            transition: background 0.2s;
+        }
+
+        .conto-header:hover {
+            background: #fef9f0;
+        }
+
+        .conto-info {
+            flex: 1;
+        }
+
+        .conto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #5c2e0e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .conto-titulo i {
+            color: #d4a030;
+            font-size: 1rem;
+            width: 24px;
+        }
+
+        .badge-autor {
+            background: #f0e8dc;
+            color: #8B4513;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-categoria {
+            background: #e8dcc8;
+            color: #5c2e0e;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .expand-icon {
+            color: #8B4513;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            width: 30px;
+            text-align: center;
+        }
+
+        .conto-detalhes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fefaf5;
+            border-top: 1px solid transparent;
+        }
+
+        .conto-item.expanded .conto-detalhes {
+            max-height: 800px;
+            transition: max-height 0.4s ease-in;
+            border-top-color: #e8dcc8;
+        }
+
+        .conto-item.expanded .expand-icon i {
+            transform: rotate(180deg);
+        }
+
+        .detalhes-content {
+            padding: 1rem 1.2rem 1.2rem 1.8rem;
+        }
+
+        .resumo-texto {
+            font-size: 0.9rem;
+            color: #4a3728;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            background: #fff8ef;
+            padding: 0.8rem 1rem;
+            border-radius: 16px;
+            font-family: 'Georgia', serif;
+            border-left: 3px solid #d4a030;
+        }
+
+        .info-autor {
+            background: #f0e8dc;
+            padding: 0.5rem 1rem;
+            margin: 0.8rem 0;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #5c2e0e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-autor i {
+            color: #d4a030;
+        }
+
+        .citacao-box {
+            background: #f5efe5;
+            border-left: 4px solid #d4a030;
+            padding: 0.8rem 1rem;
+            margin: 0.8rem 0;
+            border-radius: 12px;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            color: #6b4c2c;
+        }
+
+        .citacao-box strong {
+            color: #8B4513;
+        }
+
+        .btn-acessar {
+            background: #8B4513;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.8rem;
+        }
+
+        .btn-acessar:hover {
+            background: #5c2e0e;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #e8dcc8;
+            font-size: 0.7rem;
+            color: #a08060;
+            background: white;
+        }
+
+        .info-msg {
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.6rem;
+            background: #fef9f0;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #8B4513;
+            text-align: center;
+        }
+
+        .progresso-leitura {
+            background: #8B4513;
+            height: 3px;
+            width: 0%;
+            transition: width 0.3s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* Estilos do Modal de Leitura - SIMPLES e LIMPO */
+        .modal-leitura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-leitura-content {
+            max-width: 850px;
+            width: 100%;
+            max-height: 90vh;
+            background: #fffef7;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .modal-leitura-header {
+            background: #8B4513;
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .modal-leitura-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-leitura-header h2 i {
+            color: #ffd700;
+        }
+
+        .btn-fechar-modal {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .btn-fechar-modal:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-leitura-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 2rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #2c2418;
+            text-align: justify;
+            background: #fffef7;
+        }
+
+        .modal-leitura-body p {
+            margin-bottom: 1.2rem;
+        }
+
+        /* Botão de dica para leitor de voz */
+        .dica-voz {
+            background: #f0e8dc;
+            padding: 0.6rem 1rem;
+            margin: 0 2rem 1rem 2rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: #8B4513;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .dica-voz i {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 550px) {
+            .header h1 { font-size: 1.4rem; }
+            .conto-header { flex-wrap: wrap; }
+            .detalhes-content { padding-left: 0.8rem; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+            .btn-voltar { align-self: flex-start; }
+            .conto-titulo { font-size: 0.9rem; }
+            .modal-leitura-body { padding: 1.2rem; font-size: 0.95rem; }
+            .dica-voz { margin: 0 1rem 0.8rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="progresso-leitura" id="progressoLeitura"></div>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-solid fa-book-open"></i> Contos Clássicos</h1>
+        <p>Uma jornada pelos maiores tesouros da literatura mundial — histórias que atravessaram gerações e encantam leitores de todas as idades.</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-clock"></i> Clássicos atemporais</span>
+            <span><i class="fa-solid fa-feather"></i> Grandes autores</span>
+            <span><i class="fa-regular fa-eye"></i> Clique no título para expandir</span>
+            <span><i class="fa-solid fa-star"></i> Trechos memoráveis</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Voltar à página inicial
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-crown"></i>
+            <span>📚 Biblioteca de Clássicos</span>
+        </div>
+
+        <div id="contosContainer">
+            <!-- Os contos serão inseridos dinamicamente -->
+        </div>
+        <div class="info-msg">
+            <i class="fa-regular fa-message"></i> Clique em qualquer conto para ver o resumo e trechos marcantes. Clique em "Ler conto completo" para abrir uma tela limpa e ativar o leitor de voz do seu navegador.
+        </div>
+    </div>
+    <div class="footer">
+        <p>📖 Contos Clássicos — Uma seleção das histórias mais amadas de todos os tempos. Boa leitura!</p>
+    </div>
+</div>
+
+<script>
+    // ==================== CONTOS CLÁSSICOS ====================
+    const contos = [
+        {
+            id: 1,
+            titulo: "O Gato de Botas",
+            autor: "Charles Perrault",
+            ano: "1697",
+            categoria: "Fábula / Fantasia",
+            resumo: "Um pobre moleiro, ao morrer, deixa para seus três filhos apenas um moinho, um burro e um gato. O filho mais novo, desolado por herdar apenas o gato, descobre que este é um animal extraordinário. Com astúcia e um par de botas, o gato transforma a vida de seu dono, conquistando terras, castelos e até mesmo a mão de uma princesa.",
+            citacao: "Não vos desgosteis de ser o mais novo, nem de ter um gato por herança; ele vos pode dar melhor vida do que imaginais.",
+            textoCompleto: "Era uma vez um moleiro que tinha três filhos. Ao morrer, deixou como herança para o mais velho o moinho, para o segundo o burro e para o caçula apenas um gato. O rapaz ficou inconsolável: 'Meus irmãos poderão ganhar a vida honestamente, enquanto eu, se comer o meu gato e fizer uma luva com sua pele, morrerei de fome.'\n\nO gato, que ouviu suas palavras, disse com voz serena: 'Não te aflijas, meu senhor. Dá-me apenas um par de botas para que eu possa sair por aí, e verás que tua herança não é tão pobre quanto imaginas.'\n\nO moleiro ficou surpreso ao ouvir o gato falar, mas decidiu dar-lhe as botas. Calçando-as, o Gato de Botas seguiu para a floresta, onde caçou coelhos e lebres que levou ao rei em nome de seu dono, 'O Marquês de Carabás'. Com astúcia, convenceu o rei das riquezas de seu senhor e, em um rio, pediu ao moleiro que tomasse banho enquanto escondia suas roupas. Quando a carruagem real passou, o gato gritou por socorro, dizendo que ladrões haviam roubado as vestes do Marquês. O rei, impressionado, deu ao rapaz roupas finas. A princesa se encantou por ele.\n\nO gato então correu até o castelo de um ogro poderoso que podia se transformar em qualquer animal. O ogro, vaidoso, primeiro transformou-se em leão para assustar o gato, e depois, desafiado, em um rato. Nesse momento, o Gato de Botas saltou sobre ele e o devorou.\n\nQuando a carruagem real chegou ao castelo, foram recebidos pelo falso 'Marquês de Carabás'. Encantado com as riquezas, o rei ofereceu a mão da princesa ao rapaz. E assim, o filho do moleiro casou-se com a princesa, e o Gato de Botas tornou-se um grande senhor, caçando ratos apenas para se divertir."
+        },
+        {
+            id: 2,
+            titulo: "A Pequena Sereia",
+            autor: "Hans Christian Andersen",
+            ano: "1837",
+            categoria: "Conto de Fadas / Romance",
+            resumo: "Nas profundezas do oceano, uma pequena sereia sonha em conhecer o mundo dos humanos. Ao completar quinze anos, ela sobe à superfície e se apaixona por um príncipe. Para conquistá-lo, faz um pacto perigoso com a bruxa do mar: troca sua bela voz por pernas humanas, mas cada passo será como andar sobre facas.",
+            citacao: "Sabemos que o mar é muito vasto e que vivem nele mais criaturas do que as que podemos contar; mas também sabemos que acima da superfície existe outro mundo, o mundo dos humanos, que é ainda mais belo e misterioso.",
+            textoCompleto: "No fundo do mar, no palácio de coral e âmbar do Rei dos Mares, vivia a mais bela de suas filhas: uma pequena sereia de longos cabelos dourados e voz encantadora. Ela ansiava pelos quinze anos, quando lhe seria permitido subir à superfície para ver o mundo dos humanos.\n\nFinalmente, no dia de seu aniversário, a pequena sereia emergiu das águas. Um navio navegava sob a luz da lua, e nele dançava um belo príncipe. De repente, uma tempestade violenta surgiu e o navio naufragou. A sereia salvou o príncipe das águas e o levou até a praia, onde uma jovem de um convento próximo o encontrou.\n\nA sereia se apaixonou profundamente pelo príncipe, mas sabia que nunca poderia estar com ele sendo uma criatura do mar. Desesperada, procurou a bruxa do mar, que lhe fez uma terrível proposta: 'Darei a você pernas humanas, mas cada passo que der será como pisar em facas afiadas. Além disso, você perderá sua voz, e se o príncipe não se apaixonar por você e casar-se com outra, no amanhecer seguinte ao casamento, você se transformará em espuma do mar.'\n\nA pequena sereia aceitou o pacto. Bebeu a poção e sentiu sua cauda se dividir em pernas. Ao despertar na praia, o príncipe a encontrou. Encantado com sua beleza, mas frustrado por ela não poder falar, ele a levou para o castelo, onde ela dançava com uma graça que todos admiravam, apesar da dor terrível que sentia.\n\nO príncipe tratava a sereia como uma irmã querida, mas seu coração pertencia à jovem que ele acreditava tê-lo salvo na praia. Quando descobriu que essa jovem era, na verdade, uma princesa de um reino vizinho, ele se casou com ela.\n\nNo amanhecer do casamento, as irmãs da pequena sereia subiram à superfície com um punhal mágico: 'Se você matar o príncipe e deixar seu sangue escorrer em seus pés, você voltará a ser sereia.' A pequena sereia olhou para o príncipe adormecido, beijou sua testa e jogou o punhal ao mar. Ao amanhecer, seu corpo dissolveu-se em espuma, mas ela não morreu — transformou-se em uma filha do ar, que poderia ganhar uma alma imortal através de boas ações."
+        },
+        {
+            id: 3,
+            titulo: "Romeu e Julieta",
+            autor: "William Shakespeare",
+            ano: "1597",
+            categoria: "Tragédia / Romance",
+            resumo: "Nas colinas ensolaradas e nas ruas de pedra de Verona, na Itália, duas famílias nobres e imensamente ricas viviam sob a sombra de um ódio antigo e inexplicável: os Montéquio e os Capuleto. Romeu, o jovem herdeiro dos Montéquio, e Julieta, a filha protegida dos Capuleto, se apaixonam perdidamente em um baile de máscaras. Desafiando a rivalidade mortal de suas famílias e o decreto do Príncipe que ameaça de morte quem iniciar brigas, os dois jovens vivem um amor proibido que os leva a um casamento secreto. Mas uma série de fatalidades - incluindo a morte de Mercúcio e Teobaldo, o banimento de Romeu e um plano fracassado de fuga - conduzem os amantes a um destino trágico e inesquecível.",
+            citacao: "Meu único amor nascido do meu único ódio!",
+            textoCompleto: "Nas colinas ensolaradas e nas ruas de pedra de Verona, na Itália, duas famílias nobres e imensamente ricas viviam sob a sombra de um ódio antigo e inexplicável: os Montéquio e os Capuleto. A rivalidade entre esses dois clãs era uma ferida aberta na cidade. Bastava um servo de uma casa cruzar com o da outra para que insultos fossem disparados, espadas fossem desembainhadas e o sangue manchasse o chão público. O Príncipe de Verona, Escalo, já não suportava mais o caos e decretou: o próximo que iniciasse uma briga pagaria com a própria vida.\n\nÉ nesse cenário de pólvora e rancor que o destino decide tecer sua teia mais ironicamente dolorosa.\n\nO Baile de Máscaras e o Toque do Destino\n\nRomeu, o jovem, melancólico e idealista herdeiro dos Montéquio, andava pelos cantos suspirando por um amor não correspondido. Para tirá-lo do marasmo, seu primo Benvólio e seu melhor amigo, o mercurial e audacioso Mercúcio, o convenceram a cometer uma loucura: invadir, usando máscaras de veludo, uma grandiosa festa na mansão dos seus piores inimigos, os Capuleto.\n\nO plano era apenas diversão, mas o universo tinha outros planos. No meio do salão dourado, Romeu avistou Julieta, a única e protegida filha dos Capuleto, uma jovem que estava sendo prometida em casamento ao nobre e rico Conde Páris.\n\nNo instante em que os olhos de Romeu e Julieta se cruzaram, o barulho da festa sumiu. O ódio das famílias, o decreto do Príncipe, o passado e o futuro desapareceram. Romeu aproximou-se, tocou a mão de Julieta e, com metáforas religiosas sobre santos e devotos, trocou com ela os primeiros sussurros de amor e os primeiros beijos.\n\nA felicidade, porém, durou poucos minutos. Antes do fim da noite, a Ama de Julieta revelou a ela que o jovem mascarado era um Montéquio. No jardim, Romeu descobriu que sua deusa era uma Capuleto.\n\n'Meu único amor nascido do meu único ódio!', lamentou Julieta na famosa cena do balcão, tarde da noite, enquanto Romeu a escutava escondido entre as roseiras do jardim. Ali mesmo, desafiando a razão, eles juraram amor eterno e decidiram se casar secretamente no dia seguinte.\n\nO Casamento Oculto e a Faísca da Tragédia\n\nPara realizar o casamento sem que ninguém soubesse, os jovens recorreram a Frei Lourenço, um monge franciscano, conselheiro e profundo conhecedor das propriedades medicinais das plantas. O Frei, embora temeroso pela pressa dos jovens, viu naquele amor uma oportunidade divina: achou que o casamento de Romeu e Julieta poderia ser a ponte de ouro para finalmente reconciliar os Montéquio e os Capuleto e trazer a paz a Verona.\n\nNaquela mesma tarde, na penumbra da capela, Romeu e Julieta trocaram votos e alianças perante Deus. Eles eram, enfim, marido e mulher.\n\nMas a paz durou pouco mais de uma hora. Sob o sol escaldante de Verona, o violento Teobaldo, primo de Julieta e o homem mais orgulhoso dos Capuleto, descobriu que Romeu tinha invadido a festa na noite anterior e saiu às ruas à sua procura para um duelo de honra.\n\nRomeu, recém-casado e agora vendo Teobaldo como seu próprio parente, recusou-se a lutar, respondendo com palavras mansas. Mercúcio, achando a atitude do amigo uma covardia vergonhosa, desembainhou sua espada contra Teobaldo. Romeu tentou apartar a briga, entrando no meio dos dois; por azar, sob o braço de Romeu, a lâmina de Teobaldo atingiu Mercúcio mortalmente.\n\nVendo seu melhor amigo morrer amaldiçoando as duas famílias ('Uma peste em ambas as vossas casas!'), Romeu foi tomado por uma fúria cega. Ele avançou contra Teobaldo em um duelo brutal e o matou no meio da praça.\n\nO Príncipe de Verona chegou logo em seguida. Diante do clamor do povo, ele decidiu poupar a vida de Romeu, mas aplicou uma punição implacável: o banimento imediato e definitivo de Verona. Romeu deveria partir para a cidade de Mântua. Se fosse visto em Verona novamente, seria executado.\n\nO Desespero e a Ideia da Fuga\n\nApós uma única e dolorosa noite de núpcias escondida no quarto de Julieta, Romeu fugiu ao amanhecer, chorando, em direção ao exílio.\n\nMal o sol nasceu, o velho Lorde Capuleto, vendo a filha devastada (achando que era pelo luto da morte do primo Teobaldo), decidiu apressar as coisas para alegrá-la: decretou que Julieta deveria se casar com o Conde Páris em apenas três dias. Se ela recusasse, seria deserdada, arrastada pelas ruas e expulsa de casa para morrer de fome.\n\nDesesperada, sem poder confessar ao pai que já pertencia ao assassino de seu primo, Julieta correu até a cela de Frei Lourenço. Ela trazia uma adaga escondida nas vestes e jurou cravar a lâmina no próprio coração se o monge não encontrasse uma saída.\n\nDiante do desespero da jovem, o Frei teve a ousada ideia da fuga, um plano milimétrico baseado em seus conhecimentos de alquimia e ervas.\n\nO Veneno da Falsa Morte: Julieta deveria voltar para casa, pedir perdão ao pai e fingir aceitar o casamento com Páris. Na noite anterior às bodas, ela deveria beber sozinha em seu quarto uma poção que o Frei lhe entregou. Esse líquido simularia a morte com perfeição por exatamente 42 horas: seu corpo ficaria frio, sua respiração cessaria, sua pele empalideceria e seu pulso sumiria.\n\nO Sepulcro dos Capuleto: Sua família, encontrando-a 'morta' pela manhã, transformaria o casamento em funeral e levaria seu corpo, vestido de noiva e com o rosto descoberto, para a antiga cripta da família.\n\nO Resgate e a Fuga: Enquanto Julieta estivesse dormindo na tumba, Frei Lourenço enviaria um mensageiro de confiança, Frei João, até Mântua para contar todo o plano a Romeu. Romeu cavalgaria de volta a Verona na calada da noite, entraria na cripta com a ajuda do Frei, esperaria Julieta acordar de seu sono artificial e os dois, juntos e livres do peso de suas famílias, fugiriam para sempre.\n\nJulieta, movida por um amor indomável, aceitou o plano. Voltou para casa, tomou a poção e, na manhã seguinte, seus gritos de morte ecoaram. O choro da Ama e o desespero dos pais tomaram a casa. Julieta foi carregada em um cortejo sombrio para o cemitério, sendo depositada ao lado do corpo ainda fresco de Teobaldo.\n\nO Erro do Destino e o Final Trágico\n\nO plano era brilhante, mas o destino foi cruel e implacável. Uma onda de peste negra atingiu os vilarejos vizinhos a Verona. Os guardas da saúde da cidade colocaram a casa onde Frei João (o mensageiro) estava sob quarentena forçada. Ele foi trancado e proibido de sair, e a carta que explicava a farsa da morte nunca chegou às mãos de Romeu.\n\nEnquanto isso, em Mântua, Romeu recebeu a visita de seu criado pessoal, Baltasar, que vinha diretamente de Verona. Baltasar, que testemunhara o funeral público de Julieta, deu a Romeu a notícia que rasgou sua alma: 'Eu vi a sua senhora ser deitada no túmulo dos Capuleto. Ela está morta, meu senhor.'\n\nO mundo de Romeu ruiu. Enlouquecido pela dor e decidido a não viver um único dia sem Julieta, ele foi até o beco de um boticário miserável e comprou um veneno ilegal e violentamente letal. Ele galopou de volta para Verona sob o manto da meia-noite, determinado a morrer ao lado de sua esposa.\n\nAo chegar à cripta escura dos Capuleto, munido de uma alavanca de ferro para arrombar a tumba, Romeu deparou-se com o Conde Páris, que tinha ido espalhar flores e chorar no túmulo de sua noiva prometida. Páris reconheceu o Montéquio banido e achou que ele viera para profanar os corpos. Os dois desembainharam as espadas em um duelo desesperado nas sombras do cemitério, e Romeu, lutando como um homem que já não tem nada a perder, matou Páris.\n\nGravemente ferido e exausto, Romeu arrastou o corpo de Páris para dentro da tumba e finalmente aproximou-se de Julieta. Ele a olhou, maravilhado e destruído, notando que os lábios e as bochechas dela ainda tinham uma cor carmim (o efeito do anestésico estava sumindo, mas ele não sabia).\n\n'Ah, minha querida Julieta', chorou ele. 'A morte bebeu o mel do teu sopro, mas ainda não conquistou a tua beleza.'\n\nRomeu beijou Julieta pela última vez, ergueu o frasco de veneno, brindou ao seu amor trágico e bebeu o líquido. O veneno agiu instantaneamente, e Romeu caiu morto sobre o peito de sua amada.\n\nApenas alguns minutos depois, os passos de Frei Lourenço ecoaram na cripta. Ele vinha com uma lanterna, sabendo que a hora de Julieta acordar havia chegado. Ao entrar, deparou-se com o sangue fresco de Páris e o corpo sem vida de Romeu.\n\nNesse exato momento, Julieta abriu os olhos lentamente, como quem acorda de um longo sonho. Ela olhou para o monge e sorriu:\n\n'Oh, meu bom Frei! Onde está o meu senhor? Lembro-me bem de onde deveria estar, e aqui estou. Onde está o meu Romeu?'\n\nO Frei, ouvindo o barulho dos guardas da cidade que se aproximavam do cemitério após o barulho da briga com Páris, entrou em pânico.\n\n'Venha, Julieta!', implorou o monge com a voz trêmula. 'Um poder maior do que nós frustrou os nossos planos. Seu marido está ali, morto no chão. E Páris também. Venha, eu a esconderei em um convento de freiras. Não podemos ficar!'\n\nAssustado com os gritos dos guardas, o Frei correu para fora da cripta, deixando a jovem para trás.\n\nJulieta, no entanto, não se moveu. Ela olhou para baixo e viu Romeu. Viu o frasco de vidro firmemente preso nos dedos do marido. Entendeu tudo.\n\n'O que é isso?', sussurrou ela, com lágrimas nos olhos. 'Veneno... Ah, egoísta! Bebeu tudo e não deixou uma única gota para me ajudar a seguir-te?'\n\nEla inclinou-se e beijou os lábios de Romeu, esperando que ainda restasse algum veneno neles, mas sentiu apenas o calor que começava a deixar o corpo dele. Os passos dos guardas estavam na entrada do monumento. O tempo havia acabado.\n\nCom uma calma assustadora e uma coragem monumental, Julieta estendeu a mão e puxou a adaga de bronze que estava na cintura do cadáver de Romeu. Ela olhou para a lâmina brilhante.\n\n'Ah, adaga feliz!', disse ela, posicionando a ponta contra o próprio peito. 'Esta é a tua bainha. Enferruja aqui dentro e me deixa morrer!'\n\nJulieta cravou a lâmina no coração e desabou sobre o corpo de Romeu, misturando seu sangue ao dele e unindo-se ao seu amor na eternidade escura da tumba.\n\nO Despertar de Verona\n\nQuando o amanhecer chegou, a cripta estava cercada pelos guardas, pelo Príncipe, pelos Montéquio e pelos Capuleto. Diante do horror dos três jovens mortos, Frei Lourenço, chorando amargamente, revelou a toda Verona a história secreta: o amor proibido, o casamento na capela, a poção da falsa morte e a carta que o destino extraviou.\n\nO choque e o remorso caíram como uma bigorna sobre os corações dos dois velhos patriarcas. Diante dos corpos de seus únicos filhos, destruídos pela engrenagem do próprio ódio que eles cultivaram, Lorde Capuleto e Lorde Montéquio deram as mãos pela primeira vez em décadas.\n\nA guerra acabou ali. Montéquio prometeu erguer uma estátua de ouro puro para Julieta no centro de Verona, e Capuleto prometeu fazer o mesmo para Romeu, para que a cidade nunca se esquecesse do preço daquela rivalidade.\n\nA paz finalmente caminhou pelas ruas de Verona, mas veio embrulhada na manhã mais sombria e melancólica de sua história."
+        }
+    ];
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Função para converter quebras de linha em parágrafos HTML
+    function formatarTextoParaModal(texto) {
+        const paragrafos = texto.split(/\n\n/);
+        return paragrafos.map(p => `<p>${escapeHTML(p).replace(/\n/g, '<br>')}</p>`).join('');
+    }
+
+    // Modal de leitura APENAS com TÍTULO e TEXTO (limpo para leitor de voz)
+    function exibirContoLeitura(conto) {
+        // Remove modal existente se houver
+        const modalExistente = document.querySelector('.modal-leitura');
+        if (modalExistente) modalExistente.remove();
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-leitura';
+        
+        modal.innerHTML = `
+            <div class="modal-leitura-content">
+                <div class="modal-leitura-header">
+                    <h2>
+                        <i class="fa-solid fa-book"></i>
+                        ${escapeHTML(conto.titulo)}
+                    </h2>
+                    <button class="btn-fechar-modal" id="fecharModalBtn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-leitura-body" id="modalLeituraBody">
+                    ${formatarTextoParaModal(conto.textoCompleto)}
+                </div>
+                <div class="dica-voz">
+                    <i class="fa-solid fa-ear-listen"></i> 
+                    Dica: Selecione o texto acima e use o comando "Ler em voz alta" do seu navegador 
+                    (geralmente no menu de contexto com o botão direito do mouse)
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Impedir scroll do fundo
+        document.body.style.overflow = 'hidden';
+
+        // Fechar modal
+        const closeBtn = modal.querySelector('#fecharModalBtn');
+        closeBtn.addEventListener('click', () => {
+            modal.remove();
+            document.body.style.overflow = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Opcional: Atalho ESC para fechar
+        const teclaFechar = (e) => {
+            if (e.key === 'Escape') {
+                if (document.querySelector('.modal-leitura')) {
+                    modal.remove();
+                    document.body.style.overflow = '';
+                    document.removeEventListener('keydown', teclaFechar);
+                }
+            }
+        };
+        document.addEventListener('keydown', teclaFechar);
+    }
+
+    // Barra de progresso de leitura
+    function setupProgressBar() {
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById('progressoLeitura');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        });
+    }
+
+    // Renderizar todos os contos
+    function renderizarContos() {
+        const container = document.getElementById('contosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        contos.forEach(conto => {
+            const contoDiv = document.createElement('div');
+            contoDiv.className = 'conto-item';
+            contoDiv.dataset.id = conto.id;
+
+            const header = document.createElement('div');
+            header.className = 'conto-header';
+            header.innerHTML = `
+                <div class="conto-info">
+                    <div class="conto-titulo">
+                        <i class="fa-regular fa-star"></i> ${escapeHTML(conto.titulo)}
+                        <span class="badge-autor"><i class="fa-regular fa-user"></i> ${escapeHTML(conto.autor)}</span>
+                        <span class="badge-categoria"><i class="fa-regular fa-folder"></i> ${escapeHTML(conto.categoria)}</span>
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            const detalhesDiv = document.createElement('div');
+            detalhesDiv.className = 'conto-detalhes';
+            
+            detalhesDiv.innerHTML = `
+                <div class="detalhes-content">
+                    <div class="resumo-texto">
+                        <i class="fa-regular fa-message" style="margin-right:6px; color:#d4a030;"></i> 
+                        ${escapeHTML(conto.resumo).replace(/\n/g, '<br>')}
+                    </div>
+                    <div class="info-autor">
+                        <i class="fa-regular fa-calendar"></i> ${escapeHTML(conto.ano)} &nbsp;|&nbsp;
+                        <i class="fa-regular fa-bookmark"></i> ${escapeHTML(conto.categoria)}
+                    </div>
+                    <div class="citacao-box">
+                        <strong><i class="fa-solid fa-quote-left"></i> Trecho memorável:</strong><br>
+                        "${escapeHTML(conto.citacao)}"
+                    </div>
+                    <button class="btn-acessar" data-id="${conto.id}">
+                        <i class="fa-solid fa-book-open"></i> Ler conto completo
+                    </button>
+                </div>
+            `;
+
+            contoDiv.appendChild(header);
+            contoDiv.appendChild(detalhesDiv);
+            container.appendChild(contoDiv);
+
+            // Expandir/recolher
+            header.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-acessar')) return;
+                contoDiv.classList.toggle('expanded');
+            });
+
+            // Botão "Ler conto completo" - abre modal apenas com título e texto limpo
+            const btnAcessar = detalhesDiv.querySelector('.btn-acessar');
+            btnAcessar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                exibirContoLeitura(conto);
+            });
+        });
+    }
+
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Inicialização
+    renderizarContos();
+    setupVoltarButton();
+    setupProgressBar();
+</script>
+</body>
+</html>
