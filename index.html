@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>VoicePage Creator + OCR - Biblioteca de Contos</title>
+    <title>VoicePage Creator - Biblioteca de Contos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tesseract.js para OCR -->
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -25,7 +23,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 700px;
             width: 100%;
             margin: 0 auto;
             background: white;
@@ -173,9 +171,10 @@
         /* header com espaço para o ícone */
         .header {
             background: white;
-            padding: 1.8rem 1.5rem 1rem 1.5rem;
+            padding: 1.8rem 1.5rem 1rem 4rem;
             text-align: left;
             border-bottom: 2px solid #f0ebe5;
+            position: relative;
         }
 
         .header h1 {
@@ -196,50 +195,10 @@
             line-height: 1.4;
         }
 
-        /* Abas */
-        .tabs {
-            display: flex;
-            border-bottom: 2px solid #f0ebe5;
-            background: white;
-            padding: 0 1rem;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 1rem 0.5rem;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            color: #8b7a6b;
-            transition: all 0.2s;
-            border-bottom: 3px solid transparent;
-            font-size: 0.9rem;
-        }
-
-        .tab i {
-            margin-right: 8px;
-        }
-
-        .tab.active {
-            color: #2c3e2f;
-            border-bottom-color: #b8860b;
-        }
-
-        .tab:hover:not(.active) {
-            color: #5a4a3a;
-            background: #fefcf8;
-        }
-
-        .tab-content {
-            display: none;
+        .card {
             padding: 1.5rem;
         }
 
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Estilos do Criador de Texto */
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -355,250 +314,31 @@
             line-height: 1.4;
         }
 
-        /* Estilos do OCR */
-        .upload-area {
-            border: 2px dashed #d4ccc4;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            background: #fefcf8;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1.5rem;
-        }
-
-        .upload-area:hover {
-            background: #f8f6f2;
-            border-color: #b8860b;
-        }
-
-        .upload-area.drag-over {
-            background: #f0ebe5;
-            border-color: #b8860b;
-        }
-
-        .upload-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            color: #b8860b;
-        }
-
-        .info-bar {
-            background: #f4f2ee;
-            padding: 0.8rem 1rem;
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .order-controls {
-            background: #fefcf8;
-            padding: 0.8rem;
-            border-radius: 16px;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #8b7a6b;
-            border: 1px solid #f0ebe5;
-        }
-
-        .image-grid {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 1.5rem;
-            border-radius: 16px;
-        }
-
-        .image-card {
-            background: #fefcf8;
-            border: 1px solid #e6e0d8;
-            border-radius: 16px;
-            padding: 1rem;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: move;
-            transition: all 0.2s;
-        }
-
-        .image-card:hover {
-            background: #f8f6f2;
-            border-color: #d4ccc4;
-            transform: translateX(3px);
-        }
-
-        .image-card.dragging {
-            opacity: 0.5;
-            cursor: grabbing;
-        }
-
-        .image-card.drag-over {
-            border-color: #b8860b;
-            background: #f0ebe5;
-        }
-
-        .drag-handle {
-            cursor: grab;
-            font-size: 24px;
-            color: #b9aa99;
-            user-select: none;
-            flex-shrink: 0;
-        }
-
-        .drag-handle:active {
-            cursor: grabbing;
-        }
-
-        .image-preview {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #f0ebe5;
-        }
-
-        .image-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .image-info {
-            flex: 1;
-        }
-
-        .image-order {
-            font-size: 0.75rem;
-            color: #b8860b;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .image-name {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #2c3e2f;
-            margin-bottom: 4px;
-        }
-
-        .status-text {
-            font-size: 0.7rem;
-            color: #8b7a6b;
-            margin-top: 4px;
-        }
-
-        .status-text.success {
-            color: #48bb78;
-        }
-
-        .status-text.error {
-            color: #f56565;
-        }
-
-        .text-preview {
-            font-size: 0.7rem;
-            color: #8b7a6b;
-            margin-top: 4px;
-            font-style: italic;
-        }
-
-        .btn-group-ocr {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 1.5rem 0 1rem;
-        }
-
-        .result-area {
-            background: #fefcf8;
-            border: 1px solid #f0ebe5;
-            border-radius: 20px;
-            padding: 1.2rem;
-            margin-top: 1rem;
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .result-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #2c3e2f;
-        }
-
-        .result-text {
-            background: white;
-            border: 1px solid #e6e0d8;
-            border-radius: 16px;
-            padding: 1rem;
-            min-height: 250px;
-            max-height: 350px;
-            overflow-y: auto;
-            font-family: 'Georgia', serif;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            color: #3a4a38;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #b8860b;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .footer {
             text-align: center;
-            padding: 1rem;
+            padding: 1.2rem;
             border-top: 1px solid #f0ebe5;
             font-size: 0.7rem;
             color: #8b7a6b;
             background: white;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             body {
                 padding: 0.8rem;
             }
             .header {
-                padding: 1.2rem 1rem 0.8rem 1rem;
+                padding: 1.2rem 1rem 0.8rem 3.5rem;
             }
             .header h1 {
                 font-size: 1.3rem;
             }
-            .tab-content {
+            .card {
                 padding: 1rem;
             }
-            .image-card {
-                flex-wrap: wrap;
-            }
-            .drag-handle {
-                order: -1;
-            }
-            .btn-group-ocr {
-                flex-direction: column;
+            .btn {
+                padding: 12px 16px;
+                font-size: 0.9rem;
             }
             .menu-toggle {
                 top: 1rem;
@@ -606,31 +346,18 @@
                 width: 38px;
                 height: 38px;
             }
-            .tabs {
-                padding: 0 0.5rem;
-            }
-            .tab {
-                font-size: 0.8rem;
-            }
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 2rem;
-            color: #b9aa99;
-        }
-        
-        /* Botão específico para mobile */
-        .mobile-file-btn {
-            margin-top: 12px;
-            width: auto;
-            display: inline-flex;
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                max-width: 600px;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Ícone de menu hambúrguer -->
+    <!-- Ícone de menu hambúrguer (3 riscos) -->
     <div class="menu-toggle" id="menuToggleBtn">
         <span></span>
         <span></span>
@@ -638,22 +365,10 @@
     </div>
 
     <div class="header">
-        <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator + OCR</h1>
-        <p>Crie páginas de leitura ou extraia texto de imagens com OCR</p>
+        <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator</h1>
+        <p>Gerador de páginas de leitura apenas com texto — use o recurso nativo do navegador para ouvir com voz Thalita</p>
     </div>
-
-    <!-- Abas -->
-    <div class="tabs">
-        <div class="tab active" data-tab="creator">
-            <i class="fa-solid fa-pen-fancy"></i> Criador de Texto
-        </div>
-        <div class="tab" data-tab="ocr">
-            <i class="fa-solid fa-image"></i> OCR de Imagens
-        </div>
-    </div>
-
-    <!-- Aba Criador de Texto -->
-    <div class="tab-content active" id="creator-tab">
+    <div class="card">
         <div class="form-group">
             <label><i class="fa-regular fa-file-lines"></i> Título da história/página</label>
             <input type="text" id="titulo" placeholder="Ex: O Príncipe Sapo - Irmãos Grimm">
@@ -682,85 +397,8 @@
             <i class="fa-regular fa-lightbulb"></i> Preencha o conteúdo e clique em "Gerar página"
         </div>
     </div>
-
-    <!-- Aba OCR de Imagens -->
-    <div class="tab-content" id="ocr-tab">
-        <!-- Área de upload -->
-        <div class="upload-area" id="uploadArea">
-            <div class="upload-icon"><i class="fa-solid fa-cloud-upload-alt"></i></div>
-            <h3>Clique ou arraste imagens aqui</h3>
-            <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: JPG, PNG, GIF, BMP, WEBP</p>
-            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
-            <br>
-            <button class="btn btn-secondary mobile-file-btn" id="selectImagesBtn">
-                <i class="fa-solid fa-folder-open"></i> Selecionar Imagens
-            </button>
-        </div>
-
-        <!-- Barra de informações -->
-        <div id="infoBar" style="display: none;">
-            <div class="info-bar">
-                <div class="info-bar-text">
-                    <i class="fa-regular fa-images"></i> <span id="imageCount">0</span> imagens | 
-                    <i class="fa-regular fa-check-circle"></i> <span id="processedCount">0</span> processadas
-                </div>
-                <div>
-                    <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem;" onclick="reprocessAllImages()">
-                        <i class="fa-solid fa-rotate-right"></i> Reprocessar
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controles de ordenação -->
-        <div id="orderControls" class="order-controls" style="display: none;">
-            <i class="fa-solid fa-arrows-up-down-left-right"></i> Arraste as imagens para ordenar a sequência do texto
-        </div>
-
-        <!-- Grid de imagens -->
-        <div class="image-grid" id="imageGrid">
-            <div class="empty-state">
-                <i class="fa-regular fa-images" style="font-size: 48px; margin-bottom: 12px; display: block;"></i>
-                <p>Nenhuma imagem enviada</p>
-                <p style="font-size: 0.75rem;">Envie imagens para extrair o texto</p>
-            </div>
-        </div>
-
-        <!-- Botões de ação OCR -->
-        <div class="btn-group-ocr">
-            <button class="btn btn-primary" onclick="generateSequentialText()">
-                <i class="fa-solid fa-list-ol"></i> Gerar Texto na Ordem
-            </button>
-            <button class="btn btn-secondary" onclick="copySequentialText()">
-                <i class="fa-regular fa-copy"></i> Copiar Ordenado
-            </button>
-            <button class="btn btn-secondary" onclick="copyAllTextOCR()">
-                <i class="fa-regular fa-clipboard"></i> Copiar Todos
-            </button>
-            <button class="btn btn-secondary" onclick="clearAllImages()">
-                <i class="fa-solid fa-trash-alt"></i> Limpar Imagens
-            </button>
-        </div>
-
-        <!-- Área de resultado OCR -->
-        <div class="result-area">
-            <div class="result-header">
-                <div class="result-title">
-                    <i class="fa-regular fa-file-lines"></i> Texto Extraído (Na Ordem Definida)
-                </div>
-            </div>
-            <div class="result-text" id="ocrResultText">
-                Envie imagens, ordene arrastando e clique em "Gerar Texto na Ordem"...
-            </div>
-        </div>
-
-        <div class="status" id="ocrStatus">
-            <i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto
-        </div>
-    </div>
-
     <div class="footer">
-        <p><i class="fa-regular fa-clock"></i> Páginas geradas localmente | OCR processado no navegador — suas imagens não são enviadas para servidores</p>
+        <p>📖 As páginas geradas contêm APENAS o texto — sem botões de player. Para ouvir, use o recurso nativo do seu navegador: <strong>menu → "Ler em voz alta"</strong> ou atalho de voz (voz Thalita no Android).</p>
     </div>
 </div>
 
@@ -775,31 +413,31 @@
         <p>Selecione uma categoria para inspiração</p>
     </div>
     <div class="menu-items">
-        <a class="menu-item" href="/livros_escola.html">
+        <a class="menu-item" href="livros_escola.html">
             <i class="fa-solid fa-graduation-cap"></i>
             <span>Livros da escola</span>
         </a>
-        <a class="menu-item" href="/contos_monica.html">
+        <a class="menu-item" href="contos_monica.html">
             <i class="fa-solid fa-smile"></i>
             <span>Contos da Turma da Mônica</span>
         </a>
-        <a class="menu-item" href="/contos_charadas.html">
+        <a class="menu-item" href="contos_charadas.html">
             <i class="fa-solid fa-question-circle"></i>
             <span>Contos com charadas</span>
         </a>
-        <a class="menu-item" href="/contos_princesas.html">
+        <a class="menu-item" href="contos_princesas.html">
             <i class="fa-solid fa-crown"></i>
             <span>Contos de princesas</span>
         </a>
-        <a class="menu-item" href="/contos_grimm.html">
+        <a class="menu-item" href="contos_grimm.html">
             <i class="fa-solid fa-ghost"></i>
             <span>Contos dos Irmãos Grimm</span>
         </a>
-        <a class="menu-item" href="/contos_english.html">
+            <a class="menu-item" href="contos_english.html">
             <i class="fa-solid fa-flag-usa"></i>
             <span>Contos em Inglês</span>
         </a>
-        <a class="menu-item" href="/contos_francais.html">
+            <a class="menu-item" href="contos_francais.html">
             <i class="fa-solid fa-flag"></i>
             <span>Contos em Francês</span>
         </a>
@@ -810,7 +448,6 @@
 </aside>
 
 <script>
-    // ==================== ABA CRIADOR DE TEXTO ====================
     (function() {
         const tituloInput = document.getElementById('titulo');
         const conteudoTextarea = document.getElementById('conteudo');
@@ -819,6 +456,100 @@
         const limparBtn = document.getElementById('limparBtn');
         const statusDiv = document.getElementById('status');
         
+        // Elementos do menu
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('menuOverlay');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        
+        // ----- funções do menu expansivo (3 riscos) -----
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        menuToggle.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        // Fecha ao pressionar ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sideMenu.classList.contains('open')) {
+                closeMenu();
+            }
+        });
+        
+        // ---- Conteúdos pré-definidos para cada item do menu (para os que não são links) ----
+        // Obs: Os itens agora são links para páginas externas, mas mantemos os conteúdos para fallback
+        const categoryContent = {
+            livros_escola: {
+                titulo: "A descoberta da leitura - livro escolar",
+                texto: "Na pequena escola da Vila das Letras, a professora Sofia levou uma caixa misteriosa para a sala de aula. Dentro dela, não havia doces nem brinquedos, mas sim vários livros com capas coloridas. 'Cada livro é uma porta para um mundo novo', disse ela, enquanto distribuía os exemplares. Os alunos, curiosos, abriram as páginas e encontraram mapas, fábulas e aventuras incríveis. Pedro, um menino que tinha vergonha de ler em voz alta, escolheu um livro sobre animais falantes. À medida que lia, sua voz ganhava coragem. No final da tarde, a biblioteca da escola estava cheia de risos e histórias compartilhadas. Foi assim que a magia dos livros conquistou todos os corações."
+            },
+            monica: {
+                titulo: "Mônica e o tesouro do Limoeiro",
+                texto: "Era uma tarde ensolarada no bairro do Limoeiro. Mônica, com seu inseparável coelho Sansão, encontrou um bilhete antigo dentro de um livro da biblioteca da escola. 'Quem desvendar as charadas encontrará um tesouro especial', dizia a mensagem. Cebolinha, com seus planos infalíveis, Cascão e Magali se uniram para decifrar as pistas. Juntos, exploraram a praça, a sorveteria e o campinho. A última charada levava até a velha árvore do quintal da Mônica. Ao cavarem delicadamente, encontraram uma caixa com vários gibis raros da Turma, todos autografados pelo próprio criador! O verdadeiro tesouro era a amizade e a diversão de ler juntos. Desde então, toda semana eles fazem uma 'roda de leitura' no bairro."
+            },
+            charadas: {
+                titulo: "O livro das charadas encantadas",
+                texto: "Num reino cheio de enigmas, havia um livro mágico que só podia ser aberto por quem solucionasse três charadas.\n\nPrimeira charada: 'O que é que quanto mais se tira, maior fica?'\nResposta: Um buraco.\n\nSegunda charada: 'O que sempre vai para a cama com os sapatos nos pés?'\nResposta: O cavalo.\n\nTerceira charada: 'Qual é a palavra que todos pronunciam errado?'\nResposta: A palavra 'errado'.\n\nAo responder corretamente, o livro se abriu e revelou que cada um de nós tem dentro de si a capacidade de pensar, rir e aprender. As charadas se espalharam pelo reino, e todos, adultos e crianças, se reuniam para desafiar a mente com muita diversão."
+            },
+            princesas: {
+                titulo: "A Princesa das Palavras",
+                texto: "No castelo de Cristalina, vivia a Princesa Leonora, que não se importava com joias ou vestidos luxuosos. Seu maior tesouro era uma pequena biblioteca escondida na torre leste. Um dia, um dragão triste pousou no jardim, pois havia esquecido suas histórias favoritas. Leonora desceu as escadas e perguntou: 'Dragão, por que você chora?' Ele respondeu: 'Perdi a memória dos contos que minha mãe me contava.' A princesa então leu em voz alta histórias de aventura, magia e princesas corajosas que enfrentavam desafios com inteligência. A cada palavra, o dragão recuperava suas lembranças. Ele se tornou guardião dos livros do reino. Desde aquele dia, todos compreenderam que uma princesa de verdade constrói pontes com a leitura."
+            },
+            grimm: {
+                titulo: "Os Sete Corvos - Irmãos Grimm",
+                texto: "Era uma vez um pai que tinha sete filhos homens e, finalmente, uma filha muito desejada. Porém, os meninos, ao tentar buscar água para o batizado, foram amaldiçoados e se transformaram em sete corvos negros. A irmãzinha, ao crescer e descobrir a história, decidiu ir ao fim do mundo para salvá-los. Ela percorreu florestas, escalou montanhas de vidro e superou o vento norte. Com uma chave mágica e um coração valente, encontrou o castelo de vidro onde os corvos viviam. Ao tocar cada um, a maldição se desfez, e os sete irmãos voltaram a ser humanos. A lição dos Grimm ensina que o amor e a persistência rompem qualquer feitiço."
+            }
+        };
+        
+        // Função para aplicar conteúdo da categoria (fallback se os links não funcionarem)
+        function applyCategory(categoryKey) {
+            const data = categoryContent[categoryKey];
+            if (data) {
+                tituloInput.value = data.titulo;
+                conteudoTextarea.value = data.texto;
+                atualizarPreview();
+                statusDiv.innerHTML = `<i class="fa-regular fa-star"></i> Categoria "${data.titulo}" carregada! Edite se desejar e gere sua página.`;
+                statusDiv.style.background = '#eef5ea';
+                statusDiv.style.color = '#2c6e2c';
+                document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                closeMenu();
+            } else {
+                statusDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Conteúdo não encontrado.`;
+                statusDiv.style.background = '#fff0e6';
+            }
+        }
+        
+        // Adicionar eventos apenas nos itens que não são links (fallback)
+        // Os links agora são <a> e vão redirecionar, então não precisamos do evento de clique
+        // Mas mantemos para compatibilidade caso alguém queira usar os botões de outra forma
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            // Se for um link (<a>), não adicionamos o evento de clique para não conflitar
+            if (item.tagName.toLowerCase() === 'a') {
+                item.addEventListener('click', (e) => {
+                    // Fecha o menu antes de redirecionar
+                    closeMenu();
+                });
+            } else {
+                item.addEventListener('click', (e) => {
+                    const category = item.getAttribute('data-category');
+                    if (category === 'livros_escola') applyCategory('livros_escola');
+                    else if (category === 'monica') applyCategory('monica');
+                    else if (category === 'charadas') applyCategory('charadas');
+                    else if (category === 'princesas') applyCategory('princesas');
+                    else if (category === 'grimm') applyCategory('grimm');
+                });
+            }
+        });
+        
+        // ----- Funções de preview e geração -----
         function atualizarPreview() {
             let texto = conteudoTextarea.value;
             if (!texto.trim()) {
@@ -862,14 +593,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>${tituloEscapado} | Leitura</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #f4f2ee; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; padding: 1rem; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .container { max-width: 700px; width: 100%; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e6e0d8; }
-        .story-header { padding: 1.8rem 1.5rem 0.5rem 1.5rem; text-align: left; }
-        .story-header h1 { font-size: 1.5rem; font-weight: 600; color: #2c3e2f; margin-bottom: 0.5rem; font-family: 'Georgia', serif; }
-        .story-header hr { margin: 0.8rem 0; border: none; height: 1px; background: linear-gradient(to right, #e6e0d8, transparent); }
-        .story-content { padding: 0.8rem 1.5rem 1.8rem 1.5rem; font-family: 'Georgia', serif; font-size: 1rem; line-height: 1.7; color: #2c3e2f; text-align: justify; }
-        .story-footer { background: #fefcf8; border-top: 1px solid #f0ebe5; padding: 0.8rem; text-align: center; font-size: 0.65rem; color: #b9aa99; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f4f2ee;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid #e6e0d8;
+        }
+        .story-header {
+            padding: 1.8rem 1.5rem 0.5rem 1.5rem;
+            text-align: left;
+        }
+        .story-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e2f;
+            margin-bottom: 0.5rem;
+            font-family: 'Georgia', serif;
+        }
+        .story-header hr {
+            margin: 0.8rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #e6e0d8, transparent);
+        }
+        .story-content {
+            padding: 0.8rem 1.5rem 1.8rem 1.5rem;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #2c3e2f;
+            text-align: justify;
+        }
+        .story-footer {
+            background: #fefcf8;
+            border-top: 1px solid #f0ebe5;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.65rem;
+            color: #b9aa99;
+        }
         @media (max-width: 600px) {
             body { padding: 0.8rem; }
             .story-header { padding: 1.2rem 1rem 0.3rem 1rem; }
@@ -923,6 +703,7 @@
         criarBtn.addEventListener('click', gerarPagina);
         limparBtn.addEventListener('click', limparCampos);
         
+        // Conteúdo padrão exemplo
         conteudoTextarea.value = `Todas as crianças, menos uma, crescem. Elas entendem isso rápido. Wendy descobriu esse fato com apenas dois anos. Nesse dia, a pequena brincava em um jardim, colheu outra flor do chão e decidiu levá-la correndo para sua mãe. Provavelmente, estava tão encantadora que a senhora Darling, ao vê-la, pôs as mãos no peito e suspirou:
 
 — Ah, por que você não fica assim para sempre?
@@ -931,372 +712,6 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         tituloInput.value = "Peter Pan - O começo da história";
         atualizarPreview();
     })();
-
-    // ==================== ABA OCR DE IMAGENS ====================
-    let images = [];
-    let draggedItem = null;
-
-    const uploadArea = document.getElementById('uploadArea');
-    const fileInputOCR = document.getElementById('fileInput');
-    const ocrStatusDiv = document.getElementById('ocrStatus');
-    const selectImagesBtn = document.getElementById('selectImagesBtn');
-
-    function showOCRStatus(message, type) {
-        ocrStatusDiv.innerHTML = `<i class="${type === 'success' ? 'fa-regular fa-check-circle' : type === 'error' ? 'fa-solid fa-circle-exclamation' : 'fa-regular fa-lightbulb'}"></i> ${message}`;
-        ocrStatusDiv.style.background = type === 'success' ? '#e6f0e4' : type === 'error' ? '#fef2f0' : '#f4f2ee';
-        ocrStatusDiv.style.color = type === 'success' ? '#2c6e2c' : type === 'error' ? '#b33' : '#5a6b55';
-        setTimeout(() => {
-            if (ocrStatusDiv.innerHTML.includes(message)) {
-                ocrStatusDiv.style.background = '#f4f2ee';
-                ocrStatusDiv.style.color = '#5a6b55';
-                ocrStatusDiv.innerHTML = '<i class="fa-regular fa-lightbulb"></i> Envie imagens, organize a sequência e extraia o texto';
-            }
-        }, 3000);
-    }
-
-    // Função simplificada para abrir o seletor de arquivos - funciona no Android
-    function openFileSelector() {
-        // Reset do input
-        fileInputOCR.value = '';
-        // Forçar o clique no input file
-        fileInputOCR.click();
-    }
-
-    // Evento para o botão de selecionar imagens
-    selectImagesBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        openFileSelector();
-    });
-
-    // Evento para a área de upload (clique)
-    uploadArea.addEventListener('click', function(e) {
-        // Se o clique foi no botão, não faz nada (já tratado pelo botão)
-        if (e.target === selectImagesBtn || selectImagesBtn.contains(e.target)) {
-            return;
-        }
-        openFileSelector();
-    });
-
-    // Eventos de drag and drop
-    uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('drag-over');
-    });
-    
-    uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('drag-over');
-    });
-    
-    uploadArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('drag-over');
-        const files = Array.from(e.dataTransfer.files);
-        handleFiles(files);
-    });
-    
-    // Evento principal do input file
-    fileInputOCR.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            handleFiles(Array.from(e.target.files));
-        }
-        // Limpar o input para permitir selecionar novamente
-        fileInputOCR.value = '';
-    });
-
-    function handleFiles(files) {
-        const imageFiles = files.filter(file => file.type.startsWith('image/'));
-        if (imageFiles.length === 0) {
-            showOCRStatus('Nenhuma imagem válida selecionada', 'error');
-            return;
-        }
-        
-        imageFiles.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const imageData = {
-                    id: Date.now() + Math.random(),
-                    name: file.name,
-                    url: e.target.result,
-                    text: '',
-                    order: images.length,
-                    status: 'pending',
-                    error: null
-                };
-                images.push(imageData);
-                renderImages();
-                processImage(imageData);
-            };
-            reader.readAsDataURL(file);
-        });
-        showOCRStatus(`${imageFiles.length} imagem(ns) adicionada(s)`, 'success');
-    }
-
-    async function processImage(image) {
-        try {
-            image.status = 'processing';
-            renderImages();
-
-            const worker = await Tesseract.createWorker('por');
-            await worker.loadLanguage('por');
-            await worker.initialize('por');
-            
-            const { data: { text } } = await worker.recognize(image.url);
-            await worker.terminate();
-            
-            image.text = text.trim() || 'Nenhum texto encontrado na imagem.';
-            image.status = 'success';
-        } catch (error) {
-            console.error('Erro no OCR:', error);
-            image.status = 'error';
-            image.text = 'Erro ao extrair texto da imagem.';
-        }
-        renderImages();
-    }
-
-    function renderImages() {
-        const grid = document.getElementById('imageGrid');
-        const infoBar = document.getElementById('infoBar');
-        const orderControls = document.getElementById('orderControls');
-        const imageCount = document.getElementById('imageCount');
-        const processedCount = document.getElementById('processedCount');
-        
-        if (images.length === 0) {
-            grid.innerHTML = '<div class="empty-state"><i class="fa-regular fa-images" style="font-size: 48px; margin-bottom: 12px; display: block;"></i><p>Nenhuma imagem enviada</p><p style="font-size: 0.75rem;">Envie imagens para extrair o texto</p></div>';
-            infoBar.style.display = 'none';
-            orderControls.style.display = 'none';
-            return;
-        }
-        
-        infoBar.style.display = 'block';
-        orderControls.style.display = 'block';
-        
-        const processed = images.filter(img => img.status === 'success').length;
-        imageCount.textContent = images.length;
-        processedCount.textContent = processed;
-        
-        const sortedImages = [...images].sort((a, b) => a.order - b.order);
-        
-        grid.innerHTML = sortedImages.map(image => `
-            <div class="image-card" draggable="true" data-id="${image.id}">
-                <div class="drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
-                <div class="image-preview">
-                    <img src="${image.url}" alt="${image.name}">
-                </div>
-                <div class="image-info">
-                    <div class="image-order"><i class="fa-regular fa-flag"></i> Ordem: ${image.order + 1}</div>
-                    <div class="image-name"><i class="fa-regular fa-file-image"></i> ${escapeHtml(image.name)}</div>
-                    <div class="status-text ${image.status === 'success' ? 'success' : image.status === 'error' ? 'error' : ''}">
-                        ${getStatusText(image.status)}
-                    </div>
-                    ${image.status === 'success' && image.text ? `<div class="text-preview"><i class="fa-regular fa-message"></i> ${escapeHtml(image.text.substring(0, 60))}${image.text.length > 60 ? '...' : ''}</div>` : ''}
-                </div>
-            </div>
-        `).join('');
-        
-        const cards = document.querySelectorAll('.image-card');
-        cards.forEach(card => {
-            card.addEventListener('dragstart', handleDragStart);
-            card.addEventListener('dragend', handleDragEnd);
-            card.addEventListener('dragover', handleDragOver);
-            card.addEventListener('dragenter', handleDragEnter);
-            card.addEventListener('dragleave', handleDragLeave);
-            card.addEventListener('drop', handleDrop);
-        });
-    }
-
-    function handleDragStart(e) {
-        draggedItem = this;
-        this.classList.add('dragging');
-        e.dataTransfer.setData('text/plain', this.dataset.id);
-        e.dataTransfer.effectAllowed = 'move';
-    }
-
-    function handleDragEnd(e) {
-        this.classList.remove('dragging');
-        document.querySelectorAll('.image-card').forEach(card => {
-            card.classList.remove('drag-over');
-        });
-        draggedItem = null;
-    }
-
-    function handleDragOver(e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-    }
-
-    function handleDragEnter(e) {
-        e.preventDefault();
-        if (this !== draggedItem) {
-            this.classList.add('drag-over');
-        }
-    }
-
-    function handleDragLeave(e) {
-        this.classList.remove('drag-over');
-    }
-
-    function handleDrop(e) {
-        e.preventDefault();
-        this.classList.remove('drag-over');
-        
-        if (draggedItem && draggedItem !== this) {
-            const draggedId = draggedItem.dataset.id;
-            const targetId = this.dataset.id;
-            
-            const draggedImage = images.find(img => img.id == draggedId);
-            const targetImage = images.find(img => img.id == targetId);
-            
-            if (draggedImage && targetImage) {
-                const draggedOrder = draggedImage.order;
-                const targetOrder = targetImage.order;
-                
-                draggedImage.order = targetOrder;
-                targetImage.order = draggedOrder;
-                
-                images.sort((a, b) => a.order - b.order);
-                images.forEach((img, idx) => { img.order = idx; });
-                
-                renderImages();
-                showOCRStatus('Ordem das imagens atualizada!', 'success');
-            }
-        }
-    }
-
-    function getStatusText(status) {
-        switch(status) {
-            case 'pending': return '<i class="fa-regular fa-clock"></i> Aguardando processamento...';
-            case 'processing': return '<span class="loading"></span> Processando...';
-            case 'success': return '<i class="fa-regular fa-check-circle"></i> Texto extraído com sucesso!';
-            case 'error': return '<i class="fa-solid fa-exclamation-circle"></i> Erro no processamento';
-            default: return '';
-        }
-    }
-
-    function displayOCRText(text) {
-        const resultDiv = document.getElementById('ocrResultText');
-        resultDiv.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
-    }
-
-    window.generateSequentialText = function() {
-        const sortedImages = [...images].sort((a, b) => a.order - b.order);
-        const successfulImages = sortedImages.filter(img => img.status === 'success' && img.text);
-        
-        if (successfulImages.length === 0) {
-            displayOCRText('Nenhuma imagem processada com sucesso. Aguarde o processamento ou verifique as imagens.');
-            showOCRStatus('Nenhuma imagem processada ainda', 'error');
-            return;
-        }
-        
-        let sequentialText = '';
-        successfulImages.forEach((img, index) => {
-            sequentialText += `═══════════════════════════════════\n`;
-            sequentialText += `📄 [${img.order + 1}] ${img.name}\n`;
-            sequentialText += `═══════════════════════════════════\n\n`;
-            sequentialText += `${img.text}\n\n\n`;
-        });
-        
-        displayOCRText(sequentialText);
-        showOCRStatus(`Texto gerado com ${successfulImages.length} imagem(ns) na ordem definida`, 'success');
-        return sequentialText;
-    };
-
-    window.copySequentialText = function() {
-        const text = generateSequentialText();
-        if (text && !text.includes('Nenhuma imagem processada')) {
-            navigator.clipboard.writeText(text).then(() => {
-                showOCRStatus('Texto ordenado copiado para a área de transferência!', 'success');
-            }).catch(() => {
-                showOCRStatus('Erro ao copiar texto', 'error');
-            });
-        } else {
-            showOCRStatus('Nenhum texto para copiar', 'error');
-        }
-    };
-
-    window.copyAllTextOCR = function() {
-        const allText = images
-            .filter(img => img.text)
-            .map((img, index) => `═══════ ${img.name} ═══════\n${img.text}`)
-            .join('\n\n');
-        
-        if (allText) {
-            navigator.clipboard.writeText(allText).then(() => {
-                showOCRStatus('Todos os textos copiados para a área de transferência!', 'success');
-            }).catch(() => {
-                showOCRStatus('Erro ao copiar texto', 'error');
-            });
-        } else {
-            showOCRStatus('Nenhum texto para copiar', 'error');
-        }
-    };
-
-    window.reprocessAllImages = function() {
-        images.forEach(image => {
-            if (image.status !== 'processing') {
-                image.status = 'pending';
-                image.text = '';
-                processImage(image);
-            }
-        });
-        renderImages();
-        showOCRStatus('Reprocessando todas as imagens...', 'info');
-    };
-
-    window.clearAllImages = function() {
-        if (confirm('Tem certeza que deseja limpar todas as imagens e textos?')) {
-            images = [];
-            renderImages();
-            displayOCRText('Envie imagens, ordene arrastando e clique em "Gerar Texto na Ordem"...');
-            showOCRStatus('Tudo foi limpo! Envie novas imagens para começar.', 'info');
-        }
-    };
-
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    // ==================== SISTEMA DE ABAS ====================
-    const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const tabId = tab.dataset.tab;
-            
-            tabs.forEach(t => t.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-            
-            tab.classList.add('active');
-            document.getElementById(`${tabId}-tab`).classList.add('active');
-        });
-    });
-
-    // ==================== MENU LATERAL ====================
-    const menuToggle = document.getElementById('menuToggleBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const overlayMenu = document.getElementById('menuOverlay');
-    const closeMenuBtn = document.getElementById('closeMenuBtn');
-
-    function openMenu() {
-        sideMenu.classList.add('open');
-        overlayMenu.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-        sideMenu.classList.remove('open');
-        overlayMenu.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    menuToggle.addEventListener('click', openMenu);
-    closeMenuBtn.addEventListener('click', closeMenu);
-    overlayMenu.addEventListener('click', closeMenu);
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && sideMenu.classList.contains('open')) {
-            closeMenu();
-        }
-    });
 </script>
 </body>
 </html>
