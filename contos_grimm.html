@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Contos dos Irmãos Grimm - Biblioteca Encantada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8f0e6;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #c8e0c4;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1b5e20 0%, #0d3b0f 100%);
+            padding: 2rem 1.8rem;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 i {
+            color: #ffd54f;
+            margin-right: 10px;
+            text-shadow: 2px 2px 0 #1b5e20;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: #f0f7ee;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #c8e0c4;
+            font-size: 0.8rem;
+            color: #2e5c2a;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-left i {
+            color: #2e7d32;
+        }
+
+        .btn-voltar {
+            background: #3e5a3b;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            background: #2a3e28;
+            transform: scale(1.02);
+        }
+
+        .biblioteca-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2e5c2a;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #c8e0c4;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #2e7d32;
+            font-size: 1.2rem;
+        }
+
+        /* CONTOS - ACORDEON */
+        .conto-item {
+            background: #fefef8;
+            border: 1px solid #d0e8cc;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .conto-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            background: #fefef8;
+            transition: background 0.2s;
+        }
+
+        .conto-header:hover {
+            background: #f5faf4;
+        }
+
+        .conto-info {
+            flex: 1;
+        }
+
+        .conto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c5e2a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .conto-titulo i {
+            color: #2e7d32;
+            font-size: 1rem;
+            width: 24px;
+        }
+
+        .personagem-badge {
+            background: #e8f3e5;
+            color: #2e7d32;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .expand-icon {
+            color: #2e7d32;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            width: 30px;
+            text-align: center;
+        }
+
+        .conto-detalhes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fefef8;
+            border-top: 1px solid transparent;
+        }
+
+        .conto-item.expanded .conto-detalhes {
+            max-height: 500px;
+            transition: max-height 0.4s ease-in;
+            border-top-color: #d0e8cc;
+        }
+
+        .conto-item.expanded .expand-icon i {
+            transform: rotate(180deg);
+        }
+
+        .detalhes-content {
+            padding: 1rem 1.2rem 1.2rem 1.8rem;
+        }
+
+        .resumo-texto {
+            font-size: 0.85rem;
+            color: #4a6b3e;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            background: #f6faf4;
+            padding: 0.8rem;
+            border-radius: 16px;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn-acessar {
+            background: #2e7d32;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.2rem;
+        }
+
+        .btn-acessar:hover {
+            background: #1b5e20;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #d0e8cc;
+            font-size: 0.7rem;
+            color: #5a8a4e;
+            background: white;
+        }
+
+        .info-msg {
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.6rem;
+            background: #f0f7ee;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #2e7d32;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .header h1 { font-size: 1.4rem; }
+            .conto-header { flex-wrap: wrap; }
+            .detalhes-content { padding-left: 0.8rem; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+            .btn-voltar { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-regular fa-tree"></i> Contos dos Irmãos Grimm</h1>
+        <p>Os mais famosos contos de fadas alemães — clássicos que atravessaram gerações, repletos de magia, aventura e ensinamentos</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-bookmark"></i> Biblioteca Encantada</span>
+            <span><i class="fa-solid fa-feather"></i> Jacob e Wilhelm Grimm</span>
+            <span><i class="fa-regular fa-clock"></i> Clique no título para expandir</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Voltar à página inicial
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-crown"></i>
+            <span>📚 Clássicos dos Irmãos Grimm</span>
+        </div>
+
+        <div id="contosContainer">
+            <!-- Os contos serão inseridos dinamicamente -->
+        </div>
+        <div class="info-msg">
+            <i class="fa-regular fa-lightbulb"></i> Clique em qualquer conto para ver o resumo. Depois use o botão "Acessar conto" para ler a história completa.
+        </div>
+    </div>
+    <div class="footer">
+        <p>📖 Contos dos Irmãos Grimm — Cada história possui um botão "Acessar" para ler o texto completo em uma janela de leitura.</p>
+    </div>
+</div>
+
+<script>
+    // ==================== CONTOS DOS IRMÃOS GRIMM ====================
+    const contos = [
+        {
+            id: 1,
+            titulo: "Branca de Neve",
+            personagens: "Branca de Neve, Rainha Má, Sete Anões, Príncipe",
+            resumo: "Uma rainha má, movida pela inveja, tenta matar sua enteada Branca de Neve, cuja beleza supera a sua. A princesa foge para a floresta e encontra abrigo na casa de sete anões. A rainha, disfarçada, tenta enganá-la com um pente envenenado e um espartilho apertado, mas fracassa. Por fim, oferece uma maçã envenenada que faz Branca de Neve cair em um sono profundo. Apenas o beijo de um príncipe apaixonado pode quebrar o feitiço.",
+            textoCompleto: "Era uma vez, no rigoroso inverno, uma rainha que costurava perto de uma janela de ébano. Ao picar o dedo, três gotas de sangue caíram na neve. Ela desejou ter uma filha com pele branca como a neve, lábios vermelhos como o sangue e cabelos negros como o ébano. Assim nasceu Branca de Neve. Infelizmente, a rainha morreu no parto. O rei casou-se novamente com uma mulher bela, mas vaidosa e cruel, que possuía um espelho mágico. Todos os dias perguntava: 'Espelho, espelho meu, existe alguém mais bela do que eu?' E o espelho respondia: 'Vós sois a mais bela de todas, ó rainha.' Anos se passaram e Branca de Neve tornou-se uma linda princesa. Um dia, o espelho respondeu: 'A mais bela é Branca de Neve, a princesa de pele alva.' Enfurecida, a rainha ordenou que um caçador levasse a menina para a floresta e a matasse. Mas o caçador, com pena, deixou-a fugir. Perdida, Branca de Neve encontrou uma pequena casa onde viviam sete anões mineradores. Eles a acolheram. A rainha, descobrindo que a princesa ainda vivia, disfarçou-se de velhinha e ofereceu um espartilho tão apertado que fez a moça desmaiar. Os anões salvaram-na. Depois, ofereceu um pente envenenado. Novamente, os anões a salvaram. Por fim, a rainha ofereceu uma maçã envenenada. Branca de Neve mordeu o fruto e caiu em um sono profundo, como se estivesse morta. Os anões, inconsoláveis, colocaram-na em um caixão de vidro. Um príncipe, cavalgando pela floresta, viu a bela princesa e apaixonou-se. Pediu que os anões a entregassem a ele. Ao transportar o caixão, um dos servos tropeçou, e o pedaço da maçã desprendeu-se da garganta de Branca de Neve, que despertou. O príncipe casou-se com ela, e a rainha má foi forçada a dançar com sapatos de ferro em brasa até cair morta."
+        },
+        {
+            id: 2,
+            titulo: "Chapeuzinho Vermelho",
+            personagens: "Chapeuzinho Vermelho, Lobo Mau, Avó, Caçador",
+            resumo: "Uma menina adorável, conhecida por sua capa vermelha, é enviada por sua mãe para levar bolos e vinho à avó doente. No caminho através da floresta, ela encontra um lobo astuto que a engana para colher flores enquanto corre até a casa da avó. O lobo devora a avó e se disfarça com suas roupas. Quando Chapeuzinho chega, estranha o tamanho das orelhas, olhos e dentes da 'avó'. Um caçador aparece a tempo de salvar as duas e ensinar uma lição à menina.",
+            textoCompleto: "Era uma vez uma doce menina que todos amavam, especialmente sua avó, que lhe deu um capuz de veludo vermelho. Por isso, todos a chamavam de Chapeuzinho Vermelho. Um dia, sua mãe pediu: 'Vá até a casa da vovó levar estes bolos e este vinho. Ela está doente e precisa de força. Não saia do caminho na floresta.' Chapeuzinho prometeu e partiu. Na floresta, encontrou o Lobo Mau, que perguntou para onde ia. Ingênua, a menina contou tudo. O lobo, astuto, sugeriu: 'Que tal colher algumas flores para sua avó? Ela vai gostar.' Enquanto Chapeuzinho distraía-se colhendo flores, o lobo correu para a casa da avó, devorou a pobre senhora e vestiu suas roupas e touca. Quando Chapeuzinho chegou, estranhou a porta aberta e entrou. 'Vovó, que olhos grandes você tem!' - 'São para te enxergar melhor, minha neta.' - 'Vovó, que orelhas grandes você tem!' - 'São para te ouvir melhor.' - 'Vovó, que dentes grandes você tem!' - 'São para te comer melhor!' E o lobo devorou a menina. Um caçador que passava ouviu os roncos do lobo. Com sua tesoura, abriu a barriga do animal e salvou Chapeuzinho e sua avó. Encheram a barriga do lobo com pedras, e quando ele acordou e tentou fugir, as pedras o fizeram cair morto. Chapeuzinho aprendeu a nunca mais sair do caminho e a desobedecer sua mãe."
+        },
+        {
+            id: 3,
+            titulo: "João e Maria",
+            personagens: "João, Maria, Padrasto, Bruxa",
+            resumo: "Dois irmãos, abandonados na floresta pelo padrasto cruel e sua esposa, encontram uma casa feita de pão, doces e açúcar. A casa pertence a uma bruxa que aprisiona crianças para devorá-las. João é engaiolado para ser engordado, enquanto Maria é obrigada a servir a bruxa. Com muita esperteza, Maria engana a bruxa, empurrando-a no forno, e liberta o irmão. Eles voltam para casa com tesouros da bruxa e encontram o padrasto arrependido.",
+            textoCompleto: "À beira de uma grande floresta vivia um pobre lenhador com sua esposa e dois filhos: João e Maria. A família passava fome. A madrasta convenceu o pai a abandonar as crianças na floresta. João, que ouvira o plano, encheu os bolsos com pedrinhas brancas que brilhavam ao luar. Na primeira noite, as pedrinhas os guiaram de volta para casa. Na segunda tentativa, João usou migalhas de pão, mas os pássaros da floresta as comeram. Perdidos, os irmãos vagaram até encontrar uma casa maravilhosa: o telhado era de biscoito, as janelas de açúcar transparente e as paredes de pão. Famintos, começaram a comer a casa. Uma voz velha saiu: 'Quem está roendo minha casa?' Era uma bruxa que, fingindo-se amável, convidou as crianças para entrar. Na verdade, ela tinha olhos vermelhos e enxergava pouco, mas atraía crianças para devorá-las. Na manhã seguinte, prendeu João em um estábulo e ordenou que Maria servisse a comida para engordar o irmão. A bruxa, com pouca visão, tocava os dedos de João para ver se ele estava gordo. Esperto, João estendia um ossinho que a bruxa confundia com seu dedo magro. Irritada com a demora, a bruxa decidiu assar o forno. Pediu a Maria que verificasse se o fogo estava quente. Maria fingiu não entender: 'Como faço, senhora?' Quando a bruxa se inclinou para mostrar, Maria a empurrou para dentro do forno e fechou a porta. A bruxa queimou. Os irmãos pegaram todas as joias e pérolas da casa e voltaram para casa. A madrasta havia morrido, e o pai, arrependido, viveu feliz com os filhos."
+        },
+        {
+            id: 4,
+            titulo: "Os Músicos de Bremen",
+            personagens: "Jumento, Cão, Gato, Galo, Ladrões",
+            resumo: "Um jumento velho, um cão cansado, um gato enfraquecido e um galo prestes a ser morto fogem de seus donos cruéis. Decidem seguir para a cidade de Bremen para se tornarem músicos. No caminho, encontram uma casa de ladrões e, com seus gritos e barulhos, assustam os bandidos, que fogem. Os animais ocupam a casa e vivem felizes para sempre.",
+            textoCompleto: "Um jumento trabalhou a vida inteira carregando sacos para o moleiro. Quando envelheceu e perdeu as forças, o dono planejava se livrar dele. O jumento fugiu em direção a Bremen, onde acreditava que poderia se tornar músico da cidade. No caminho, encontrou um cão ofegante deitado na estrada. 'Por que estás tão cansado?', perguntou o jumento. 'Porque estou velho e meu dono quer me matar', respondeu o cão. 'Venha conosco para Bremen. Você pode tocar tambor', convidou o jumento. O cão aceitou. Mais adiante, encontraram um gato sentado com cara triste. 'Por que estás tão abatido?', perguntaram. 'Porque estou velho e prefiro ficar atrás do fogão, mas minha dona quer me afogar', respondeu o gato. 'Venha para Bremen. Você tem boa voz para cantar', disseram. O gato concordou. Em seguida, avistaram um galo que cantava desesperadamente. 'O que aconteceu?', perguntaram. 'Amanhã é domingo e minha dona vai me matar para a sopa. Canto enquanto posso', respondeu o galo. 'Venha conosco para Bremen. Sua voz fará sucesso', disseram. Seguiram juntos. Ao anoitecer, viram uma casa iluminada. Pela janela, viram ladrões comendo e bebendo. Os animais planejaram assustá-los. O jumento apoiou as patas na janela, o cão subiu no jumento, o gato subiu no cão e o galo voou para a cabeça do gato. Começaram a fazer barulho: o jumento zurrou, o cão latiu, o gato miou e o galo cantou. Invadiram a casa quebrando os vidros. Os ladrões, aterrorizados, fugiram para a floresta. Os quatro animais comeram e dormiram na casa. À noite, um ladrão voltou para investigar. O gato arranhou seu rosto, o cão mordeu sua perna, o jumento deu um coice e o galo gritou 'cocorocó!'. O ladrão fugiu e contou aos outros que uma bruxa o arranhou, um homem o esfaqueou, um monstro bateu nele e um juiz gritou 'peguem o ladrão!'. Os ladrões nunca mais voltaram. Os quatro músicos de Bremen viveram felizes na casa para sempre."
+        },
+        {
+            id: 5,
+            titulo: "Rapunzel",
+            personagens: "Rapunzel, Bruxa, Príncipe",
+            resumo: "Um casal deseja ter um filho. A esposa grávida deseja comer a alface (rapúncio) do jardim de uma bruxa. O marido rouba a alface e é descoberto. A bruxa exige a criança em troca. Quando a menina nasce, a bruxa a leva e a tranca em uma torre sem portas ou escadas. Rapunzel tem cabelos muito longos e loiros. A bruxa sobe pela torre chamando: 'Rapunzel, deixe seus cabelos descerem'. Um príncipe ouve e descobre o segredo. Ele sobe, eles se apaixonam e planejam a fuga. A bruxa descobre e corta os cabelos de Rapunzel, exilando-a. O príncipe cai da torre e fica cego. Anos depois, reencontra Rapunzel, e suas lágrimas curam sua cegueira.",
+            textoCompleto: "Era uma vez um casal que há muito tempo desejava um filho. Finalmente, a esposa engravidou. A mulher tinha um desejo incontrolável de comer rapúncio (uma alface silvestre) do jardim de uma bruxa vizinha. O marido, desesperado para satisfazer a esposa, entrou no jardim da bruxa e colheu a alface. Quando foi pela segunda vez, a bruxa o surpreendeu e disse: 'Você pagará com a sua vida! Mas se me der a criança que vai nascer, deixarei você viver.' O homem, amedrontado, concordou. Quando a menina nasceu, a bruxa a levou e a chamou de Rapunzel. Aos doze anos, a bruxa a trancou em uma torre no meio da floresta, sem portas ou escadas. Apenas uma pequena janela no topo. Quando a bruxia queria subir, gritava: 'Rapunzel, Rapunzel, deixe seus cabelos descerem!' Rapunzel tinha cabelos longos e dourados como fios de ouro. Ela os desembaraçava e os lançava pela janela, e a bruxa subia por eles. Um dia, um príncipe cavalgou pela floresta e ouviu o canto de Rapunzel, tão doce que ele ficou paralisado. Voltou todos os dias para ouvi-la. Um dia, viu a bruxa subir pelos cabelos e aprendeu o segredo. Na noite seguinte, chamou: 'Rapunzel, deixe seus cabelos descerem!' Os cabelos desceram e ele subiu. Rapunzel ficou assustada, mas o príncipe a conquistou com seu amor. Combinaram que ele traria seda para ela tecer uma escada. Rapunzel, descuidada, disse um dia à bruxa: 'Por que a senhora é tão mais pesada do que o meu príncipe?' A bruxa furiosa cortou os cabelos de Rapunzel e a exilou em um deserto. Quando o príncipe chamou, a bruxa jogou os cabelos cortados para fora. Ele subiu e encontrou a bruxa, que o cegou ao empurrá-lo da torre. O príncipe vagou cego pela floresta até encontrar Rapunzel vivendo com seus gêmeos. As lágrimas dela caíram em seus olhos e o curaram. Voltaram ao reino e viveram felizes para sempre."
+        }
+    ];
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Renderizar todos os contos
+    function renderizarContos() {
+        const container = document.getElementById('contosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        contos.forEach(conto => {
+            const contoDiv = document.createElement('div');
+            contoDiv.className = 'conto-item';
+            contoDiv.dataset.id = conto.id;
+
+            const header = document.createElement('div');
+            header.className = 'conto-header';
+            header.innerHTML = `
+                <div class="conto-info">
+                    <div class="conto-titulo">
+                        <i class="fa-regular fa-star"></i> ${escapeHTML(conto.titulo)}
+                        <span class="personagem-badge"><i class="fa-regular fa-user"></i> ${escapeHTML(conto.personagens)}</span>
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            const detalhesDiv = document.createElement('div');
+            detalhesDiv.className = 'conto-detalhes';
+            detalhesDiv.innerHTML = `
+                <div class="detalhes-content">
+                    <div class="resumo-texto">
+                        <i class="fa-regular fa-message" style="margin-right:6px; color:#2e7d32;"></i> 
+                        ${escapeHTML(conto.resumo).replace(/\n/g, '<br>')}
+                    </div>
+                    <button class="btn-acessar" data-id="${conto.id}">
+                        <i class="fa-solid fa-book-open"></i> Acessar conto completo
+                    </button>
+                </div>
+            `;
+
+            contoDiv.appendChild(header);
+            contoDiv.appendChild(detalhesDiv);
+            container.appendChild(contoDiv);
+
+            header.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-acessar')) return;
+                contoDiv.classList.toggle('expanded');
+            });
+
+            const btnAcessar = detalhesDiv.querySelector('.btn-acessar');
+            btnAcessar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contoId = parseInt(btnAcessar.dataset.id);
+                const contoSelecionado = contos.find(c => c.id === contoId);
+                if (contoSelecionado && contoSelecionado.textoCompleto) {
+                    exibirContoCompleto(contoSelecionado.titulo, contoSelecionado.textoCompleto);
+                } else {
+                    alert("Conteúdo completo ainda não disponível para este conto.");
+                }
+            });
+        });
+    }
+
+    // Função para exibir o conto completo em um modal
+    function exibirContoCompleto(titulo, textoCompleto) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2000';
+        overlay.style.padding = '1rem';
+        overlay.style.backdropFilter = 'blur(3px)';
+
+        const modalCard = document.createElement('div');
+        modalCard.style.maxWidth = '700px';
+        modalCard.style.width = '100%';
+        modalCard.style.maxHeight = '85vh';
+        modalCard.style.backgroundColor = 'white';
+        modalCard.style.borderRadius = '28px';
+        modalCard.style.overflow = 'hidden';
+        modalCard.style.display = 'flex';
+        modalCard.style.flexDirection = 'column';
+        modalCard.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+        modalCard.style.fontFamily = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+        const modalHeader = document.createElement('div');
+        modalHeader.style.background = 'linear-gradient(135deg, #1b5e20 0%, #0d3b0f 100%)';
+        modalHeader.style.color = 'white';
+        modalHeader.style.padding = '1.2rem 1.5rem';
+        modalHeader.style.display = 'flex';
+        modalHeader.style.justifyContent = 'space-between';
+        modalHeader.style.alignItems = 'center';
+        modalHeader.innerHTML = `
+            <h2 style="font-size:1.2rem; margin:0; display:flex; gap:8px;"><i class="fa-regular fa-tree"></i> ${escapeHTML(titulo)}</h2>
+            <button id="closeModalBtn" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        `;
+
+        const modalBody = document.createElement('div');
+        modalBody.style.padding = '1.5rem';
+        modalBody.style.overflowY = 'auto';
+        modalBody.style.flex = '1';
+        modalBody.style.fontFamily = 'Georgia, serif';
+        modalBody.style.fontSize = '1rem';
+        modalBody.style.lineHeight = '1.7';
+        modalBody.style.color = '#2c3e2f';
+        modalBody.style.textAlign = 'justify';
+        modalBody.innerHTML = escapeHTML(textoCompleto).replace(/\n/g, '<br><br>');
+
+        const modalFooter = document.createElement('div');
+        modalFooter.style.padding = '0.8rem 1.5rem';
+        modalFooter.style.borderTop = '1px solid #d0e8cc';
+        modalFooter.style.fontSize = '0.7rem';
+        modalFooter.style.color = '#5a8a4e';
+        modalFooter.style.textAlign = 'center';
+        modalFooter.innerHTML = '📖 Leia em voz alta com o recurso do seu navegador (menu → "Ler em voz alta")';
+
+        modalCard.appendChild(modalHeader);
+        modalCard.appendChild(modalBody);
+        modalCard.appendChild(modalFooter);
+        overlay.appendChild(modalCard);
+        document.body.appendChild(overlay);
+
+        const closeBtn = modalHeader.querySelector('#closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) document.body.removeChild(overlay);
+        });
+    }
+
+    // Botão voltar à página inicial
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Inicialização
+    renderizarContos();
+    setupVoltarButton();
+</script>
+</body>
+</html>

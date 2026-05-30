@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Contos com Charadas - Enigmas e Diversão</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f5;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #c5d5e0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c5f8a 0%, #1a3f5c 100%);
+            padding: 2rem 1.8rem;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 i {
+            color: #ffd966;
+            margin-right: 10px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: #e8f0f5;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #c5d5e0;
+            font-size: 0.8rem;
+            color: #2c5f8a;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-left i {
+            color: #2c5f8a;
+        }
+
+        .btn-voltar {
+            background: #2c5f8a;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            background: #1a3f5c;
+            transform: scale(1.02);
+        }
+
+        .biblioteca-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c5f8a;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #d4e2ec;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #ffa500;
+            font-size: 1.2rem;
+        }
+
+        /* CONTOS - ACORDEON */
+        .conto-item {
+            background: #ffffff;
+            border: 1px solid #d4e2ec;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .conto-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            background: #ffffff;
+            transition: background 0.2s;
+        }
+
+        .conto-header:hover {
+            background: #f5f9fc;
+        }
+
+        .conto-info {
+            flex: 1;
+        }
+
+        .conto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a3f5c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .conto-titulo i {
+            color: #ffa500;
+            font-size: 1rem;
+            width: 24px;
+        }
+
+        .badge-charada {
+            background: #fff3e0;
+            color: #c77000;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .expand-icon {
+            color: #2c5f8a;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            width: 30px;
+            text-align: center;
+        }
+
+        .conto-detalhes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fafeff;
+            border-top: 1px solid transparent;
+        }
+
+        .conto-item.expanded .conto-detalhes {
+            max-height: 600px;
+            transition: max-height 0.4s ease-in;
+            border-top-color: #d4e2ec;
+        }
+
+        .conto-item.expanded .expand-icon i {
+            transform: rotate(180deg);
+        }
+
+        .detalhes-content {
+            padding: 1rem 1.2rem 1.2rem 1.8rem;
+        }
+
+        .resumo-texto {
+            font-size: 0.85rem;
+            color: #4a627a;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            background: #f0f6fa;
+            padding: 0.8rem;
+            border-radius: 16px;
+            font-family: 'Georgia', serif;
+        }
+
+        .charada-box {
+            background: #fff8e8;
+            border-left: 4px solid #ffa500;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            border-radius: 12px;
+            font-style: italic;
+        }
+
+        .charada-box strong {
+            color: #c77000;
+        }
+
+        .resposta-box {
+            background: #e8f0f5;
+            padding: 0.6rem 0.8rem;
+            margin-top: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .resposta-box:hover {
+            background: #d4e2ec;
+        }
+
+        .resposta-oculta {
+            display: none;
+            margin-top: 0.5rem;
+            color: #2c5f8a;
+            font-weight: 500;
+        }
+
+        .resposta-oculta.visivel {
+            display: block;
+        }
+
+        .btn-acessar {
+            background: #2c5f8a;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .btn-acessar:hover {
+            background: #1a3f5c;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #d4e2ec;
+            font-size: 0.7rem;
+            color: #6b8a9e;
+            background: white;
+        }
+
+        .info-msg {
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.6rem;
+            background: #f0f6fa;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #2c5f8a;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .header h1 { font-size: 1.4rem; }
+            .conto-header { flex-wrap: wrap; }
+            .detalhes-content { padding-left: 0.8rem; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+            .btn-voltar { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-solid fa-question-circle"></i> Contos com Charadas</h1>
+        <p>Histórias cheias de enigmas e mistérios — leia o conto, tente adivinhar a charada e depois revele a resposta!</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-lightbulb"></i> Enigmas divertidos</span>
+            <span><i class="fa-solid fa-puzzle-piece"></i> Clique no título para expandir</span>
+            <span><i class="fa-regular fa-eye"></i> Passe o mouse ou clique para ver a resposta</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Voltar à página inicial
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-brain"></i>
+            <span>📖 Meus contos com charadas</span>
+        </div>
+
+        <div id="contosContainer">
+            <!-- Os contos serão inseridos dinamicamente -->
+        </div>
+        <div class="info-msg">
+            <i class="fa-regular fa-message"></i> Clique em qualquer conto para ver o resumo e as charadas. Clique na caixa da resposta para revelar!
+        </div>
+    </div>
+    <div class="footer">
+        <p>🧠 Contos com Charadas — Cada história tem um enigma para você pensar antes de ver a resposta. Divirta-se!</p>
+    </div>
+</div>
+
+<script>
+    // ==================== CONTOS COM CHARADAS ====================
+    const contos = [
+        {
+            id: 1,
+            titulo: "O Enigma da Floresta Encantada",
+            personagens: "Lia, o Sábio Coruja",
+            resumo: "Lia precisava atravessar a floresta encantada, mas um guardião só a deixaria passar se ela decifrasse uma charada: 'O que é que quanto mais se tira, maior fica?'",
+            charada: "O que é que quanto mais se tira, maior fica?",
+            resposta: "Um buraco.",
+            textoCompleto: "Lia caminhava pela Floresta Encantada quando encontrou um velho portal guardado por uma coruja falante. 'Para passar, responda: O que é que quanto mais se tira, maior fica?', perguntou a coruja. Lia pensou, pensou... e sorriu: 'Um buraco!' A coruja abriu as asas e o portal se abriu. Lia entrou e descobriu um mundo cheio de outras charadas para desvendar."
+        },
+        {
+            id: 2,
+            titulo: "O Mistério da Casa Assombrada",
+            personagens: "Tom, Júlia, o Fantasma",
+            resumo: "Tom e Júlia entraram em uma casa abandonada e encontraram um fantasma que adorava enigmas. 'O que sempre vai para a cama com os sapatos nos pés?', perguntou o fantasma.",
+            charada: "O que sempre vai para a cama com os sapatos nos pés?",
+            resposta: "O cavalo.",
+            textoCompleto: "Na noite de Halloween, Tom e Júlia exploraram a casa velha do fim da rua. De repente, um fantasma simpático apareceu: 'Só saio daqui se vocês acertarem minha charada: O que sempre vai para a cama com os sapatos nos pés?' Júlia pensou em tudo: gente, bichos... e gritou: 'O cavalo!' O fantasma riu e desapareceu, deixando um baú cheio de doces."
+        },
+        {
+            id: 3,
+            titulo: "O Feitiço da Palavra Errada",
+            personagens: "Mestre Roldão, Aprendiz Leo",
+            resumo: "O mago Roldão lançou um feitiço que só podia ser quebrado com a resposta certa: 'Qual é a palavra que todos pronunciam errado?'",
+            charada: "Qual é a palavra que todos pronunciam errado?",
+            resposta: "A palavra 'errado'.",
+            textoCompleto: "O aprendiz Leo queria se tornar um grande mago, mas o Mestre Roldão o desafiou: 'Decifre este enigma e ganhará seu cajado: Qual é a palavra que todos pronunciam errado?' Leo ficou horas pensando, até que sorriu: 'A palavra 'errado'! Porque ninguém diz 'errado' de forma certa? Na verdade, todo mundo diz 'errado' e está pronunciando a palavra certa... O enigma está no trocadilho!' Roldão ficou orgulhoso e deu o cajado a ele."
+        },
+        {
+            id: 4,
+            titulo: "O Tesouro do Pirata Sem-Perna",
+            personagens: "Capitão Barba Rija, Marinheiro João",
+            resumo: "Um pirata deixou um mapa do tesouro com uma charada: 'O que tem chave mas não abre fechadura?'",
+            charada: "O que tem chave mas não abre fechadura?",
+            resposta: "Um piano (teclas/chave musical).",
+            textoCompleto: "O Marinheiro João encontrou um mapa antigo na praia. No centro, uma mensagem: 'Para achar o tesouro, responda: O que tem chave mas não abre fechadura?' João coçou a cabeça. 'Chave de casa? Não... Chave de fenda? Também não.' Ele lembrou que o velho pirata tocava piano. 'Piano! Tem teclas (chaves musicais) mas não abre fechadura!' No local indicado, encontrou um baú com moedas de chocolate."
+        },
+        {
+            id: 5,
+            titulo: "O Desafio da Esfinge Moderna",
+            personagens: "Alice, Esfinge Digital",
+            resumo: "Uma esfinge robótica guardava um portal interdimensional. 'Qual coisa quanto mais você tem, menos ela é vista?', perguntou.",
+            charada: "Qual coisa quanto mais você tem, menos ela é vista?",
+            resposta: "A escuridão (ou trevas). Quanto mais escuro, menos se enxerga.",
+            textoCompleto: "Alice entrou num museu de tecnologia e uma esfinge robótica falou: 'Responda e passará: Qual coisa quanto mais você tem, menos ela é vista?' Alice pensou: 'Luz? Não, quanto mais luz, mais se vê. Escuridão! Sim, quanto mais escuro, menos se enxerga!' A esfinge sorriu e liberou a passagem para uma sala cheia de invenções incríveis."
+        },
+        {
+            id: 6,
+            titulo: "O Segredo do Relógio Quebrado",
+            personagens: "Pedro, Relojoeiro",
+            resumo: "Um relojoeiro misterioso disse: 'O que pode viajar o mundo inteiro sem sair do canto?'",
+            charada: "O que pode viajar o mundo inteiro sem sair do canto?",
+            resposta: "Um selo (de carta).",
+            textoCompleto: "Pedro levou um relógio antigo para consertar. O relojoeiro, um velho sábio, disse: 'Se acertar minha charada, conserto de graça: O que pode viajar o mundo inteiro sem sair do canto?' Pedro pensou em mapas, carros... 'Um selo! Colado numa carta, viaja o mundo sem sair do envelope!' O velho riu e consertou o relógio na hora."
+        }
+    ];
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Renderizar todos os contos com charadas
+    function renderizarContos() {
+        const container = document.getElementById('contosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        contos.forEach(conto => {
+            const contoDiv = document.createElement('div');
+            contoDiv.className = 'conto-item';
+            contoDiv.dataset.id = conto.id;
+
+            // Header clicável
+            const header = document.createElement('div');
+            header.className = 'conto-header';
+            header.innerHTML = `
+                <div class="conto-info">
+                    <div class="conto-titulo">
+                        <i class="fa-regular fa-newspaper"></i> ${escapeHTML(conto.titulo)}
+                        <span class="badge-charada"><i class="fa-solid fa-question"></i> ${escapeHTML(conto.personagens)}</span>
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            // Área de detalhes (expansível com resumo e charada interativa)
+            const detalhesDiv = document.createElement('div');
+            detalhesDiv.className = 'conto-detalhes';
+            
+            // Criar elemento de resposta clicável
+            const respostaId = `resposta-${conto.id}`;
+            
+            detalhesDiv.innerHTML = `
+                <div class="detalhes-content">
+                    <div class="resumo-texto">
+                        <i class="fa-regular fa-message" style="margin-right:6px; color:#ffa500;"></i> 
+                        ${escapeHTML(conto.resumo).replace(/\n/g, '<br>')}
+                    </div>
+                    <div class="charada-box">
+                        <strong><i class="fa-solid fa-circle-question"></i> Charada:</strong><br>
+                        "${escapeHTML(conto.charada)}"
+                    </div>
+                    <div class="resposta-box" data-resposta-id="${respostaId}">
+                        <i class="fa-regular fa-eye"></i> <strong>Clique para ver a resposta</strong>
+                    </div>
+                    <div id="${respostaId}" class="resposta-oculta">
+                        <i class="fa-regular fa-lightbulb"></i> <strong>Resposta:</strong> ${escapeHTML(conto.resposta)}
+                    </div>
+                    <button class="btn-acessar" data-id="${conto.id}">
+                        <i class="fa-solid fa-book-open"></i> Ler conto completo
+                    </button>
+                </div>
+            `;
+
+            contoDiv.appendChild(header);
+            contoDiv.appendChild(detalhesDiv);
+            container.appendChild(contoDiv);
+
+            // Evento toggle expandir/recolher
+            header.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-acessar') || e.target.closest('.resposta-box')) return;
+                contoDiv.classList.toggle('expanded');
+            });
+
+            // Evento para revelar resposta
+            const respostaBox = detalhesDiv.querySelector('.resposta-box');
+            const respostaElement = detalhesDiv.querySelector(`#${respostaId}`);
+            respostaBox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                respostaElement.classList.toggle('visivel');
+                if (respostaElement.classList.contains('visivel')) {
+                    respostaBox.innerHTML = '<i class="fa-regular fa-eye-slash"></i> <strong>Clique para esconder a resposta</strong>';
+                } else {
+                    respostaBox.innerHTML = '<i class="fa-regular fa-eye"></i> <strong>Clique para ver a resposta</strong>';
+                }
+            });
+
+            // Evento do botão "Ler conto completo"
+            const btnAcessar = detalhesDiv.querySelector('.btn-acessar');
+            btnAcessar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contoId = parseInt(btnAcessar.dataset.id);
+                const contoSelecionado = contos.find(c => c.id === contoId);
+                if (contoSelecionado && contoSelecionado.textoCompleto) {
+                    exibirContoCompleto(contoSelecionado.titulo, contoSelecionado.textoCompleto, contoSelecionado.charada, contoSelecionado.resposta);
+                } else {
+                    alert("Conteúdo completo ainda não disponível para este conto.");
+                }
+            });
+        });
+    }
+
+    // Função para exibir o conto completo em um modal
+    function exibirContoCompleto(titulo, textoCompleto, charada, resposta) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2000';
+        overlay.style.padding = '1rem';
+        overlay.style.backdropFilter = 'blur(3px)';
+
+        const modalCard = document.createElement('div');
+        modalCard.style.maxWidth = '700px';
+        modalCard.style.width = '100%';
+        modalCard.style.maxHeight = '85vh';
+        modalCard.style.backgroundColor = 'white';
+        modalCard.style.borderRadius = '28px';
+        modalCard.style.overflow = 'hidden';
+        modalCard.style.display = 'flex';
+        modalCard.style.flexDirection = 'column';
+        modalCard.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+        modalCard.style.fontFamily = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+        const modalHeader = document.createElement('div');
+        modalHeader.style.background = 'linear-gradient(135deg, #2c5f8a 0%, #1a3f5c 100%)';
+        modalHeader.style.color = 'white';
+        modalHeader.style.padding = '1.2rem 1.5rem';
+        modalHeader.style.display = 'flex';
+        modalHeader.style.justifyContent = 'space-between';
+        modalHeader.style.alignItems = 'center';
+        modalHeader.innerHTML = `
+            <h2 style="font-size:1.2rem; margin:0; display:flex; gap:8px;"><i class="fa-solid fa-question-circle"></i> ${escapeHTML(titulo)}</h2>
+            <button id="closeModalBtn" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        `;
+
+        const modalBody = document.createElement('div');
+        modalBody.style.padding = '1.5rem';
+        modalBody.style.overflowY = 'auto';
+        modalBody.style.flex = '1';
+        modalBody.style.fontFamily = 'Georgia, serif';
+        modalBody.style.fontSize = '0.95rem';
+        modalBody.style.lineHeight = '1.7';
+        modalBody.style.color = '#2c3e2f';
+        modalBody.style.textAlign = 'justify';
+        
+        // Adiciona charada e resposta dentro do modal também
+        modalBody.innerHTML = `
+            <div style="background:#fff8e8; padding:0.8rem; border-radius:16px; margin-bottom:1rem; border-left:4px solid #ffa500;">
+                <strong><i class="fa-solid fa-circle-question"></i> Charada do conto:</strong><br>
+                "${escapeHTML(charada)}"
+                <div style="margin-top:0.5rem;">
+                    <strong><i class="fa-regular fa-lightbulb"></i> Resposta:</strong> <span style="color:#c77000;">${escapeHTML(resposta)}</span>
+                </div>
+            </div>
+            <div>${escapeHTML(textoCompleto).replace(/\n/g, '<br><br>')}</div>
+        `;
+
+        const modalFooter = document.createElement('div');
+        modalFooter.style.padding = '0.8rem 1.5rem';
+        modalFooter.style.borderTop = '1px solid #d4e2ec';
+        modalFooter.style.fontSize = '0.7rem';
+        modalFooter.style.color = '#6b8a9e';
+        modalFooter.style.textAlign = 'center';
+        modalFooter.innerHTML = '📖 Leia em voz alta com o recurso do seu navegador (menu → "Ler em voz alta")';
+
+        modalCard.appendChild(modalHeader);
+        modalCard.appendChild(modalBody);
+        modalCard.appendChild(modalFooter);
+        overlay.appendChild(modalCard);
+        document.body.appendChild(overlay);
+
+        const closeBtn = modalHeader.querySelector('#closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) document.body.removeChild(overlay);
+        });
+    }
+
+    // Botão voltar à página inicial
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Inicialização
+    renderizarContos();
+    setupVoltarButton();
+</script>
+</body>
+</html>

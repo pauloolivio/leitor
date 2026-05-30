@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>English Stories - Classic Tales for Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e0f2fe;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #b8e0ff;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            padding: 2rem 1.8rem;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 i {
+            color: #fbbf24;
+            margin-right: 10px;
+            text-shadow: 2px 2px 0 #0369a1;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: #f0f9ff;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #b8e0ff;
+            font-size: 0.8rem;
+            color: #0369a1;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-left i {
+            color: #0284c7;
+        }
+
+        .btn-voltar {
+            background: #2c3e2f;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            background: #1f2c21;
+            transform: scale(1.02);
+        }
+
+        .biblioteca-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0369a1;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #b8e0ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #0284c7;
+            font-size: 1.2rem;
+        }
+
+        /* CONTOS - ACORDEON */
+        .conto-item {
+            background: #fefef8;
+            border: 1px solid #b8e0ff;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .conto-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            background: #fefef8;
+            transition: background 0.2s;
+        }
+
+        .conto-header:hover {
+            background: #f0f9ff;
+        }
+
+        .conto-info {
+            flex: 1;
+        }
+
+        .conto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #075985;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .conto-titulo i {
+            color: #0284c7;
+            font-size: 1rem;
+            width: 24px;
+        }
+
+        .personagem-badge {
+            background: #e0f2fe;
+            color: #0284c7;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .level-badge {
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .expand-icon {
+            color: #0284c7;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            width: 30px;
+            text-align: center;
+        }
+
+        .conto-detalhes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fffefa;
+            border-top: 1px solid transparent;
+        }
+
+        .conto-item.expanded .conto-detalhes {
+            max-height: 600px;
+            transition: max-height 0.4s ease-in;
+            border-top-color: #b8e0ff;
+        }
+
+        .conto-item.expanded .expand-icon i {
+            transform: rotate(180deg);
+        }
+
+        .detalhes-content {
+            padding: 1rem 1.2rem 1.2rem 1.8rem;
+        }
+
+        .resumo-texto {
+            font-size: 0.85rem;
+            color: #2c5a6e;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            padding: 0.8rem;
+            border-radius: 16px;
+            font-family: 'Georgia', serif;
+        }
+
+        .resumo-texto i {
+            color: #0284c7;
+        }
+
+        .vocabulary-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            border-radius: 12px;
+        }
+
+        .vocabulary-box h4 {
+            font-size: 0.8rem;
+            color: #0369a1;
+            margin-bottom: 0.5rem;
+        }
+
+        .vocabulary-box ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            list-style: none;
+        }
+
+        .vocabulary-box li {
+            font-size: 0.75rem;
+            background: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            color: #0284c7;
+            font-weight: 500;
+        }
+
+        .btn-acessar {
+            background: #0284c7;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.2rem;
+        }
+
+        .btn-acessar:hover {
+            background: #0369a1;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #b8e0ff;
+            font-size: 0.7rem;
+            color: #5a9bc0;
+            background: white;
+        }
+
+        .info-msg {
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.6rem;
+            background: #f0f9ff;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #0284c7;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .header h1 { font-size: 1.4rem; }
+            .conto-header { flex-wrap: wrap; }
+            .detalhes-content { padding-left: 0.8rem; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+            .btn-voltar { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-regular fa-flag"></i> English Stories</h1>
+        <p>Classic tales in English — improve your reading skills with these timeless stories. Each story includes vocabulary support!</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-bookmark"></i> My English Library</span>
+            <span><i class="fa-solid fa-language"></i> Classic Stories in English</span>
+            <span><i class="fa-regular fa-clock"></i> Click title to expand</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Back to home
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-book-open"></i>
+            <span>📖 Stories I've Read</span>
+        </div>
+
+        <div id="contosContainer">
+            <!-- Stories will be inserted dynamically -->
+        </div>
+        <div class="info-msg">
+            <i class="fa-regular fa-lightbulb"></i> Click on any story to see the summary and key vocabulary. Then use the "Read full story" button to read the complete text in English.
+        </div>
+    </div>
+    <div class="footer">
+        <p>📚 Learn English through stories — Each story includes vocabulary support to help you understand and learn new words.</p>
+    </div>
+</div>
+
+<script>
+    // ==================== ENGLISH STORIES ====================
+    const contos = [
+        {
+            id: 1,
+            titulo: "The Tortoise and the Hare",
+            personagens: "Tortoise, Hare, Forest Animals",
+            level: "Beginner",
+            vocabulary: ["proud", "steady", "confident", "nap", "victory"],
+            resumo: "A hare boasts about how fast he can run and makes fun of the slow tortoise. The tortoise, tired of the hare's arrogance, challenges him to a race. The hare, confident in his speed, takes a nap during the race. Meanwhile, the tortoise continues slowly but steadily. When the hare wakes up, he sees the tortoise crossing the finish line. The story teaches that slow and steady wins the race.",
+            textoCompleto: "Once upon a time, in a peaceful forest, there lived a very proud hare. The hare was always boasting about how fast he could run. 'No one is faster than me!' he would say to anyone who would listen. One day, the hare saw the tortoise walking slowly. 'Look at you, tortoise! You are so slow. It takes you forever to get anywhere!' said the hare, laughing. The tortoise, tired of the hare's arrogance, replied calmly, 'You may be fast, but I challenge you to a race.' The hare thought this was very funny. 'A race? With you? This will be easy!' The other forest animals gathered to watch. The fox was the judge. 'Ready, set, go!' The hare ran very fast and quickly disappeared ahead. After a few minutes, the hare looked back and could not see the tortoise. 'This is too easy. I have time to rest,' said the hare. He found a shady tree and decided to take a short nap. Meanwhile, the tortoise continued walking. He did not stop. He did not give up. Step by step, he kept moving forward. The hare slept for a long time. When he finally woke up, the sun was low in the sky. He ran to the finish line as fast as he could. But when he arrived, the tortoise was already there, resting. The forest animals cheered for the tortoise. The hare could not believe it. 'How did you win?' asked the hare. The tortoise smiled and said, 'You are faster, but I never gave up. Slow and steady wins the race.' The hare learned an important lesson that day: never underestimate others, and consistency is more important than speed."
+        },
+        {
+            id: 2,
+            titulo: "The Boy Who Cried Wolf",
+            personagens: "Shepherd Boy, Villagers, Wolf",
+            level: "Beginner",
+            vocabulary: ["bored", "trick", "alert", "ignore", "consequences"],
+            resumo: "A young shepherd boy watches the village sheep. Feeling bored, he plays a trick on the villagers by shouting 'Wolf! Wolf!' even though there is no wolf. The villagers rush to help him, but they find nothing. He does this twice. Later, when a real wolf appears, the boy cries for help, but no one believes him. The wolf eats the sheep, teaching the boy that liars are not believed even when they tell the truth.",
+            textoCompleto: "A young shepherd boy lived in a small village. His job was to watch the sheep on the hill near the forest. Every day, he sat alone while the sheep ate grass. The boy was very bored. One day, he decided to play a trick. He ran down to the village and shouted as loud as he could, 'Wolf! Wolf! A wolf is attacking the sheep!' The villagers heard his cries and ran up the hill to help him. They carried sticks and tools to chase the wolf away. But when they arrived, there was no wolf. The boy laughed and laughed. 'You fools! There is no wolf! I tricked you!' The villagers were angry. 'Do not cry wolf if there is no wolf,' they warned him. A few days later, the boy was bored again. He shouted, 'Wolf! Wolf! Please help me!' The villagers came running again. But again, there was no wolf. The boy laughed once more. The villagers were very angry. 'If you cry wolf again, we will not help you,' they said. The next day, a real wolf came. The wolf was big and hungry. The boy was terrified. He ran down the hill and screamed, 'Wolf! Wolf! Please, help! A real wolf is here!' The villagers heard him, but they thought it was another trick. 'He is lying again,' they said. No one came to help. The wolf ate all the sheep. The boy learned a very important lesson: if you tell lies, people will not believe you even when you tell the truth."
+        },
+        {
+            id: 3,
+            titulo: "The Lion and the Mouse",
+            personagens: "Lion, Mouse",
+            level: "Beginner",
+            vocabulary: ["spare", "favor", "grateful", "trapped", "rescue"],
+            resumo: "A tiny mouse accidentally wakes up a sleeping lion. The lion catches the mouse and is about to eat him. The mouse begs for his life and promises to help the lion one day. The lion laughs at the idea but lets the mouse go. Later, the lion is caught in a hunter's net. The mouse hears his roars and comes to help. The mouse gnaws through the ropes and frees the lion. Even the smallest friend can be a great help.",
+            textoCompleto: "One sunny day, a mighty lion was sleeping in the jungle. His mane was big and his body was strong. A tiny mouse was running through the jungle and did not see the lion. The mouse ran right over the lion's nose! The lion woke up with a loud roar. He grabbed the mouse with his big paw. 'How dare you wake me up! I will eat you!' said the lion. The mouse was very scared. 'Please, great lion, do not eat me! Spare my life, and one day I will help you,' said the mouse. The lion laughed and laughed. 'You? Help me? You are so small! How could you ever help me?' But the lion was not hungry, so he let the mouse go. 'Thank you, lion! You will not regret this,' said the mouse as he ran away. A few weeks later, the lion was walking through the jungle when he fell into a trap. Hunters had placed a large net on the ground. The lion was trapped and could not escape. He roared as loud as he could. 'Help! Help! Someone help me!' The mouse heard the lion's roars. He ran as fast as his little legs could carry him. When he saw the lion in the net, he said, 'Do not worry, lion. I will help you.' The mouse began to gnaw on the ropes with his sharp teeth. He gnawed and gnawed until one rope broke. Then another. And another. Finally, the lion was free. The lion was very grateful. 'Thank you, little mouse. You were so small, but you saved my life. I was wrong to laugh at you,' said the lion. The mouse smiled and said, 'Even the smallest friend can be a great friend.' The lion and the mouse became the best of friends."
+        },
+        {
+            id: 4,
+            titulo: "The Ant and the Grasshopper",
+            personagens: "Ant, Grasshopper",
+            level: "Beginner",
+            vocabulary: ["prepare", "idle", "starve", "colony", "store"],
+            resumo: "During summer, an ant works hard every day gathering food for winter. A grasshopper watches her and laughs, spending his days singing and playing. When winter arrives, the ant has plenty of food in her colony. The grasshopper has nothing to eat and is starving. He asks the ant for food, but she reminds him of his laziness. The story teaches that it's important to prepare for the future.",
+            textoCompleto: "On a warm summer day, an ant was busy working. She was carrying grains of wheat to her colony. She walked back and forth, back and forth, all day long. A grasshopper was sitting on a leaf, singing and playing his fiddle. He watched the ant and laughed. 'Why are you working so hard, ant? It is summer! Come and play with me,' said the grasshopper. The ant stopped for a moment and said, 'I am preparing for winter. Winter is very cold, and there is no food. I must store food now so my colony can eat.' The grasshopper laughed again. 'Winter is far away! Why worry about it now? You should enjoy life like me.' The ant continued working. The grasshopper continued playing every day. Summer passed, and autumn came. The days became colder. Finally, winter arrived. There was snow everywhere. The grasshopper had no food. He was very hungry and very cold. He went to the ant's colony. 'Please, ant, can you give me some food? I am starving,' said the grasshopper. The ant looked at him. 'What did you do all summer?' she asked. 'I sang and played,' said the grasshopper. The ant replied, 'While you were singing and playing, I was working. I prepared for winter. You did not. Now you must face the consequences.' The grasshopper learned his lesson: it is important to work hard and prepare for the future."
+        },
+        {
+            id: 5,
+            titulo: "The Fox and the Grapes",
+            personagens: "Fox, Grape Vine",
+            level: "Beginner",
+            vocabulary: ["juicy", "leap", "sour", "disappointment", "justify"],
+            resumo: "A hungry fox sees a bunch of juicy grapes hanging from a high vine. He tries many times to reach the grapes. He jumps and leaps, but the grapes are too high. After many attempts, he gives up. As he walks away, he says, 'Those grapes are probably sour anyway.' This story gives us the phrase 'sour grapes,' which means pretending not to want something because you cannot have it.",
+            textoCompleto: "One hot afternoon, a hungry fox was walking through a vineyard. He had been looking for food all day but had found nothing. He was very hungry. Then, he saw something wonderful. A bunch of big, purple, juicy grapes was hanging from a high vine. The grapes looked delicious. 'Oh, those grapes look so good! I must have them!' said the fox. The fox tried to reach the grapes. He stood on his back legs and stretched his paws as high as he could. But the grapes were too high. He could not reach them. The fox decided to try jumping. He took a few steps back, ran forward, and leaped into the air. He almost reached the grapes, but not quite. He tried again. And again. And again. Each time, he jumped higher and higher. But the grapes were always just out of reach. The fox was tired and frustrated. He sat down and looked at the grapes. Finally, he stood up and said, 'Those grapes are probably sour. They would not taste good anyway.' Then he walked away. A bird who had seen everything said, 'You only say the grapes are sour because you cannot reach them.' And that is where the expression 'sour grapes' comes from. It means pretending not to want something just because you cannot have it."
+        }
+    ];
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Renderizar todos os contos
+    function renderizarContos() {
+        const container = document.getElementById('contosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        contos.forEach(conto => {
+            const contoDiv = document.createElement('div');
+            contoDiv.className = 'conto-item';
+            contoDiv.dataset.id = conto.id;
+
+            const header = document.createElement('div');
+            header.className = 'conto-header';
+            header.innerHTML = `
+                <div class="conto-info">
+                    <div class="conto-titulo">
+                        <i class="fa-regular fa-star"></i> ${escapeHTML(conto.titulo)}
+                        <span class="personagem-badge"><i class="fa-regular fa-user"></i> ${escapeHTML(conto.personagens)}</span>
+                        <span class="level-badge"><i class="fa-regular fa-flag"></i> ${escapeHTML(conto.level)}</span>
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            // Vocabulary HTML
+            const vocabHTML = `
+                <div class="vocabulary-box">
+                    <h4><i class="fa-regular fa-book"></i> Key Vocabulary:</h4>
+                    <ul>
+                        ${conto.vocabulary.map(word => `<li>${escapeHTML(word)}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const detalhesDiv = document.createElement('div');
+            detalhesDiv.className = 'conto-detalhes';
+            detalhesDiv.innerHTML = `
+                <div class="detalhes-content">
+                    <div class="resumo-texto">
+                        <i class="fa-regular fa-message"></i> 
+                        ${escapeHTML(conto.resumo).replace(/\n/g, '<br>')}
+                    </div>
+                    ${vocabHTML}
+                    <button class="btn-acessar" data-id="${conto.id}">
+                        <i class="fa-solid fa-book-open"></i> Read full story
+                    </button>
+                </div>
+            `;
+
+            contoDiv.appendChild(header);
+            contoDiv.appendChild(detalhesDiv);
+            container.appendChild(contoDiv);
+
+            header.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-acessar')) return;
+                contoDiv.classList.toggle('expanded');
+            });
+
+            const btnAcessar = detalhesDiv.querySelector('.btn-acessar');
+            btnAcessar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contoId = parseInt(btnAcessar.dataset.id);
+                const contoSelecionado = contos.find(c => c.id === contoId);
+                if (contoSelecionado && contoSelecionado.textoCompleto) {
+                    exibirContoCompleto(contoSelecionado.titulo, contoSelecionado.textoCompleto);
+                } else {
+                    alert("Full story content is not yet available for this tale.");
+                }
+            });
+        });
+    }
+
+    // Função para exibir o conto completo em um modal
+    function exibirContoCompleto(titulo, textoCompleto) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2000';
+        overlay.style.padding = '1rem';
+        overlay.style.backdropFilter = 'blur(3px)';
+
+        const modalCard = document.createElement('div');
+        modalCard.style.maxWidth = '700px';
+        modalCard.style.width = '100%';
+        modalCard.style.maxHeight = '85vh';
+        modalCard.style.backgroundColor = 'white';
+        modalCard.style.borderRadius = '28px';
+        modalCard.style.overflow = 'hidden';
+        modalCard.style.display = 'flex';
+        modalCard.style.flexDirection = 'column';
+        modalCard.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+        modalCard.style.fontFamily = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+        const modalHeader = document.createElement('div');
+        modalHeader.style.background = 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)';
+        modalHeader.style.color = 'white';
+        modalHeader.style.padding = '1.2rem 1.5rem';
+        modalHeader.style.display = 'flex';
+        modalHeader.style.justifyContent = 'space-between';
+        modalHeader.style.alignItems = 'center';
+        modalHeader.innerHTML = `
+            <h2 style="font-size:1.2rem; margin:0; display:flex; gap:8px;"><i class="fa-regular fa-flag"></i> ${escapeHTML(titulo)}</h2>
+            <button id="closeModalBtn" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        `;
+
+        const modalBody = document.createElement('div');
+        modalBody.style.padding = '1.5rem';
+        modalBody.style.overflowY = 'auto';
+        modalBody.style.flex = '1';
+        modalBody.style.fontFamily = 'Georgia, serif';
+        modalBody.style.fontSize = '1rem';
+        modalBody.style.lineHeight = '1.7';
+        modalBody.style.color = '#2c3e2f';
+        modalBody.style.textAlign = 'justify';
+        modalBody.innerHTML = escapeHTML(textoCompleto).replace(/\n/g, '<br><br>');
+
+        const modalFooter = document.createElement('div');
+        modalFooter.style.padding = '0.8rem 1.5rem';
+        modalFooter.style.borderTop = '1px solid #b8e0ff';
+        modalFooter.style.fontSize = '0.7rem';
+        modalFooter.style.color = '#5a9bc0';
+        modalFooter.style.textAlign = 'center';
+        modalFooter.innerHTML = '📖 Use your browser\'s text-to-speech feature (menu → "Read aloud") to practice pronunciation';
+
+        modalCard.appendChild(modalHeader);
+        modalCard.appendChild(modalBody);
+        modalCard.appendChild(modalFooter);
+        overlay.appendChild(modalCard);
+        document.body.appendChild(overlay);
+
+        const closeBtn = modalHeader.querySelector('#closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) document.body.removeChild(overlay);
+        });
+    }
+
+    // Botão voltar à página inicial
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Inicialização
+    renderizarContos();
+    setupVoltarButton();
+</script>
+</body>
+</html>

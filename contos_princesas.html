@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Contos de Princesas - Reino Encantado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fef0f5;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #f8d0e0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d63384 0%, #a02060 100%);
+            padding: 2rem 1.8rem;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 i {
+            color: #ffd700;
+            margin-right: 10px;
+            text-shadow: 2px 2px 0 #a02060;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: #fff5f8;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f8d0e0;
+            font-size: 0.8rem;
+            color: #a03060;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-left i {
+            color: #d63384;
+        }
+
+        .btn-voltar {
+            background: #6b3a5a;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            background: #4a2a3e;
+            transform: scale(1.02);
+        }
+
+        .biblioteca-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #a03060;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f8d0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #d63384;
+            font-size: 1.2rem;
+        }
+
+        /* CONTOS - ACORDEON */
+        .conto-item {
+            background: #fffef9;
+            border: 1px solid #f8d0e0;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .conto-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            background: #fffef9;
+            transition: background 0.2s;
+        }
+
+        .conto-header:hover {
+            background: #fff5f8;
+        }
+
+        .conto-info {
+            flex: 1;
+        }
+
+        .conto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #8b2a5e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .conto-titulo i {
+            color: #d63384;
+            font-size: 1rem;
+            width: 24px;
+        }
+
+        .personagem-badge {
+            background: #ffe0ec;
+            color: #d63384;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .expand-icon {
+            color: #d63384;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            width: 30px;
+            text-align: center;
+        }
+
+        .conto-detalhes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fffef9;
+            border-top: 1px solid transparent;
+        }
+
+        .conto-item.expanded .conto-detalhes {
+            max-height: 500px;
+            transition: max-height 0.4s ease-in;
+            border-top-color: #f8d0e0;
+        }
+
+        .conto-item.expanded .expand-icon i {
+            transform: rotate(180deg);
+        }
+
+        .detalhes-content {
+            padding: 1rem 1.2rem 1.2rem 1.8rem;
+        }
+
+        .resumo-texto {
+            font-size: 0.85rem;
+            color: #7a4a60;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            background: #fffafc;
+            padding: 0.8rem;
+            border-radius: 16px;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn-acessar {
+            background: #d63384;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.2rem;
+        }
+
+        .btn-acessar:hover {
+            background: #a02060;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #f8d0e0;
+            font-size: 0.7rem;
+            color: #c07090;
+            background: white;
+        }
+
+        .info-msg {
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.6rem;
+            background: #fff5f8;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #d63384;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .header h1 { font-size: 1.4rem; }
+            .conto-header { flex-wrap: wrap; }
+            .detalhes-content { padding-left: 0.8rem; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+            .btn-voltar { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-regular fa-gem"></i> Contos de Princesas</h1>
+        <p>Histórias encantadoras de princesas, romance, magia e finais felizes — contos que inspiram sonhos e coragem</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-crown"></i> Reino Encantado</span>
+            <span><i class="fa-solid fa-heart"></i> Princesas, Príncipes e Finais Felizes</span>
+            <span><i class="fa-regular fa-clock"></i> Clique no título para expandir</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Voltar à página inicial
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-rings-wedding"></i>
+            <span>👑 Clássicos das Princesas</span>
+        </div>
+
+        <div id="contosContainer">
+            <!-- Os contos serão inseridos dinamicamente -->
+        </div>
+        <div class="info-msg">
+            <i class="fa-regular fa-lightbulb"></i> Clique em qualquer conto para ver o resumo. Depois use o botão "Acessar conto" para ler a história completa.
+        </div>
+    </div>
+    <div class="footer">
+        <p>✨ Histórias de princesas que encantam gerações — Cada conto possui um botão "Acessar" para ler o texto completo.</p>
+    </div>
+</div>
+
+<script>
+    // ==================== CONTOS DE PRINCESAS ====================
+    const contos = [
+        {
+            id: 1,
+            titulo: "A Bela Adormecida",
+            personagens: "Princesa Aurora, Malévola, Príncipe Felipe, Três Fadas",
+            resumo: "Uma princesa chamada Aurora é amaldiçoada pela fada malvada Malévola: ao completar 16 anos, furará o dedo em um fuso de tear e morrerá. Uma fada boa ameniza a maldição: ela não morrerá, mas cairá em um sono profundo que só poderá ser quebrado pelo beijo do verdadeiro amor. Apesar de todos os cuidados, a maldição se cumpre. Cem anos depois, um príncipe corajoso enfrenta os obstáculos da floresta encantada e desperta a princesa com um beijo de amor verdadeiro.",
+            textoCompleto: "Há muito, muito tempo, um rei e uma rainha tinham uma linda filha. Para celebrar seu nascimento, convidaram todas as fadas do reino. Cada fada ofereceu um dom: beleza, sabedoria, bondade. Porém, a fada má Malévola, não convidada, surgiu furiosa e lançou uma maldição: 'A princesa, ao completar 16 anos, furará o dedo em um fuso de tear e morrerá!'. O rei ficou desesperado, mas uma das fadas que ainda não tinha dado seu dom amenizou: 'Ela não morrerá, mas cairá em um sono profundo de cem anos, que só poderá ser quebrado pelo beijo do amor verdadeiro.' O rei ordenou que todos os fusos do reino fossem queimados. A princesa Aurora cresceu e se tornou uma bela moça. Em seu aniversário de 16 anos, enquanto explorava o castelo, encontrou uma velha senhora fiando em uma torre esquecida. A velha era Malévola disfarçada. Curiosa, Aurora tocou o fuso e furou o dedo. Imediatamente, caiu em um sono profundo. A maldição se espalhou por todo o castelo: rei, rainha, criados e até os animais adormeceram. Uma floresta de espinhos cresceu ao redor do castelo, impenetrável. Cem anos se passaram. Um príncipe chamado Felipe ouviu a lenda da princesa adormecida e decidiu resgatá-la. As três fadas boas o ajudaram, dando-lhe uma espada mágica e um escudo. Felipe enfrentou Malévola, que se transformou em um terrível dragão cuspindo fogo. Com coragem, o príncipe derrotou o dragão e atravessou a floresta de espinhos, que se abriu para ele. No topo da torre, encontrou Aurora deitada em um leito de ouro, tão bela quanto um anjo. Inclinando-se, deu-lhe um beijo. Os olhos da princesa se abriram, e ela sorriu. Todo o castelo despertou. Aurora e Felipe se casaram e viveram felizes para sempre."
+        },
+        {
+            id: 2,
+            titulo: "Cinderela",
+            personagens: "Cinderela, Príncipe, Madrasta, Irmãs Feias, Fada Madrinha",
+            resumo: "Uma jovem gentil e bondosa é maltratada pela madrasta e suas duas filhas após a morte de seu pai. Transformada em criada da própria casa, ela sonha em ir ao baile real. Com a ajuda de sua fada madrinha, ganha um vestido deslumbrante, sapatos de cristal e uma carruagem mágica. No baile, encanta o príncipe, mas precisa fugir à meia-noite quando a magia acaba. O príncipe a encontra através do sapatinho de cristal que ela perdeu, e eles se casam.",
+            textoCompleto: "Era uma vez um homem rico que perdeu sua esposa e casou-se novamente com uma mulher orgulhosa e malvada que tinha duas filhas igualmente más. Sua própria filha, porém, continuava sendo a mais doce e bondosa de todas. Por ser obrigada a dormir nas cinzas da lareira, ganhou o apelido de Cinderela. Quando o pai morreu, a madrasta tratou Cinderela como criada, dando-lhe as piores tarefas. Um dia, chegou ao reino um convite: o príncipe daria um grande baile para escolher sua noiva. Todas as moças do reino foram convidadas. Cinderela, emocionada, pediu para ir, mas a madrasta a ridicularizou e jogou um saco de lentilhas na cinza, dizendo que só iria se as separasse. Cinderela, com a ajuda dos passarinhos, conseguiu. Mesmo assim, a madrasta a proibiu de ir. Enquanto as irmãs partiam para o baile, Cinderela chorou. De repente, sua fada madrinha apareceu. Com sua varinha mágica, transformou uma abóbora em carruagem, ratos em cavalos, um lagarto em cocheiro e os trapos de Cinderela em um vestido de ouro e prata com sapatos de cristal. 'Mas você precisa voltar antes da meia-noite, pois a magia se desfará', avisou a fada. No baile, assim que Cinderela entrou, todos ficaram maravilhados. O príncipe só dançou com ela a noite inteira. Quando o relógio começou a bater meia-noite, Cinderela fugiu apressada, perdendo um dos sapatos de cristal na escadaria. O príncipe, desesperado, declarou que se casaria com a moça cujo pé coubesse no sapatinho. Todas as moças do reino tentaram, mas nenhuma conseguiu. Na casa de Cinderela, as irmãs tentaram forçar o pé, cortando os dedos e o calcanhar, mas os passarinhos denunciaram o engano. Cinderela então pediu para experimentar. O sapato serviu perfeitamente. A fada madrinha apareceu e a vestiu novamente com seu vestido. Cinderela casou-se com o príncipe, e as irmãs más, por maldade, ficaram cegas ao final da cerimônia."
+        },
+        {
+            id: 3,
+            titulo: "A Pequena Sereia",
+            personagens: "Ariel, Príncipe Eric, Bruxa do Mar, Rei Tritão",
+            resumo: "Ariel, a mais nova filha do rei dos mares, se apaixona por um príncipe humano após salvá-lo de um naufrágio. Ela faz um pacto com a bruxa do mar: troca sua bela voz por pernas humanas. Para conquistar o amor do príncipe, ela precisa que ele a beije antes do pôr do sol do terceiro dia, ou se tornará escrava da bruxa. Ariel enfrenta grandes desafios para conquistar seu verdadeiro amor.",
+            textoCompleto: "No fundo do mar, no magnífico reino de Atlântica, vivia o Rei Tritão com suas filhas, as sereias. A mais jovem e bela era Ariel, que vivia sonhando com o mundo dos humanos. Em seu aniversário de 15 anos, Ariel pôde subir à superfície pela primeira vez. Viu um navio onde se celebrava o aniversário do belo Príncipe Eric. De repente, uma terrível tempestade afundou o navio. Ariel salvou Eric de se afogar e o levou até a praia. Encantada, cantou para ele até que ele despertasse. O príncipe só viu um vulto da sereia, mas ouviu sua voz maravilhosa. Ariel, apaixonada, decidiu procurar a Bruxa do Mar, Úrsula. A bruxa propôs um pacto: daria pernas a Ariel em troca de sua bela voz. 'Você terá três dias para fazer o príncipe se apaixonar e lhe dar o beijo do amor verdadeiro. Se não conseguir, se tornará minha escrava para sempre', avisou Úrsula. Ariel aceitou. Na superfície, Eric encontrou Ariel, que não podia falar. Encantado por sua beleza, ele a levou ao castelo. Passaram dias felizes juntos, mas o beijo não vinha. No último dia, Úrsula, disfarçada de bela jovem chamada Vanessa, apareceu no castelo com a voz de Ariel. Eric, enfeitiçado, anunciou que se casaria com Vanessa. Desesperada, Ariel chorou. Suas amigas, os animais do mar, descobriram o engano e quebraram o colar mágico que guardava a voz de Ariel. A voz voltou para Ariel, e a bruxa foi exposta. O príncipe reconheceu Ariel como sua salvadora e correu para beijá-la. Porém, o sol já havia se posto. Úrsula cresceu, transformou-se em um monstro e arrastou Ariel para o mar. O Rei Tritão, para salvar a filha, ofereceu seu tridente em troca da liberdade de Ariel. Mas Eric, com um arpão, feriu mortalmente a bruxa. Com a morte de Úrsula, o pacto foi desfeito. Ariel recuperou sua voz. O Rei Tritão, vendo o verdadeiro amor entre Ariel e Eric, transformou a filha em humana de vez. Ariel e Eric se casaram e viveram felizes no castelo à beira-mar."
+        },
+        {
+            id: 4,
+            titulo: "A Princesa e a Ervilha",
+            personagens: "Princesa, Príncipe, Rainha, Rei",
+            resumo: "Um príncipe deseja casar-se com uma princesa verdadeira, mas não consegue encontrar nenhuma que seja de fato autêntica. Em uma noite tempestuosa, uma jovem bate às portas do castelo, molhada e desgrenhada, afirmando ser uma princesa. Para testá-la, a rainha coloca uma ervilha sob vinte colchões e vinte edredons. Na manhã seguinte, a moça reclama de ter dormido terrivelmente por sentir algo duro na cama. Apenas uma princesa de verdade teria a pele tão sensível. O príncipe então se casa com ela.",
+            textoCompleto: "Era uma vez um príncipe que queria se casar com uma princesa, mas uma princesa de verdade. Ele viajou o mundo inteiro à procura de uma, mas encontrou muitas falsas. Voltou para o castelo muito triste. Uma noite, caiu uma tempestade terrível. Raios cortavam o céu e a chuva caía em torrentes. De repente, bateram à porta do castelo. O rei foi abrir. Do lado de fora, estava uma jovem toda molhada, com a água escorrendo pelos cabelos e vestidos. Ela disse que era uma princesa de verdade. Veremos isso, pensou a rainha. Sem dizer uma palavra, foi até o quarto de hóspedes, tirou todos os colchões e edredons da cama e colocou uma pequena ervilha no fundo. Depois, empilhou vinte colchões e vinte edredons de penas sobre a ervilha. A moça dormiu naquela cama. Na manhã seguinte, perguntaram-lhe como havia dormido. Ah, terrivelmente mal!, respondeu a princesa. Quase não fechei os olhos a noite inteira. Havia algo duro na cama que me deixou toda roxa. Agora todos sabiam que ela era uma princesa de verdade, pois só uma princesa de verdade poderia sentir uma ervilha através de vinte colchões e vinte edredons. O príncipe casou-se com ela, e a ervilha foi enviada para um museu, onde pode ser vista até hoje, a não ser que alguém a tenha levado."
+        },
+        {
+            id: 5,
+            titulo: "Rapunzel - Uma Princesa Encantada",
+            personagens: "Rapunzel, Mãe Gothel, Príncipe Flynn",
+            resumo: "Rapunzel, uma princesa com cabelos mágicos e dourados que se estendem por mais de vinte metros, é mantida presa em uma torre alta por uma bruxa chamada Mãe Gothel, que usa seus cabelos para se manter jovem. A princesa sonha em ver as luzes flutuantes que aparecem em seu aniversário. Um dia, um ladrão chamado Flynn Rider invade a torre, e Rapunzel o faz levá-la para ver as luzes. Juntos, eles descobrem a verdade sobre o passado da princesa e enfrentam a bruxa.",
+            textoCompleto: "Há muito tempo, uma gota de sol caiu na Terra e floresceu em uma flor mágica que curava doenças e revertia o envelhecimento. Uma velha chamada Mãe Gothel a escondeu e usou seu poder por séculos. Quando a rainha do reino ficou doente durante a gravidez, o rei ordenou que encontrassem a flor. A rainha a consumiu e deu à luz uma linda princesa de cabelos dourados mágicos. Ao cortar os cabelos, eles perdiam o poder, mas enquanto cantassem, o cabelo brilhava e curava. Mãe Gothel, desesperada, sequestrou a princesa, a quem chamou de Rapunzel, e a trancou em uma torre escondida na floresta. Todos os anos, no aniversário de Rapunzel, o rei e a rainha soltavam lanternas flutuantes no céu, na esperança de que um dia ela voltasse. Rapunzel, agora com 18 anos, sonhava em ver as luzes. Em seu aniversário, um ladrão chamado Flynn Rider, fugindo dos guardas, subiu na torre. Rapunzel o surpreendeu e o amarrou com seu cabelo. Propôs um acordo: ele a levaria para ver as luzes flutuantes e, em troca, ela devolveria a coroa que ele havia roubado. Flynn aceitou. Durante a jornada, eles visitaram a taverna dos bandidos, que se revelaram admiradores secretos de Flynn, e atravessaram uma barragem perigosa. Mãe Gothel, disfarçada, tentou separá-los, mas falhou. Rapunzel e Flynn se apaixonaram. Ao ver as lanternas flutuantes, Rapunzel cantou e seus cabelos brilharam. Mãe Gothel, furiosa, capturou Flynn e o esfaqueou. Rapunzel concordou em ir com ela para sempre em troca da vida de Flynn. Porém, antes que pudesse ir, Flynn cortou os cabelos de Rapunzel com um caco de espelho. Os cabelos perderam o poder, Mãe Gothel envelheceu e se desfez em pó. Flynn caiu morto. As lágrimas de Rapunzel, que ainda continham magia, caíram em seus olhos e o trouxeram de volta à vida. Rapunzel voltou ao castelo, reencontrou seus pais verdadeiros e se casou com Flynn."
+        }
+    ];
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Renderizar todos os contos
+    function renderizarContos() {
+        const container = document.getElementById('contosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        contos.forEach(conto => {
+            const contoDiv = document.createElement('div');
+            contoDiv.className = 'conto-item';
+            contoDiv.dataset.id = conto.id;
+
+            const header = document.createElement('div');
+            header.className = 'conto-header';
+            header.innerHTML = `
+                <div class="conto-info">
+                    <div class="conto-titulo">
+                        <i class="fa-regular fa-heart"></i> ${escapeHTML(conto.titulo)}
+                        <span class="personagem-badge"><i class="fa-regular fa-user"></i> ${escapeHTML(conto.personagens)}</span>
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            const detalhesDiv = document.createElement('div');
+            detalhesDiv.className = 'conto-detalhes';
+            detalhesDiv.innerHTML = `
+                <div class="detalhes-content">
+                    <div class="resumo-texto">
+                        <i class="fa-regular fa-message" style="margin-right:6px; color:#d63384;"></i> 
+                        ${escapeHTML(conto.resumo).replace(/\n/g, '<br>')}
+                    </div>
+                    <button class="btn-acessar" data-id="${conto.id}">
+                        <i class="fa-solid fa-crown"></i> Acessar conto completo
+                    </button>
+                </div>
+            `;
+
+            contoDiv.appendChild(header);
+            contoDiv.appendChild(detalhesDiv);
+            container.appendChild(contoDiv);
+
+            header.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-acessar')) return;
+                contoDiv.classList.toggle('expanded');
+            });
+
+            const btnAcessar = detalhesDiv.querySelector('.btn-acessar');
+            btnAcessar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contoId = parseInt(btnAcessar.dataset.id);
+                const contoSelecionado = contos.find(c => c.id === contoId);
+                if (contoSelecionado && contoSelecionado.textoCompleto) {
+                    exibirContoCompleto(contoSelecionado.titulo, contoSelecionado.textoCompleto);
+                } else {
+                    alert("Conteúdo completo ainda não disponível para este conto.");
+                }
+            });
+        });
+    }
+
+    // Função para exibir o conto completo em um modal
+    function exibirContoCompleto(titulo, textoCompleto) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2000';
+        overlay.style.padding = '1rem';
+        overlay.style.backdropFilter = 'blur(3px)';
+
+        const modalCard = document.createElement('div');
+        modalCard.style.maxWidth = '700px';
+        modalCard.style.width = '100%';
+        modalCard.style.maxHeight = '85vh';
+        modalCard.style.backgroundColor = 'white';
+        modalCard.style.borderRadius = '28px';
+        modalCard.style.overflow = 'hidden';
+        modalCard.style.display = 'flex';
+        modalCard.style.flexDirection = 'column';
+        modalCard.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+        modalCard.style.fontFamily = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+        const modalHeader = document.createElement('div');
+        modalHeader.style.background = 'linear-gradient(135deg, #d63384 0%, #a02060 100%)';
+        modalHeader.style.color = 'white';
+        modalHeader.style.padding = '1.2rem 1.5rem';
+        modalHeader.style.display = 'flex';
+        modalHeader.style.justifyContent = 'space-between';
+        modalHeader.style.alignItems = 'center';
+        modalHeader.innerHTML = `
+            <h2 style="font-size:1.2rem; margin:0; display:flex; gap:8px;"><i class="fa-regular fa-gem"></i> ${escapeHTML(titulo)}</h2>
+            <button id="closeModalBtn" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        `;
+
+        const modalBody = document.createElement('div');
+        modalBody.style.padding = '1.5rem';
+        modalBody.style.overflowY = 'auto';
+        modalBody.style.flex = '1';
+        modalBody.style.fontFamily = 'Georgia, serif';
+        modalBody.style.fontSize = '1rem';
+        modalBody.style.lineHeight = '1.7';
+        modalBody.style.color = '#2c3e2f';
+        modalBody.style.textAlign = 'justify';
+        modalBody.innerHTML = escapeHTML(textoCompleto).replace(/\n/g, '<br><br>');
+
+        const modalFooter = document.createElement('div');
+        modalFooter.style.padding = '0.8rem 1.5rem';
+        modalFooter.style.borderTop = '1px solid #f8d0e0';
+        modalFooter.style.fontSize = '0.7rem';
+        modalFooter.style.color = '#c07090';
+        modalFooter.style.textAlign = 'center';
+        modalFooter.innerHTML = '✨ Leia em voz alta com o recurso do seu navegador (menu → "Ler em voz alta")';
+
+        modalCard.appendChild(modalHeader);
+        modalCard.appendChild(modalBody);
+        modalCard.appendChild(modalFooter);
+        overlay.appendChild(modalCard);
+        document.body.appendChild(overlay);
+
+        const closeBtn = modalHeader.querySelector('#closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) document.body.removeChild(overlay);
+        });
+    }
+
+    // Botão voltar à página inicial
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Inicialização
+    renderizarContos();
+    setupVoltarButton();
+</script>
+</body>
+</html>

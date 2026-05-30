@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Contes en Français - Bibliothèque Française</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8f4f8;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #b8dff0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 2rem 1.8rem;
+            text-align: left;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header h1 i {
+            color: #ffd700;
+            margin-right: 10px;
+            text-shadow: 2px 2px 0 #1e3c72;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        .stats-bar {
+            background: #f0f7fb;
+            padding: 0.8rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #b8dff0;
+            font-size: 0.8rem;
+            color: #1e3c72;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .stats-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-left span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-left i {
+            color: #2a5298;
+        }
+
+        .btn-voltar {
+            background: #2c3e2f;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-voltar:hover {
+            background: #1f2c21;
+            transform: scale(1.02);
+        }
+
+        .biblioteca-section {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #b8dff0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #2a5298;
+            font-size: 1.2rem;
+        }
+
+        /* CONTOS - ACORDEON */
+        .conto-item {
+            background: #fefef8;
+            border: 1px solid #b8dff0;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .conto-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            background: #fefef8;
+            transition: background 0.2s;
+        }
+
+        .conto-header:hover {
+            background: #f0f7fb;
+        }
+
+        .conto-info {
+            flex: 1;
+        }
+
+        .conto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e3c72;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .conto-titulo i {
+            color: #2a5298;
+            font-size: 1rem;
+            width: 24px;
+        }
+
+        .personnage-badge {
+            background: #e3f0f5;
+            color: #2a5298;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .niveau-badge {
+            background: #fff3e0;
+            color: #c44d00;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .expand-icon {
+            color: #2a5298;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            width: 30px;
+            text-align: center;
+        }
+
+        .conto-detalhes {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #fffefa;
+            border-top: 1px solid transparent;
+        }
+
+        .conto-item.expanded .conto-detalhes {
+            max-height: 600px;
+            transition: max-height 0.4s ease-in;
+            border-top-color: #b8dff0;
+        }
+
+        .conto-item.expanded .expand-icon i {
+            transform: rotate(180deg);
+        }
+
+        .detalhes-content {
+            padding: 1rem 1.2rem 1.2rem 1.8rem;
+        }
+
+        .resumo-texto {
+            font-size: 0.85rem;
+            color: #2c5a6e;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            background: #f8fafc;
+            padding: 0.8rem;
+            border-radius: 16px;
+            font-family: 'Georgia', serif;
+        }
+
+        .resumo-texto i {
+            color: #2a5298;
+        }
+
+        .vocabulaire-box {
+            background: #f0f7fb;
+            border-left: 4px solid #2a5298;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            border-radius: 12px;
+        }
+
+        .vocabulaire-box h4 {
+            font-size: 0.8rem;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .vocabulaire-box ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            list-style: none;
+        }
+
+        .vocabulaire-box li {
+            font-size: 0.75rem;
+            background: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            color: #2a5298;
+            font-weight: 500;
+        }
+
+        .btn-acessar {
+            background: #2a5298;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.2rem;
+        }
+
+        .btn-acessar:hover {
+            background: #1e3c72;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #b8dff0;
+            font-size: 0.7rem;
+            color: #5a9bc0;
+            background: white;
+        }
+
+        .info-msg {
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.6rem;
+            background: #f0f7fb;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: #2a5298;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .header h1 { font-size: 1.4rem; }
+            .conto-header { flex-wrap: wrap; }
+            .detalhes-content { padding-left: 0.8rem; }
+            .stats-bar { flex-direction: column; align-items: flex-start; }
+            .btn-voltar { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-regular fa-flag"></i> Contes en Français</h1>
+        <p>Les plus beaux contes de la littérature française — améliorez votre français en lisant des histoires classiques</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-bookmark"></i> Ma bibliothèque</span>
+            <span><i class="fa-solid fa-language"></i> Contes Classiques Français</span>
+            <span><i class="fa-regular fa-clock"></i> Cliquez sur le titre</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-book-open"></i>
+            <span>📖 Contes que j'ai lus</span>
+        </div>
+
+        <div id="contosContainer">
+            <!-- Les contes seront insérés dynamiquement -->
+        </div>
+        <div class="info-msg">
+            <i class="fa-regular fa-lightbulb"></i> Cliquez sur n'importe quel conte pour voir le résumé et le vocabulaire. Utilisez le bouton "Lire le conte" pour lire le texte complet en français.
+        </div>
+    </div>
+    <div class="footer">
+        <p>📚 Apprenez le français à travers les contes — Chaque histoire inclut du vocabulaire pour vous aider à comprendre et apprendre de nouveaux mots.</p>
+    </div>
+</div>
+
+<script>
+    // ==================== CONTES EN FRANÇAIS ====================
+    const contos = [
+        {
+            id: 1,
+            titre: "Le Petit Chaperon Rouge",
+            personnages: "Petit Chaperon Rouge, Le Loup, Mère-grand, Chasseur",
+            niveau: "Débutant",
+            vocabulaire: ["chaperon", "louve", "forêt", "galette", "dévorer"],
+            resume: "Une petite fille qui porte un chaperon rouge va rendre visite à sa mère-grand malade. En chemin, elle rencontre un loup rusé qui la trompe. Le loup arrive le premier chez la grand-mère, la dévore et se déguise en elle. Quand la petite fille arrive, elle trouve le loup étrange avec ses grandes dents. Un chasseur sauve les deux et le loup est puni. Le conte enseigne qu'il ne faut pas parler aux inconnus.",
+            texteComplet: "Il était une fois une petite fille que tout le monde aimait bien, surtout sa grand-mère. Un jour, sa grand-mère lui offrit un joli petit chaperon rouge. Depuis ce jour, elle ne quittait plus son chaperon, et on l'appela le Petit Chaperon Rouge. Un matin, sa mère lui dit: 'Va porter cette galette et ce pot de beurre à ta grand-mère qui est malade.' La petite fille partit aussitôt. Dans la forêt, elle rencontra le loup. Le loup voulut la dévorer, mais il eut peur à cause des bûcherons. Il demanda: 'Où vas-tu, ma petite?' Le Petit Chaperon Rouge, qui ne savait pas qu'il ne faut pas parler aux inconnus, répondit: 'Je vais chez ma grand-mère lui porter une galette et un pot de beurre.' Le loup rusé dit: 'Pourquoi ne vas-tu pas cueillir des fleurs pour ta grand-mère?' Pendant que la petite fille cueillait des fleurs, le loup courut chez la grand-mère, la dévora et se mit dans son lit. Quand le Petit Chaperon Rouge arriva, elle trouva la porte ouverte. 'Bonjour, Grand-mère!' dit-elle en entrant. 'Que vous avez de grandes oreilles!' - 'C'est pour mieux t'entendre, mon enfant.' - 'Que vous avez de grands yeux!' - 'C'est pour mieux te voir.' - 'Que vous avez de grandes dents!' - 'C'est pour mieux te manger!' Le loup sauta sur le Petit Chaperon Rouge et la dévora. Heureusement, un chasseur passa par là. Il entendit les ronflements du loup, ouvrit son ventre avec des ciseaux et sauva la petite fille et sa grand-mère. Le Petit Chaperon Rouge promit de ne plus jamais parler aux inconnus."
+        },
+        {
+            id: 2,
+            titre: "Le Chat Botté",
+            personnages: "Chat, Marquis de Carabas, Ogre, Roi",
+            niveau: "Débutant",
+            vocabulaire: ["bottes", "meunier", "mariage", "château", "rusé"],
+            resume: "Un meunier meurt et laisse ses trois fils. L'aîné a le moulin, le deuxième l'âne et le plus jeune seulement un chat. Le plus jeune est triste, mais le chat lui dit: 'Donnez-moi des bottes et je vous rendrai riche.' Le chat attrape des lapins et les offre au roi. Plus tard, il fait croire que son maître, le Marquis de Carabas, est riche. Le chat trompe l'ogre et fait de son maître le maître du château. Le roi donne sa fille en mariage au Marquis.",
+            texteComplet: "Il était une fois un meunier qui avait trois fils. Quand il mourut, il laissa son moulin à l'aîné, son âne au second, et son chat au plus jeune. Le plus jeune était très triste. 'Que vais-je faire avec un simple chat?' dit-il. Le chat l'entendit et lui dit: 'Ne soyez pas triste, mon maître. Donnez-moi une paire de bottes et vous verrez que je ne suis pas si inutile.' Le jeune homme lui donna des bottes. Le Chat Botté attrapa des lapins et les offrit au roi. 'Ce sont des cadeaux de mon maître, le Marquis de Carabas,' dit-il. Un jour, le chat dit à son maître: 'Allez vous baigner dans la rivière.' Pendant que le jeune homme se baignait, le chat cacha ses vêtements. Le roi passait par là. 'Au secours! Mon maître, le Marquis de Carabas, se noie!' cria le chat. Le roi aida le jeune homme et lui donna de beaux vêtements. Le chat courut au château de l'ogre. L'ogre pouvait se transformer en n'importe quel animal. 'Pouvez-vous vous transformer en lion?' demanda le chat. L'ogre se transforma en lion. 'Pouvez-vous vous transformer en souris?' demanda le chat. L'ogre se transforma en souris, et le chat la mangea. Quand le roi arriva, le chat l'invita dans le château. 'Ce château appartient au Marquis de Carabas,' dit-il. Le roi fut très impressionné. Il donna sa fille en mariage au Marquis, et le Chat Botté devint un grand seigneur."
+        },
+        {
+            id: 3,
+            titre: "La Belle et la Bête",
+            personnages: "La Belle, La Bête, Le Marchand",
+            niveau: "Intermédiaire",
+            vocabulaire: ["marchand", "bête", "monstre", "cœur", "métamorphose"],
+            resume: "Un riche marchand perd toute sa fortune. Un jour, il cueille une rose dans un château mystérieux. Une bête terrible lui demande sa fille en échange. La Belle accepte de vivre avec la Bête. Au début, elle a peur, mais elle découvre que la Bête a un bon cœur. Chaque soir, la Bête demande: 'Veux-tu être ma femme?' La Belle refuse toujours. Finalement, elle accepte par amour, et la Bête se transforme en un beau prince. La bonté et l'amour brisent le sortilège.",
+            texteComplet: "Il était une fois un marchand très riche qui avait six enfants, dont une fille très belle appelée la Belle. Un jour, le marchand perdit toute sa fortune. La famille dut s'installer à la campagne. Quelque temps après, le marchand apprit qu'un de ses navires était arrivé au port. Avant de partir, il demanda à ses filles: 'Que voulez-vous que je vous rapporte?' Les filles aînées demandèrent des robes et des bijoux. La Belle demanda seulement une rose. Le marchand ne trouva aucun de ses navires. Perdu dans la forêt, il trouva un magnifique château. Personne n'était là, mais la table était servie. Le marchand mangea et se reposa. En sortant, il cueillit une rose pour la Belle. Aussitôt, une horrible Bête apparut. 'Tu as volé mes roses! Tu vas mourir!' rugit la Bête. Le marchand expliqua qu'il avait cueilli la rose pour sa fille la Belle. 'Alors, une de tes filles doit venir vivre ici,' dit la Bête. La Belle accepta de venir. Au début, elle avait très peur, mais la Bête était gentille avec elle. Chaque soir, la Bête demandait: 'Veux-tu être ma femme?' La Belle disait toujours non. Un jour, la Belle demanda à voir son père malade. La Bête l'autorisa à partir pour une semaine. Quand la Belle revint, elle trouva la Bête presque morte de tristesse. 'Je t'aime, la Bête,' dit la Belle en pleurant. 'Je veux être ta femme.' Aussitôt, la Bête se transforma en un beau prince. Un sortilège avait été brisé par l'amour. La Belle et le prince se marièrent et vécurent heureux pour toujours."
+        },
+        {
+            id: 4,
+            titre: "Le Petit Poucet",
+            personnages: "Petit Poucet, Ogre, Frères, Parents",
+            niveau: "Intermédiaire",
+            vocabulaire: ["poucet", "cailloux", "bûcheron", "bottes", "famine"],
+            resume: "Un bûcheron et sa femme ont sept garçons. Le plus jeune est tout petit: on l'appelle Petit Poucet. La famille meurt de faim. Les parents décident d'abandonner les enfants dans la forêt. Petit Poucet entend le plan et remplit ses poches de petits cailloux blancs. Grâce aux cailloux, les enfants retrouvent leur chemin. Une deuxième fois, Petit Poucet utilise des morceaux de pain, mais les oiseaux les mangent. Perdus, les enfants trouvent la maison d'un ogre. Petit Poucet est plus malin que l'ogre et sauve ses frères. Ils retournent chez leurs parents avec les trésors de l'ogre.",
+            texteComplet: "Il était une fois un bûcheron et sa femme qui avaient sept enfants, tous des garçons. Le plus jeune était tout petit, et on l'appelait Petit Poucet. La famine était terrible, et les parents décidèrent d'abandonner les enfants dans la forêt. Petit Poucet entendit le plan. Il sortit de la maison et ramassa des petits cailloux blancs. Le lendemain, les parents emmenèrent les enfants dans la forêt. Petit Poucet sema les cailloux blancs derrière lui. Quand les parents rentrèrent, les enfants étaient perdus. Mais Petit Poucet retrouva le chemin grâce aux cailloux blancs. Une autre fois, les parents abandonnèrent les enfants à nouveau. Petit Poucet n'avait pas de cailloux. Il sema des morceaux de pain. Mais les oiseaux mangèrent tout. Les enfants se perdirent. Après beaucoup de marche, ils virent une lumière. C'était la maison d'un ogre. Sa femme les laissa entrer. Quand l'ogre rentra, il voulut dévorer les enfants. Petit Poucet demanda à l'ogre d'attendre le matin. Pendant la nuit, il enleva les bonnets de ses frères et les mit sur les têtes des filles de l'ogre. L'ogre se réveilla, voulut dévorer les enfants, mais il dévora ses propres filles. Les enfants s'enfuirent. L'ogre les poursuivit avec ses bottes de sept lieues. Petit Poucet montra le mauvais chemin à l'ogre. L'ogre tomba dans un piège et mourut. Petit Poucet prit les bottes magiques et les trésors. Il retourna chez ses parents, et toute la famille vécut heureuse sans jamais avoir faim."
+        },
+        {
+            id: 5,
+            titre: "Cendrillon",
+            personnages: "Cendrillon, Prince, Marâtre, Sœurs, Fée",
+            niveau: "Débutant",
+            vocabulaire: ["cendrillon", "marâtre", "soulier", "bal", "citrouille"],
+            resume: "Cendrillon est une jeune fille douce et gentille. Après la mort de son père, sa marâtre et ses deux filles la traitent comme une servante. Un jour, le roi donne un grand bal. Cendrillon veut y aller, mais sa marâtre l'en empêche. Sa fée marraine transforme une citrouille en carrosse et lui donne une belle robe et des souliers de verre. Mais la magie s'arrête à minuit. Cendrillon perd son soulier en fuyant. Le prince cherche la propriétaire du soulier et trouve Cendrillon. Ils se marient et vivent heureux.",
+            texteComplet: "Il était une fois un homme riche qui perdit sa femme. Il se remaria avec une femme orgueilleuse et méchante qui avait deux filles. Sa propre fille, cependant, était douce et bonne. Comme elle devait dormir dans la cendre, on l'appela Cendrillon. Le prince donna un grand bal. Toutes les jeunes filles furent invitées. La marâtre et ses filles allèrent au bal, mais Cendrillon dut rester à la maison. Cendrillon pleura. Soudain, sa fée marraine apparut. 'Tu iras au bal,' dit-elle. Elle transforma une citrouille en carrosse, des souris en chevaux, et les guenilles de Cendrillon en une magnifique robe. Elle lui donna aussi des souliers de verre. 'Mais tu dois rentrer avant minuit, car la magie disparaîtra,' dit la fée. Au bal, tout le monde admira Cendrillon. Le prince dansa toute la nuit avec elle. Quand l'horloge sonna minuit, Cendrillon s'enfuit. Elle perdit un de ses souliers de verre sur l'escalier. Le prince déclara qu'il épouserait la jeune fille dont le pied chausserait le soulier. Toutes les jeunes filles essayèrent, mais aucune ne réussit. Chez Cendrillon, les sœurs essayèrent aussi, sans succès. 'Je peux essayer?' demanda Cendrillon. Le soulier s'ajusta parfaitement à son pied. Cendrillon épousa le prince, et ils vécurent heureux pour toujours."
+        }
+    ];
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Rendre tous les contes
+    function renderizarContos() {
+        const container = document.getElementById('contosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        contos.forEach(conto => {
+            const contoDiv = document.createElement('div');
+            contoDiv.className = 'conto-item';
+            contoDiv.dataset.id = conto.id;
+
+            const header = document.createElement('div');
+            header.className = 'conto-header';
+            header.innerHTML = `
+                <div class="conto-info">
+                    <div class="conto-titulo">
+                        <i class="fa-regular fa-star"></i> ${escapeHTML(conto.titre)}
+                        <span class="personnage-badge"><i class="fa-regular fa-user"></i> ${escapeHTML(conto.personnages)}</span>
+                        <span class="niveau-badge"><i class="fa-regular fa-flag"></i> ${escapeHTML(conto.niveau)}</span>
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            // Vocabulaire HTML
+            const vocabHTML = `
+                <div class="vocabulaire-box">
+                    <h4><i class="fa-regular fa-book"></i> Vocabulaire important:</h4>
+                    <ul>
+                        ${conto.vocabulaire.map(word => `<li>${escapeHTML(word)}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const detalhesDiv = document.createElement('div');
+            detalhesDiv.className = 'conto-detalhes';
+            detalhesDiv.innerHTML = `
+                <div class="detalhes-content">
+                    <div class="resumo-texto">
+                        <i class="fa-regular fa-message"></i> 
+                        ${escapeHTML(conto.resume).replace(/\n/g, '<br>')}
+                    </div>
+                    ${vocabHTML}
+                    <button class="btn-acessar" data-id="${conto.id}">
+                        <i class="fa-solid fa-book-open"></i> Lire le conte
+                    </button>
+                </div>
+            `;
+
+            contoDiv.appendChild(header);
+            contoDiv.appendChild(detalhesDiv);
+            container.appendChild(contoDiv);
+
+            header.addEventListener('click', (e) => {
+                if (e.target.closest('.btn-acessar')) return;
+                contoDiv.classList.toggle('expanded');
+            });
+
+            const btnAcessar = detalhesDiv.querySelector('.btn-acessar');
+            btnAcessar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const contoId = parseInt(btnAcessar.dataset.id);
+                const contoSelecionado = contos.find(c => c.id === contoId);
+                if (contoSelecionado && contoSelecionado.texteComplet) {
+                    exibirContoCompleto(contoSelecionado.titre, contoSelecionado.texteComplet);
+                } else {
+                    alert("Le texte complet n'est pas encore disponible pour ce conte.");
+                }
+            });
+        });
+    }
+
+    // Fonction pour afficher le conte complet dans une modale
+    function exibirContoCompleto(titre, texteComplet) {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.zIndex = '2000';
+        overlay.style.padding = '1rem';
+        overlay.style.backdropFilter = 'blur(3px)';
+
+        const modalCard = document.createElement('div');
+        modalCard.style.maxWidth = '700px';
+        modalCard.style.width = '100%';
+        modalCard.style.maxHeight = '85vh';
+        modalCard.style.backgroundColor = 'white';
+        modalCard.style.borderRadius = '28px';
+        modalCard.style.overflow = 'hidden';
+        modalCard.style.display = 'flex';
+        modalCard.style.flexDirection = 'column';
+        modalCard.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+        modalCard.style.fontFamily = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+        const modalHeader = document.createElement('div');
+        modalHeader.style.background = 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
+        modalHeader.style.color = 'white';
+        modalHeader.style.padding = '1.2rem 1.5rem';
+        modalHeader.style.display = 'flex';
+        modalHeader.style.justifyContent = 'space-between';
+        modalHeader.style.alignItems = 'center';
+        modalHeader.innerHTML = `
+            <h2 style="font-size:1.2rem; margin:0; display:flex; gap:8px;"><i class="fa-regular fa-flag"></i> ${escapeHTML(titre)}</h2>
+            <button id="closeModalBtn" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        `;
+
+        const modalBody = document.createElement('div');
+        modalBody.style.padding = '1.5rem';
+        modalBody.style.overflowY = 'auto';
+        modalBody.style.flex = '1';
+        modalBody.style.fontFamily = 'Georgia, serif';
+        modalBody.style.fontSize = '1rem';
+        modalBody.style.lineHeight = '1.7';
+        modalBody.style.color = '#2c3e2f';
+        modalBody.style.textAlign = 'justify';
+        modalBody.innerHTML = escapeHTML(texteComplet).replace(/\n/g, '<br><br>');
+
+        const modalFooter = document.createElement('div');
+        modalFooter.style.padding = '0.8rem 1.5rem';
+        modalFooter.style.borderTop = '1px solid #b8dff0';
+        modalFooter.style.fontSize = '0.7rem';
+        modalFooter.style.color = '#5a9bc0';
+        modalFooter.style.textAlign = 'center';
+        modalFooter.innerHTML = '📖 Utilisez la fonction de lecture à voix haute du navigateur (menu → "Lire à haute voix") pour pratiquer la prononciation';
+
+        modalCard.appendChild(modalHeader);
+        modalCard.appendChild(modalBody);
+        modalCard.appendChild(modalFooter);
+        overlay.appendChild(modalCard);
+        document.body.appendChild(overlay);
+
+        const closeBtn = modalHeader.querySelector('#closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            document.body.removeChild(overlay);
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) document.body.removeChild(overlay);
+        });
+    }
+
+    // Bouton retour à la page d'accueil
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Initialisation
+    renderizarContos();
+    setupVoltarButton();
+</script>
+</body>
+</html>

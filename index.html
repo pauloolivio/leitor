@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>VoicePage Creator - Apenas Texto</title>
+    <title>VoicePage Creator - Biblioteca de Contos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -31,13 +31,150 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             border: 1px solid #e6e0d8;
+            position: relative;
         }
 
+        /* ===== MENU HAMBURGUER (3 RISCOS) ===== */
+        .menu-toggle {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            width: 42px;
+            height: 42px;
+            background: #2c3e2f;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+        .menu-toggle:hover {
+            background: #1f2c21;
+            transform: scale(1.02);
+        }
+        .menu-toggle span {
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: white;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        /* Overlay escuro */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(2px);
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+            z-index: 250;
+        }
+        .menu-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Menu lateral expandido */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            max-width: 85vw;
+            height: 100%;
+            background: #fffef7;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            z-index: 300;
+            transition: right 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 0 2rem 0;
+            border-left: 1px solid #e0d9d0;
+        }
+        .side-menu.open {
+            right: 0;
+        }
+        .menu-header {
+            padding: 0 1.5rem 1rem 1.5rem;
+            border-bottom: 2px solid #f0e7dc;
+            margin-bottom: 1rem;
+        }
+        .menu-header h3 {
+            font-size: 1.2rem;
+            color: #2c3e2f;
+            font-weight: 600;
+        }
+        .menu-header p {
+            font-size: 0.7rem;
+            color: #8b7a6b;
+            margin-top: 4px;
+        }
+        .menu-items {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0 0.8rem;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            margin: 4px 0;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #3a4a38;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+            text-decoration: none;
+        }
+        .menu-item i {
+            width: 24px;
+            font-size: 1.1rem;
+            color: #b8860b;
+        }
+        .menu-item:hover {
+            background: #f0ebe5;
+            transform: translateX(3px);
+            color: #1f2c21;
+        }
+        .close-menu-btn {
+            margin: 1rem 1rem 0.5rem auto;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #8b7a6b;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-menu-btn:hover {
+            background: #ede5db;
+        }
+
+        /* header com espaço para o ícone */
         .header {
             background: white;
-            padding: 1.8rem 1.5rem 1rem 1.5rem;
+            padding: 1.8rem 1.5rem 1rem 4rem;
             text-align: left;
             border-bottom: 2px solid #f0ebe5;
+            position: relative;
         }
 
         .header h1 {
@@ -122,7 +259,6 @@
             overflow-y: auto;
         }
 
-        /* BOTÕES EM COLUNA (UM ABAIXO DO OUTRO) */
         .button-group {
             display: flex;
             flex-direction: column;
@@ -187,13 +323,12 @@
             background: white;
         }
 
-        /* Responsivo para telas muito pequenas */
         @media (max-width: 480px) {
             body {
                 padding: 0.8rem;
             }
             .header {
-                padding: 1.2rem 1rem 0.8rem 1rem;
+                padding: 1.2rem 1rem 0.8rem 3.5rem;
             }
             .header h1 {
                 font-size: 1.3rem;
@@ -205,9 +340,14 @@
                 padding: 12px 16px;
                 font-size: 0.9rem;
             }
+            .menu-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 38px;
+                height: 38px;
+            }
         }
 
-        /* Ajuste para tablets */
         @media (min-width: 768px) and (max-width: 1024px) {
             .container {
                 max-width: 600px;
@@ -216,93 +356,237 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator</h1>
-            <p>Gerador de páginas de leitura apenas com texto — use o recurso nativo do navegador para ouvir com voz Thalita</p>
-        </div>
-        <div class="card">
-            <div class="form-group">
-                <label><i class="fa-regular fa-file-lines"></i> Título da história/página</label>
-                <input type="text" id="titulo" placeholder="Ex: Peter Pan - Capítulo 1">
-            </div>
-
-            <div class="form-group">
-                <label><i class="fa-regular fa-message"></i> Conteúdo</label>
-                <textarea id="conteudo" placeholder="Digite ou cole o texto aqui..."></textarea>
-            </div>
-
-            <div class="preview">
-                <h3><i class="fa-regular fa-eye"></i> Prévia do conteúdo</h3>
-                <div class="preview-content" id="preview">Nada para visualizar ainda.</div>
-            </div>
-
-            <!-- BOTÕES UM ABAIXO DO OUTRO -->
-            <div class="button-group">
-                <button class="btn btn-primary" id="criarBtn">
-                    <i class="fa-solid fa-download"></i> Gerar página .HTML
-                </button>
-                <button class="btn btn-secondary" id="limparBtn">
-                    <i class="fa-solid fa-eraser"></i> Limpar campos
-                </button>
-            </div>
-
-            <div class="status" id="status">
-                <i class="fa-regular fa-lightbulb"></i> Preencha o conteúdo e clique em "Gerar página"
-            </div>
-        </div>
-        <div class="footer">
-            <p>📖 As páginas geradas contêm APENAS o texto — sem botões de player. Para ouvir, use o recurso nativo do seu navegador: <strong>menu → "Ler em voz alta"</strong> ou atalho de voz (voz Thalita no Android).</p>
-        </div>
+<div class="container">
+    <!-- Ícone de menu hambúrguer (3 riscos) -->
+    <div class="menu-toggle" id="menuToggleBtn">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <script>
-        (function() {
-            const tituloInput = document.getElementById('titulo');
-            const conteudoTextarea = document.getElementById('conteudo');
-            const previewDiv = document.getElementById('preview');
-            const criarBtn = document.getElementById('criarBtn');
-            const limparBtn = document.getElementById('limparBtn');
-            const statusDiv = document.getElementById('status');
+    <div class="header">
+        <h1><i class="fa-solid fa-book-open"></i> VoicePage Creator</h1>
+        <p>Gerador de páginas de leitura apenas com texto — use o recurso nativo do navegador para ouvir com voz Thalita</p>
+    </div>
+    <div class="card">
+        <div class="form-group">
+            <label><i class="fa-regular fa-file-lines"></i> Título da história/página</label>
+            <input type="text" id="titulo" placeholder="Ex: O Príncipe Sapo - Irmãos Grimm">
+        </div>
 
-            function atualizarPreview() {
-                let texto = conteudoTextarea.value;
-                if (!texto.trim()) {
-                    previewDiv.innerHTML = '<span style="color: #b9aa99;">📭 Nenhum conteúdo para visualizar</span>';
-                    return;
-                }
-                let resumo = texto.length > 280 ? texto.substring(0, 280) + '…' : texto;
-                previewDiv.innerHTML = resumo.replace(/\n/g, '<br>');
+        <div class="form-group">
+            <label><i class="fa-regular fa-message"></i> Conteúdo</label>
+            <textarea id="conteudo" placeholder="Digite ou cole o texto aqui..."></textarea>
+        </div>
+
+        <div class="preview">
+            <h3><i class="fa-regular fa-eye"></i> Prévia do conteúdo</h3>
+            <div class="preview-content" id="preview">Nada para visualizar ainda.</div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" id="criarBtn">
+                <i class="fa-solid fa-download"></i> Gerar página .HTML
+            </button>
+            <button class="btn btn-secondary" id="limparBtn">
+                <i class="fa-solid fa-eraser"></i> Limpar campos
+            </button>
+        </div>
+
+        <div class="status" id="status">
+            <i class="fa-regular fa-lightbulb"></i> Preencha o conteúdo e clique em "Gerar página"
+        </div>
+    </div>
+    <div class="footer">
+        <p>📖 As páginas geradas contêm APENAS o texto — sem botões de player. Para ouvir, use o recurso nativo do seu navegador: <strong>menu → "Ler em voz alta"</strong> ou atalho de voz (voz Thalita no Android).</p>
+    </div>
+</div>
+
+<!-- Overlay e menu lateral -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<aside class="side-menu" id="sideMenu">
+    <div style="display: flex; justify-content: flex-end; padding-right: 0.8rem;">
+        <button class="close-menu-btn" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="menu-header">
+        <h3><i class="fa-regular fa-folder-open"></i> Biblioteca de Contos</h3>
+        <p>Selecione uma categoria para inspiração</p>
+    </div>
+    <div class="menu-items">
+        <a class="menu-item" href="livros_escola.html">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Livros da escola</span>
+        </a>
+        <a class="menu-item" href="contos_monica.html">
+            <i class="fa-solid fa-smile"></i>
+            <span>Contos da Turma da Mônica</span>
+        </a>
+        <a class="menu-item" href="contos_charadas.html">
+            <i class="fa-solid fa-question-circle"></i>
+            <span>Contos com charadas</span>
+        </a>
+        <a class="menu-item" href="contos_princesas.html">
+            <i class="fa-solid fa-crown"></i>
+            <span>Contos de princesas</span>
+        </a>
+        <a class="menu-item" href="contos_grimm.html">
+            <i class="fa-solid fa-ghost"></i>
+            <span>Contos dos Irmãos Grimm</span>
+        </a>
+            <a class="menu-item" href="contos_english.html">
+            <i class="fa-solid fa-flag-usa"></i>
+            <span>Contos em Inglês</span>
+        </a>
+            <a class="menu-item" href="contos_francais.html">
+            <i class="fa-solid fa-flag"></i>
+            <span>Contos em Francês</span>
+        </a>
+    </div>
+    <div style="padding: 1.5rem 1.2rem; font-size: 0.7rem; color: #b1a187; border-top: 1px solid #eee; margin-top: auto;">
+        <i class="fa-regular fa-clock"></i> Clique e use o conteúdo pronto
+    </div>
+</aside>
+
+<script>
+    (function() {
+        const tituloInput = document.getElementById('titulo');
+        const conteudoTextarea = document.getElementById('conteudo');
+        const previewDiv = document.getElementById('preview');
+        const criarBtn = document.getElementById('criarBtn');
+        const limparBtn = document.getElementById('limparBtn');
+        const statusDiv = document.getElementById('status');
+        
+        // Elementos do menu
+        const menuToggle = document.getElementById('menuToggleBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('menuOverlay');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        
+        // ----- funções do menu expansivo (3 riscos) -----
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        menuToggle.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        // Fecha ao pressionar ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sideMenu.classList.contains('open')) {
+                closeMenu();
             }
-
-            function escapeHTML(str) {
-                if (!str) return '';
-                return str.replace(/[&<>]/g, function(m) {
-                    if (m === '&') return '&amp;';
-                    if (m === '<') return '&lt;';
-                    if (m === '>') return '&gt;';
-                    return m;
+        });
+        
+        // ---- Conteúdos pré-definidos para cada item do menu (para os que não são links) ----
+        // Obs: Os itens agora são links para páginas externas, mas mantemos os conteúdos para fallback
+        const categoryContent = {
+            livros_escola: {
+                titulo: "A descoberta da leitura - livro escolar",
+                texto: "Na pequena escola da Vila das Letras, a professora Sofia levou uma caixa misteriosa para a sala de aula. Dentro dela, não havia doces nem brinquedos, mas sim vários livros com capas coloridas. 'Cada livro é uma porta para um mundo novo', disse ela, enquanto distribuía os exemplares. Os alunos, curiosos, abriram as páginas e encontraram mapas, fábulas e aventuras incríveis. Pedro, um menino que tinha vergonha de ler em voz alta, escolheu um livro sobre animais falantes. À medida que lia, sua voz ganhava coragem. No final da tarde, a biblioteca da escola estava cheia de risos e histórias compartilhadas. Foi assim que a magia dos livros conquistou todos os corações."
+            },
+            monica: {
+                titulo: "Mônica e o tesouro do Limoeiro",
+                texto: "Era uma tarde ensolarada no bairro do Limoeiro. Mônica, com seu inseparável coelho Sansão, encontrou um bilhete antigo dentro de um livro da biblioteca da escola. 'Quem desvendar as charadas encontrará um tesouro especial', dizia a mensagem. Cebolinha, com seus planos infalíveis, Cascão e Magali se uniram para decifrar as pistas. Juntos, exploraram a praça, a sorveteria e o campinho. A última charada levava até a velha árvore do quintal da Mônica. Ao cavarem delicadamente, encontraram uma caixa com vários gibis raros da Turma, todos autografados pelo próprio criador! O verdadeiro tesouro era a amizade e a diversão de ler juntos. Desde então, toda semana eles fazem uma 'roda de leitura' no bairro."
+            },
+            charadas: {
+                titulo: "O livro das charadas encantadas",
+                texto: "Num reino cheio de enigmas, havia um livro mágico que só podia ser aberto por quem solucionasse três charadas.\n\nPrimeira charada: 'O que é que quanto mais se tira, maior fica?'\nResposta: Um buraco.\n\nSegunda charada: 'O que sempre vai para a cama com os sapatos nos pés?'\nResposta: O cavalo.\n\nTerceira charada: 'Qual é a palavra que todos pronunciam errado?'\nResposta: A palavra 'errado'.\n\nAo responder corretamente, o livro se abriu e revelou que cada um de nós tem dentro de si a capacidade de pensar, rir e aprender. As charadas se espalharam pelo reino, e todos, adultos e crianças, se reuniam para desafiar a mente com muita diversão."
+            },
+            princesas: {
+                titulo: "A Princesa das Palavras",
+                texto: "No castelo de Cristalina, vivia a Princesa Leonora, que não se importava com joias ou vestidos luxuosos. Seu maior tesouro era uma pequena biblioteca escondida na torre leste. Um dia, um dragão triste pousou no jardim, pois havia esquecido suas histórias favoritas. Leonora desceu as escadas e perguntou: 'Dragão, por que você chora?' Ele respondeu: 'Perdi a memória dos contos que minha mãe me contava.' A princesa então leu em voz alta histórias de aventura, magia e princesas corajosas que enfrentavam desafios com inteligência. A cada palavra, o dragão recuperava suas lembranças. Ele se tornou guardião dos livros do reino. Desde aquele dia, todos compreenderam que uma princesa de verdade constrói pontes com a leitura."
+            },
+            grimm: {
+                titulo: "Os Sete Corvos - Irmãos Grimm",
+                texto: "Era uma vez um pai que tinha sete filhos homens e, finalmente, uma filha muito desejada. Porém, os meninos, ao tentar buscar água para o batizado, foram amaldiçoados e se transformaram em sete corvos negros. A irmãzinha, ao crescer e descobrir a história, decidiu ir ao fim do mundo para salvá-los. Ela percorreu florestas, escalou montanhas de vidro e superou o vento norte. Com uma chave mágica e um coração valente, encontrou o castelo de vidro onde os corvos viviam. Ao tocar cada um, a maldição se desfez, e os sete irmãos voltaram a ser humanos. A lição dos Grimm ensina que o amor e a persistência rompem qualquer feitiço."
+            }
+        };
+        
+        // Função para aplicar conteúdo da categoria (fallback se os links não funcionarem)
+        function applyCategory(categoryKey) {
+            const data = categoryContent[categoryKey];
+            if (data) {
+                tituloInput.value = data.titulo;
+                conteudoTextarea.value = data.texto;
+                atualizarPreview();
+                statusDiv.innerHTML = `<i class="fa-regular fa-star"></i> Categoria "${data.titulo}" carregada! Edite se desejar e gere sua página.`;
+                statusDiv.style.background = '#eef5ea';
+                statusDiv.style.color = '#2c6e2c';
+                document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                closeMenu();
+            } else {
+                statusDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Conteúdo não encontrado.`;
+                statusDiv.style.background = '#fff0e6';
+            }
+        }
+        
+        // Adicionar eventos apenas nos itens que não são links (fallback)
+        // Os links agora são <a> e vão redirecionar, então não precisamos do evento de clique
+        // Mas mantemos para compatibilidade caso alguém queira usar os botões de outra forma
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            // Se for um link (<a>), não adicionamos o evento de clique para não conflitar
+            if (item.tagName.toLowerCase() === 'a') {
+                item.addEventListener('click', (e) => {
+                    // Fecha o menu antes de redirecionar
+                    closeMenu();
+                });
+            } else {
+                item.addEventListener('click', (e) => {
+                    const category = item.getAttribute('data-category');
+                    if (category === 'livros_escola') applyCategory('livros_escola');
+                    else if (category === 'monica') applyCategory('monica');
+                    else if (category === 'charadas') applyCategory('charadas');
+                    else if (category === 'princesas') applyCategory('princesas');
+                    else if (category === 'grimm') applyCategory('grimm');
                 });
             }
-
-            function gerarPagina() {
-                let titulo = tituloInput.value.trim();
-                let conteudo = conteudoTextarea.value.trim();
-
-                if (!conteudo) {
-                    statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ❌ Erro: Insira o texto primeiro.';
-                    statusDiv.style.background = '#fef2f0';
-                    statusDiv.style.color = '#b33';
-                    return;
-                }
-
-                let tituloFinal = titulo || 'Página de Leitura';
-                let tituloEscapado = escapeHTML(tituloFinal);
-                let conteudoEscapado = escapeHTML(conteudo).replace(/\n/g, '<br>');
-                let dataGeracao = new Date().toLocaleDateString('pt-BR');
-
-                // Página HTML SEM BOTÕES - apenas o texto puro
-                let paginaHTML = `<!DOCTYPE html>
+        });
+        
+        // ----- Funções de preview e geração -----
+        function atualizarPreview() {
+            let texto = conteudoTextarea.value;
+            if (!texto.trim()) {
+                previewDiv.innerHTML = '<span style="color: #b9aa99;">📭 Nenhum conteúdo para visualizar</span>';
+                return;
+            }
+            let resumo = texto.length > 280 ? texto.substring(0, 280) + '…' : texto;
+            previewDiv.innerHTML = resumo.replace(/\n/g, '<br>');
+        }
+        
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        function gerarPagina() {
+            let titulo = tituloInput.value.trim();
+            let conteudo = conteudoTextarea.value.trim();
+            
+            if (!conteudo) {
+                statusDiv.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ❌ Erro: Insira o texto primeiro.';
+                statusDiv.style.background = '#fef2f0';
+                statusDiv.style.color = '#b33';
+                return;
+            }
+            
+            let tituloFinal = titulo || 'Página de Leitura';
+            let tituloEscapado = escapeHTML(tituloFinal);
+            let conteudoEscapado = escapeHTML(conteudo).replace(/\n/g, '<br>');
+            let dataGeracao = new Date().toLocaleDateString('pt-BR');
+            
+            let paginaHTML = `<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -314,7 +598,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: #f4f2ee;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -324,7 +607,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .container {
             max-width: 700px;
             width: 100%;
@@ -335,12 +617,10 @@
             overflow: hidden;
             border: 1px solid #e6e0d8;
         }
-
         .story-header {
             padding: 1.8rem 1.5rem 0.5rem 1.5rem;
             text-align: left;
         }
-
         .story-header h1 {
             font-size: 1.5rem;
             font-weight: 600;
@@ -348,14 +628,12 @@
             margin-bottom: 0.5rem;
             font-family: 'Georgia', serif;
         }
-
         .story-header hr {
             margin: 0.8rem 0;
             border: none;
             height: 1px;
             background: linear-gradient(to right, #e6e0d8, transparent);
         }
-
         .story-content {
             padding: 0.8rem 1.5rem 1.8rem 1.5rem;
             font-family: 'Georgia', serif;
@@ -364,7 +642,6 @@
             color: #2c3e2f;
             text-align: justify;
         }
-
         .story-footer {
             background: #fefcf8;
             border-top: 1px solid #f0ebe5;
@@ -373,7 +650,6 @@
             font-size: 0.65rem;
             color: #b9aa99;
         }
-
         @media (max-width: 600px) {
             body { padding: 0.8rem; }
             .story-header { padding: 1.2rem 1rem 0.3rem 1rem; }
@@ -392,49 +668,50 @@
         ${conteudoEscapado}
     </div>
     <div class="story-footer">
-        Gerado em ${dataGeracao}
+        📖 Gerado com VoicePage Creator | ${dataGeracao}
     </div>
 </div>
 </body>
 </html>`;
-
-                let blob = new Blob([paginaHTML], { type: 'text/html;charset=utf-8' });
-                let url = URL.createObjectURL(blob);
-                let a = document.createElement('a');
-                let nomeArquivo = (tituloFinal.replace(/[^a-z0-9áéíóúâêôãõç]/gi, '_').substring(0, 40) || 'leitura') + '.html';
-                a.href = url;
-                a.download = nomeArquivo;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-
-                statusDiv.innerHTML = `<i class="fa-regular fa-circle-check"></i> ✅ Página gerada! Arquivo: ${nomeArquivo}`;
-                statusDiv.style.background = '#e6f0e4';
-                statusDiv.style.color = '#2c6e2c';
-            }
-
-            function limparCampos() {
-                tituloInput.value = '';
-                conteudoTextarea.value = '';
-                atualizarPreview();
-                statusDiv.innerHTML = '<i class="fa-regular fa-trash-can"></i> Campos limpos. Cole um novo texto.';
-                statusDiv.style.background = '#f4f2ee';
-                statusDiv.style.color = '#5a6b55';
-            }
-
-            conteudoTextarea.addEventListener('input', atualizarPreview);
-            criarBtn.addEventListener('click', gerarPagina);
-            limparBtn.addEventListener('click', limparCampos);
-
-            // Texto de exemplo
-            conteudoTextarea.value = `Todas as crianças, menos uma, crescem. Elas entendem isso rápido. Wendy descobriu esse fato com apenas dois anos. Nesse dia, a pequena brincava em um jardim, colheu outra flor do chão e decidiu levá-la correndo para sua mãe. Provavelmente, estava tão encantadora que a senhora Darling, ao vê-la, pôs as mãos no peito e suspirou:
+            
+            let blob = new Blob([paginaHTML], { type: 'text/html;charset=utf-8' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            let nomeArquivo = (tituloFinal.replace(/[^a-z0-9áéíóúâêôãõç]/gi, '_').substring(0, 40) || 'leitura') + '.html';
+            a.href = url;
+            a.download = nomeArquivo;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            statusDiv.innerHTML = `<i class="fa-regular fa-circle-check"></i> ✅ Página gerada! Arquivo: ${nomeArquivo}`;
+            statusDiv.style.background = '#e6f0e4';
+            statusDiv.style.color = '#2c6e2c';
+        }
+        
+        function limparCampos() {
+            tituloInput.value = '';
+            conteudoTextarea.value = '';
+            atualizarPreview();
+            statusDiv.innerHTML = '<i class="fa-regular fa-trash-can"></i> Campos limpos. Cole um novo texto ou escolha uma categoria.';
+            statusDiv.style.background = '#f4f2ee';
+            statusDiv.style.color = '#5a6b55';
+        }
+        
+        conteudoTextarea.addEventListener('input', atualizarPreview);
+        criarBtn.addEventListener('click', gerarPagina);
+        limparBtn.addEventListener('click', limparCampos);
+        
+        // Conteúdo padrão exemplo
+        conteudoTextarea.value = `Todas as crianças, menos uma, crescem. Elas entendem isso rápido. Wendy descobriu esse fato com apenas dois anos. Nesse dia, a pequena brincava em um jardim, colheu outra flor do chão e decidiu levá-la correndo para sua mãe. Provavelmente, estava tão encantadora que a senhora Darling, ao vê-la, pôs as mãos no peito e suspirou:
 
 — Ah, por que você não fica assim para sempre?
 
 Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente, crescer. Todos nós sabemos disso. Percebemos logo após alcançarmos os dois anos de idade. Dois anos é o começo do fim.`;
-            atualizarPreview();
-        })();
-    </script>
+        tituloInput.value = "Peter Pan - O começo da história";
+        atualizarPreview();
+    })();
+</script>
 </body>
 </html>

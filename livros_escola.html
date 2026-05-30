@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Livros da Escola - Meus Livros e Capítulos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffe5e5;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    padding: 1rem;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid #ffb5b5;
+}
+
+.header {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    padding: 2rem 1.8rem;
+    text-align: left;
+    color: white;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.header h1 i {
+    color: #ffea00;
+    margin-right: 10px;
+    text-shadow: 2px 2px 0 #991b1b;
+}
+
+.header p {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    line-height: 1.4;
+}
+
+.stats-bar {
+    background: #fff0f0;
+    padding: 0.8rem 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffb5b5;
+    font-size: 0.8rem;
+    color: #991b1b;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.stats-left {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.stats-left i {
+    color: #dc2626;
+}
+
+.btn-voltar {
+    background: #2c3e2f;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-voltar:hover {
+    background: #1f2c21;
+    transform: scale(1.02);
+}
+
+.biblioteca-section {
+    padding: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #991b1b;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ffb5b5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: #dc2626;
+    font-size: 1.2rem;
+}
+
+/* LIVROS - ACORDEON/EXPANSÍVEL */
+.livro-item {
+    background: #fffbfb;
+    border: 1px solid #ffb5b5;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.livro-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    background: #fffbfb;
+    transition: background 0.2s;
+}
+
+.livro-header:hover {
+    background: #fff0f0;
+}
+
+.livro-info {
+    flex: 1;
+}
+
+.livro-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #7f1a1a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.livro-titulo i {
+    color: #dc2626;
+    font-size: 1.1rem;
+}
+
+.livro-autor {
+    font-size: 0.75rem;
+    color: #b84c4c;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-lido {
+    background: #ffe0e0;
+    color: #dc2626;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 30px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.expand-icon {
+    color: #dc2626;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    width: 30px;
+    text-align: center;
+}
+
+.livro-capitulos {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #fffbfb;
+    border-top: 1px solid transparent;
+}
+
+.livro-item.expanded .livro-capitulos {
+    max-height: 800px;
+    transition: max-height 0.4s ease-in;
+    border-top-color: #ffb5b5;
+}
+
+.livro-item.expanded .expand-icon i {
+    transform: rotate(180deg);
+}
+
+.capitulos-list {
+    padding: 1rem 1.2rem 1.2rem 2rem;
+}
+
+.capitulo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0.5rem 0.7rem 0;
+    border-bottom: 1px dashed #ffc4c4;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.capitulo-item:last-child {
+    border-bottom: none;
+}
+
+.capitulo-nome {
+    font-size: 0.9rem;
+    color: #7f1a1a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.capitulo-nome i {
+    color: #dc2626;
+    font-size: 0.8rem;
+    width: 20px;
+}
+
+.btn-capitulo {
+    background: #dc2626;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-capitulo:hover {
+    background: #b91c1c;
+    transform: scale(1.02);
+}
+
+.empty-capitulos {
+    color: #b84c4c;
+    font-size: 0.8rem;
+    padding: 0.8rem 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #ffb5b5;
+    font-size: 0.7rem;
+    color: #b84c4c;
+    background: white;
+}
+
+@media (max-width: 550px) {
+    .header h1 { font-size: 1.4rem; }
+    .livro-header { flex-wrap: wrap; }
+    .capitulo-item { flex-direction: column; align-items: flex-start; }
+    .btn-capitulo { width: 100%; justify-content: center; }
+    .stats-bar { flex-direction: column; align-items: stretch; }
+    .btn-voltar { justify-content: center; }
+}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-solid fa-school"></i> Livros da Escola</h1>
+        <p>Meus livros lidos e seus capítulos — organize sua leitura e acesse cada capítulo facilmente</p>
+    </div>
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-bookmark"></i> Minha estante pessoal</span>
+            <span><i class="fa-solid fa-layer-group"></i> Clique no livro para ver os capítulos</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Voltar à página inicial
+        </button>
+    </div>
+
+    <div class="biblioteca-section">
+        <div class="section-title">
+            <i class="fa-solid fa-books"></i>
+            <span>📚 Livros que li</span>
+        </div>
+
+        <div id="livrosContainer">
+            <!-- Os livros serão inseridos dinamicamente -->
+        </div>
+    </div>
+    <div class="footer">
+        <p>📖 Clique em cada livro para expandir e ver os capítulos.</p>
+    </div>
+</div>
+
+<script>
+    // Estrutura de dados: livros e seus capítulos
+    let livros = [
+        {
+            id: 1,
+            titulo: "O Pequeno Príncipe",
+            autor: "Antoine de Saint-Exupéry",
+            capitulos: [
+                { id: 101, nome: "Capítulo 1 - O desenho do elefante" },
+                { id: 102, nome: "Capítulo 2 - O principezinho e o piloto" },
+                { id: 103, nome: "Capítulo 3 - A rosa e o vulcão" }
+            ]
+        },
+        {
+            id: 2,
+            titulo: "O Menino Maluquinho",
+            autor: "Ziraldo",
+            capitulos: [
+                { id: 201, nome: "Capítulo 1 - O menino que tinha uma panela na cabeça" },
+                { id: 202, nome: "Capítulo 2 - As travessuras da infância" }
+            ]
+        },
+        {
+            id: 3,
+            titulo: "Sítio do Picapau Amarelo",
+            autor: "Monteiro Lobato",
+            capitulos: [
+                { id: 301, nome: "Capítulo 1 - A boneca de pano falante" },
+                { id: 302, nome: "Capítulo 2 - Viagens pelo reino das águas" }
+            ]
+        }
+    ];
+
+    let proximoIdCapitulo = 400;
+
+    // Função para salvar no localStorage (persistência)
+    function salvarDados() {
+        localStorage.setItem('livrosEscolaData', JSON.stringify({ livros, proximoIdCapitulo }));
+    }
+
+    function carregarDados() {
+        const dados = localStorage.getItem('livrosEscolaData');
+        if (dados) {
+            try {
+                const parsed = JSON.parse(dados);
+                livros = parsed.livros;
+                proximoIdCapitulo = parsed.proximoIdCapitulo;
+            } catch(e) {}
+        }
+    }
+
+    // Renderizar todos os livros com seus capítulos
+    function renderizarLivros() {
+        const container = document.getElementById('livrosContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        livros.forEach(livro => {
+            const livroDiv = document.createElement('div');
+            livroDiv.className = 'livro-item';
+            livroDiv.dataset.id = livro.id;
+
+            // Header do livro (clicável para expandir)
+            const header = document.createElement('div');
+            header.className = 'livro-header';
+            header.innerHTML = `
+                <div class="livro-info">
+                    <div class="livro-titulo">
+                        <i class="fa-regular fa-book-open"></i> ${escapeHTML(livro.titulo)}
+                        <span class="badge-lido"><i class="fa-regular fa-check-circle"></i> lido</span>
+                    </div>
+                    <div class="livro-autor">
+                        <i class="fa-regular fa-user"></i> ${livro.autor ? escapeHTML(livro.autor) : 'Autor desconhecido'}
+                    </div>
+                </div>
+                <div class="expand-icon">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            `;
+
+            // Área de capítulos
+            const capitulosDiv = document.createElement('div');
+            capitulosDiv.className = 'livro-capitulos';
+            
+            const listaCap = document.createElement('div');
+            listaCap.className = 'capitulos-list';
+            
+            if (livro.capitulos.length === 0) {
+                const emptyMsg = document.createElement('div');
+                emptyMsg.className = 'empty-capitulos';
+                emptyMsg.innerHTML = '<i class="fa-regular fa-folder-open"></i> Nenhum capítulo disponível.';
+                listaCap.appendChild(emptyMsg);
+            } else {
+                livro.capitulos.forEach(cap => {
+                    const capItem = document.createElement('div');
+                    capItem.className = 'capitulo-item';
+                    capItem.innerHTML = `
+                        <div class="capitulo-nome">
+                            <i class="fa-regular fa-file-lines"></i> ${escapeHTML(cap.nome)}
+                        </div>
+                        <button class="btn-capitulo" data-livro-id="${livro.id}" data-cap-id="${cap.id}">
+                            <i class="fa-solid fa-arrow-right"></i> Acessar capítulo
+                        </button>
+                    `;
+                    listaCap.appendChild(capItem);
+                });
+            }
+
+            capitulosDiv.appendChild(listaCap);
+            livroDiv.appendChild(header);
+            livroDiv.appendChild(capitulosDiv);
+            container.appendChild(livroDiv);
+
+            // Evento de toggle (expandir/recolher)
+            header.addEventListener('click', (e) => {
+                livroDiv.classList.toggle('expanded');
+            });
+        });
+
+        // Atribuir eventos dos botões "Acessar capítulo"
+        document.querySelectorAll('.btn-capitulo').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const livroId = parseInt(btn.dataset.livroId);
+                const capId = parseInt(btn.dataset.capId);
+                const livro = livros.find(l => l.id === livroId);
+                const capitulo = livro?.capitulos.find(c => c.id === capId);
+                if (capitulo) {
+                    alert(`🔖 "${capitulo.nome}" - Em breve você poderá ler o conteúdo deste capítulo.`);
+                } else {
+                    alert("Capítulo não encontrado.");
+                }
+            });
+        });
+    }
+
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Botão voltar à página inicial
+    function setupVoltarButton() {
+        const btnVoltar = document.getElementById('btnVoltarInicio');
+        if (btnVoltar) {
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        }
+    }
+
+    // Inicialização
+    carregarDados();
+    renderizarLivros();
+    setupVoltarButton();
+</script>
+</body>
+</html>
