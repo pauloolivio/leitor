@@ -619,6 +619,13 @@
             padding: 2rem;
             color: #b9aa99;
         }
+        
+        /* Botão específico para mobile */
+        .mobile-file-btn {
+            margin-top: 12px;
+            width: auto;
+            display: inline-flex;
+        }
     </style>
 </head>
 <body>
@@ -685,7 +692,7 @@
             <p style="font-size: 0.8rem; margin-top: 8px;">Suporta: JPG, PNG, GIF, BMP, WEBP</p>
             <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
             <br>
-            <button class="btn btn-secondary" style="margin-top: 12px; width: auto;" onclick="document.getElementById('fileInput').click()">
+            <button class="btn btn-secondary mobile-file-btn" id="selectImagesBtn">
                 <i class="fa-solid fa-folder-open"></i> Selecionar Imagens
             </button>
         </div>
@@ -932,6 +939,7 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
     const uploadArea = document.getElementById('uploadArea');
     const fileInputOCR = document.getElementById('fileInput');
     const ocrStatusDiv = document.getElementById('ocrStatus');
+    const selectImagesBtn = document.getElementById('selectImagesBtn');
 
     function showOCRStatus(message, type) {
         ocrStatusDiv.innerHTML = `<i class="${type === 'success' ? 'fa-regular fa-check-circle' : type === 'error' ? 'fa-solid fa-circle-exclamation' : 'fa-regular fa-lightbulb'}"></i> ${message}`;
@@ -946,27 +954,62 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
         }, 3000);
     }
 
-    uploadArea.addEventListener('click', () => fileInputOCR.click());
+    // Função simplificada para abrir o seletor de arquivos - funciona no Android
+    function openFileSelector() {
+        // Reset do input
+        fileInputOCR.value = '';
+        // Forçar o clique no input file
+        fileInputOCR.click();
+    }
+
+    // Evento para o botão de selecionar imagens
+    selectImagesBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openFileSelector();
+    });
+
+    // Evento para a área de upload (clique)
+    uploadArea.addEventListener('click', function(e) {
+        // Se o clique foi no botão, não faz nada (já tratado pelo botão)
+        if (e.target === selectImagesBtn || selectImagesBtn.contains(e.target)) {
+            return;
+        }
+        openFileSelector();
+    });
+
+    // Eventos de drag and drop
     uploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         uploadArea.classList.add('drag-over');
     });
+    
     uploadArea.addEventListener('dragleave', () => {
         uploadArea.classList.remove('drag-over');
     });
+    
     uploadArea.addEventListener('drop', (e) => {
         e.preventDefault();
         uploadArea.classList.remove('drag-over');
         const files = Array.from(e.dataTransfer.files);
         handleFiles(files);
     });
+    
+    // Evento principal do input file
     fileInputOCR.addEventListener('change', (e) => {
-        handleFiles(Array.from(e.target.files));
+        if (e.target.files && e.target.files.length > 0) {
+            handleFiles(Array.from(e.target.files));
+        }
+        // Limpar o input para permitir selecionar novamente
         fileInputOCR.value = '';
     });
 
     function handleFiles(files) {
         const imageFiles = files.filter(file => file.type.startsWith('image/'));
+        if (imageFiles.length === 0) {
+            showOCRStatus('Nenhuma imagem válida selecionada', 'error');
+            return;
+        }
+        
         imageFiles.forEach(file => {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -982,10 +1025,10 @@ Bastou isso para, desde aquele dia, Wendy entender que deveria, obrigatoriamente
                 images.push(imageData);
                 renderImages();
                 processImage(imageData);
-                showOCRStatus(`${imageFiles.length} imagem(ns) adicionada(s)`, 'success');
             };
             reader.readAsDataURL(file);
         });
+        showOCRStatus(`${imageFiles.length} imagem(ns) adicionada(s)`, 'success');
     }
 
     async function processImage(image) {
