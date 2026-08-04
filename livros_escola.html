@@ -271,6 +271,97 @@ body {
     font-style: italic;
 }
 
+/* Modal para leitura do capítulo */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    max-width: 750px;
+    width: 100%;
+    max-height: 85vh;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    padding: 1.2rem 1.8rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.modal-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.modal-header .btn-fechar-modal {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-header .btn-fechar-modal:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+.modal-body {
+    padding: 1.8rem;
+    overflow-y: auto;
+    flex: 1;
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #2c3e2f;
+    text-align: justify;
+}
+
+.modal-body p {
+    margin-bottom: 0.8rem;
+}
+
+.modal-body .previa-label {
+    font-size: 0.75rem;
+    color: #b84c4c;
+    background: #fff0f0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-family: system-ui, sans-serif;
+}
+
 .footer {
     text-align: center;
     padding: 1rem;
@@ -287,6 +378,8 @@ body {
     .btn-capitulo { width: 100%; justify-content: center; }
     .stats-bar { flex-direction: column; align-items: stretch; }
     .btn-voltar { justify-content: center; }
+    .modal-box { max-height: 95vh; }
+    .modal-body { padding: 1.2rem; font-size: 0.9rem; }
 }
     </style>
 </head>
@@ -321,44 +414,38 @@ body {
     </div>
 </div>
 
+<!-- Modal de Leitura -->
+<div class="modal-overlay" id="modalLeitura">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="modalTitulo">Capítulo</h3>
+            <button class="btn-fechar-modal" id="btnFecharModal">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <span class="previa-label"><i class="fa-regular fa-eye"></i> Prévia do capítulo</span>
+            <div id="modalConteudo"></div>
+            <p style="margin-top: 1.5rem; font-size: 0.8rem; color: #b84c4c; border-top: 1px dashed #ffc4c4; padding-top: 1rem;">
+                <i class="fa-regular fa-info-circle"></i> O conteúdo completo será carregado em breve.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PRIMEIRO: CARREGA O ARQUIVO DE DADOS (livrosData.js)         -->
+<!-- ============================================================ -->
+<script src="livrosData.js"></script>
+
+<!-- ============================================================ -->
+<!-- SEGUNDO: CARREGA O SCRIPT PRINCIPAL QUE USA OS DADOS         -->
+<!-- ============================================================ -->
 <script>
-    // Estrutura de dados: livros e seus capítulos
-    let livros = [
-        {
-            id: 1,
-            titulo: "O Pequeno Príncipe",
-            autor: "Antoine de Saint-Exupéry",
-            capitulos: [
-                { id: 101, nome: "Capítulo 1 - O desenho do elefante" },
-                { id: 102, nome: "Capítulo 2 - O principezinho e o piloto" },
-                { id: 103, nome: "Capítulo 3 - A rosa e o vulcão" }
-            ]
-        },
-        {
-            id: 2,
-            titulo: "O Menino Maluquinho",
-            autor: "Ziraldo",
-            capitulos: [
-                { id: 201, nome: "Capítulo 1 - O menino que tinha uma panela na cabeça" },
-                { id: 202, nome: "Capítulo 2 - As travessuras da infância" }
-            ]
-        },
-        {
-            id: 3,
-            titulo: "Sítio do Picapau Amarelo",
-            autor: "Monteiro Lobato",
-            capitulos: [
-                { id: 301, nome: "Capítulo 1 - A boneca de pano falante" },
-                { id: 302, nome: "Capítulo 2 - Viagens pelo reino das águas" }
-            ]
-        }
-    ];
+    // ============================================================
+    // FUNÇÕES DE PERSISTÊNCIA E RENDERIZAÇÃO
+    // ============================================================
 
-    let proximoIdCapitulo = 400;
-
-    // Função para salvar no localStorage (persistência)
     function salvarDados() {
-        localStorage.setItem('livrosEscolaData', JSON.stringify({ livros, proximoIdCapitulo }));
+        localStorage.setItem('livrosEscolaData', JSON.stringify({ livros }));
     }
 
     function carregarDados() {
@@ -367,12 +454,53 @@ body {
             try {
                 const parsed = JSON.parse(dados);
                 livros = parsed.livros;
-                proximoIdCapitulo = parsed.proximoIdCapitulo;
             } catch(e) {}
         }
     }
 
-    // Renderizar todos os livros com seus capítulos
+    function escapeHTML(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // ============================================================
+    // MODAL DE LEITURA
+    // ============================================================
+
+    const modalOverlay = document.getElementById('modalLeitura');
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalConteudo = document.getElementById('modalConteudo');
+    const btnFecharModal = document.getElementById('btnFecharModal');
+
+    function abrirModal(capitulo) {
+        modalTitulo.textContent = capitulo.nome;
+        modalConteudo.innerHTML = `<p>${escapeHTML(capitulo.preview).replace(/\n/g, '<br>')}</p>`;
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function fecharModal() {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    btnFecharModal.addEventListener('click', fecharModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) fecharModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') fecharModal();
+    });
+
+    // ============================================================
+    // RENDERIZAR LIVROS E CAPÍTULOS
+    // ============================================================
+
     function renderizarLivros() {
         const container = document.getElementById('livrosContainer');
         if (!container) return;
@@ -383,7 +511,6 @@ body {
             livroDiv.className = 'livro-item';
             livroDiv.dataset.id = livro.id;
 
-            // Header do livro (clicável para expandir)
             const header = document.createElement('div');
             header.className = 'livro-header';
             header.innerHTML = `
@@ -401,7 +528,6 @@ body {
                 </div>
             `;
 
-            // Área de capítulos
             const capitulosDiv = document.createElement('div');
             capitulosDiv.className = 'livro-capitulos';
             
@@ -434,13 +560,11 @@ body {
             livroDiv.appendChild(capitulosDiv);
             container.appendChild(livroDiv);
 
-            // Evento de toggle (expandir/recolher)
             header.addEventListener('click', (e) => {
                 livroDiv.classList.toggle('expanded');
             });
         });
 
-        // Atribuir eventos dos botões "Acessar capítulo"
         document.querySelectorAll('.btn-capitulo').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -449,7 +573,7 @@ body {
                 const livro = livros.find(l => l.id === livroId);
                 const capitulo = livro?.capitulos.find(c => c.id === capId);
                 if (capitulo) {
-                    alert(`🔖 "${capitulo.nome}" - Em breve você poderá ler o conteúdo deste capítulo.`);
+                    abrirModal(capitulo);
                 } else {
                     alert("Capítulo não encontrado.");
                 }
@@ -457,17 +581,10 @@ body {
         });
     }
 
-    function escapeHTML(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
+    // ============================================================
+    // BOTÃO VOLTAR
+    // ============================================================
 
-    // Botão voltar à página inicial
     function setupVoltarButton() {
         const btnVoltar = document.getElementById('btnVoltarInicio');
         if (btnVoltar) {
@@ -477,10 +594,20 @@ body {
         }
     }
 
-    // Inicialização
-    carregarDados();
-    renderizarLivros();
-    setupVoltarButton();
+    // ============================================================
+    // INICIALIZAÇÃO
+    // ============================================================
+
+    // Verifica se os dados foram carregados do arquivo externo
+    if (typeof livros === 'undefined') {
+        console.error('Erro: O arquivo livrosData.js não foi carregado corretamente.');
+        document.getElementById('livrosContainer').innerHTML = 
+            '<p style="color: red; text-align: center; padding: 2rem;">Erro ao carregar os dados dos livros. Verifique se o arquivo livrosData.js está na mesma pasta.</p>';
+    } else {
+        carregarDados();
+        renderizarLivros();
+        setupVoltarButton();
+    }
 </script>
 </body>
 </html>
