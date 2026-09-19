@@ -1,0 +1,20 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Jude", "text": "Is it hot or cold today?", "translation": "Está quente ou frio hoje?" },
+            { "speaker": "Melodie", "text": "I'm certain it's cold. Look at the mountain. You can see snow on the top.", "translation": "Tenho certeza que está frio. Olhe a montanha. Você pode ver neve no topo." },
+            { "speaker": "Jude", "text": "It is winter. I miss summer and swimming in the river.", "translation": "É inverno. Sinto falta do verão e de nadar no rio." },
+            { "speaker": "Melodie", "text": "Me too. I miss our boat and the sunshine.", "translation": "Eu também. Sinto falta do nosso barco e do sol." },
+            { "speaker": "Jude", "text": "But our house is warm. We have the fire on.", "translation": "Mas nossa casa é quente. Estamos com a lareira acesa." },
+            { "speaker": "Melodie", "text": "True. Plus I prefer snow to rain. I love the white sky.", "translation": "Verdade. Além disso, prefiro neve a chuva. Adoro o céu branco." },
+            { "speaker": "Jude", "text": "Can I have a group of friends come over this week? We can play in my room or out in the field.", "translation": "Posso convidar um grupo de amigos para vir esta semana? Podemos brincar no meu quarto ou no campo." },
+            { "speaker": "Melodie", "text": "Sure, that's fine, but you need to make your own food.", "translation": "Claro, tudo bem, mas você precisa preparar sua própria comida." },
+            { "speaker": "Jude", "text": "I will. Maybe we will play games.", "translation": "Vou sim. Talvez a gente jogue jogos." },
+            { "speaker": "Melodie", "text": "As long as you remember to finish your school paper first.", "translation": "Desde que você se lembre de terminar seu trabalho da escola primeiro." },
+            { "speaker": "Jude", "text": "I already did.", "translation": "Já terminei." },
+            { "speaker": "Melodie", "text": "Wow. I'm impressed.", "translation": "Uau. Estou impressionada." },
+            { "speaker": "Jude", "text": "Thanks. The bus is here. I have to go now.", "translation": "Obrigado. O ônibus chegou. Preciso ir agora." },
+            { "speaker": "Melodie", "text": "Have a fun day!", "translation": "Tenha um dia divertido!" },
+            { "speaker": "Jude", "text": "You too. Bye.", "translation": "Você também. Tchau." }
+        ]
+}

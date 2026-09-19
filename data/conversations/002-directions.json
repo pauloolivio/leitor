@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "dialogo": [
+    { "speaker": "Tourist", "text": "Excuse me, could you help me? I'm a bit lost.", "translation": "Com licença, você poderia me ajudar? Estou um pouco perdido." },
+    { "speaker": "Local", "text": "Of course! Where are you trying to go?", "translation": "Claro! Onde você está tentando ir?" },
+    { "speaker": "Tourist", "text": "I'm looking for the train station. Is it far from here?", "translation": "Estou procurando a estação de trem. É longe daqui?" },
+    { "speaker": "Local", "text": "Not too far. Go straight down this street for two blocks.", "translation": "Não muito longe. Vá reto por esta rua por dois quarteirões." },
+    { "speaker": "Tourist", "text": "Okay, straight for two blocks. Then what?", "translation": "Ok, reto por dois quarteirões. E depois?" },
+    { "speaker": "Local", "text": "Then turn left at the traffic light. You'll see the station on your right.", "translation": "Depois vire à esquerda no semáforo. Você verá a estação à sua direita." },
+    { "speaker": "Tourist", "text": "Turn left at the traffic light, and it's on my right. Got it!", "translation": "Virar à esquerda no semáforo, e fica à minha direita. Entendi!" },
+    { "speaker": "Local", "text": "Exactly! It's a big building with a clock tower. You can't miss it.", "translation": "Exatamente! É um prédio grande com uma torre de relógio. Você não pode errar." },
+    { "speaker": "Tourist", "text": "Thank you so much! You've been really helpful.", "translation": "Muito obrigado! Você foi muito útil." },
+    { "speaker": "Local", "text": "No problem! Have a great day!", "translation": "Sem problema! Tenha um ótimo dia!" }
+  ]
+}

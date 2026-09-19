@@ -1,0 +1,21 @@
+{
+  "id": 13,
+  "dialogo": [
+            { "speaker": "Melissa", "text": "Do you like to read?", "translation": "Você gosta de ler?" },
+            { "speaker": "Travis", "text": "I've been so busy lately that I haven't been reading. But I do like to read.", "translation": "Andei tão ocupado ultimamente que não tenho lido. Mas eu gosto de ler." },
+            { "speaker": "Melissa", "text": "Same. It's how I rest.", "translation": "Eu também. É como eu descanso." },
+            { "speaker": "Travis", "text": "My schedule has been so full. I'm trying to clear it.", "translation": "Minha agenda tem estado tão cheia. Estou tentando limpá-la." },
+            { "speaker": "Melissa", "text": "What if you wake up early?", "translation": "E se você acordasse cedo?" },
+            { "speaker": "Travis", "text": "I would like to, but I'm so tired.", "translation": "Eu gostaria, mas estou tão cansado." },
+            { "speaker": "Melissa", "text": "Have you thought about changing your job?", "translation": "Você já pensou em mudar de emprego?" },
+            { "speaker": "Travis", "text": "They said that next month should be better. There is a new person coming from another city to help us.", "translation": "Eles disseram que no próximo mês deve melhorar. Tem uma pessoa nova vindo de outra cidade para nos ajudar." },
+            { "speaker": "Melissa", "text": "Is there room? Your office is not very big.", "translation": "Tem espaço? Seu escritório não é muito grande." },
+            { "speaker": "Travis", "text": "We will find a place. Something has got to change. I can't do everything myself.", "translation": "Vamos encontrar um lugar. Algo tem que mudar. Não posso fazer tudo sozinho." },
+            { "speaker": "Melissa", "text": "I agree. Do you feel alone?", "translation": "Concordo. Você se sente sozinho?" },
+            { "speaker": "Travis", "text": "A little. It's like I told you before. I must do so many things and I'm tired.", "translation": "Um pouco. É como eu te disse antes. Preciso fazer tantas coisas e estou cansado." },
+            { "speaker": "Melissa", "text": "You need sleep. If you decide to leave your job, I will understand.", "translation": "Você precisa dormir. Se você decidir sair do emprego, vou entender." },
+            { "speaker": "Travis", "text": "I thought about it. However, I want to stay and build this company.", "translation": "Pensei nisso. Porém, quero ficar e construir esta empresa." },
+            { "speaker": "Melissa", "text": "I know you like being a part of it.", "translation": "Eu sei que você gosta de fazer parte disso." },
+            { "speaker": "Travis", "text": "We are a young group and there is a good spirit in the air. We laugh a lot. We just need to work less.", "translation": "Somos um grupo jovem e há um bom espírito no ar. Rimos muito. Só precisamos trabalhar menos." }
+        ]
+}

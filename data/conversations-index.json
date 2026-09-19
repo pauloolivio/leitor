@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "conversations": [
+    {
+      "id": 1,
+      "titulo": "At the Coffee Shop",
+      "contexto": "Ordering coffee and a snack",
+      "level": "Beginner",
+      "vocabulary": ["order", "medium", "to-go", "receipt", "total"],
+      "tips": [
+        "Stress the word 'medium' when ordering size",
+        "Use rising intonation for questions",
+        "Link words naturally: 'Can I get' → 'Canai get'",
+        "Practice the 'th' sound in 'anything'"
+      ],
+      "file": "conversations/001-coffee-shop.json"
+    },
+    {
+      "id": 2,
+      "titulo": "Asking for Directions",
+      "contexto": "Finding your way in a new city",
+      "level": "Beginner",
+      "vocabulary": ["block", "turn", "straight", "corner", "landmark"],
+      "tips": [
+        "Practice the reduction: 'where is' → 'wheriz'",
+        "Stress the direction words: LEFT, RIGHT, STRAIGHT",
+        "Use falling intonation for statements",
+        "Link 'go straight' smoothly"
+      ],
+      "file": "conversations/002-directions.json"
+    },
+    {
+      "id": 3,
+      "titulo": "Meeting a New Colleague",
+      "contexto": "First day at a new job",
+      "level": "Intermediate",
+      "vocabulary": ["introduce", "department", "position", "settle in", "look forward"],
+      "tips": [
+        "Use contractions naturally: I'm, you're, it's",
+        "Stress content words, reduce function words",
+        "Practice the 'r' sound in 'work', 'department'",
+        "Use friendly rising intonation for questions"
+      ],
+      "file": "conversations/003-new-colleague.json"
+    },
+    {
+      "id": 4,
+      "titulo": "Ordering Food Delivery",
+      "contexto": "Ordering dinner over the phone",
+      "level": "Beginner",
+      "vocabulary": ["delivery", "menu", "special", "order", "confirm"],
+      "tips": [
+        "Practice numbers clearly: phone, address, prices",
+        "Use polite intonation: 'Could I', 'I'd like'",
+        "Link words: 'I would like' → 'I'd like'",
+        "Repeat back information to confirm"
+      ],
+      "file": "conversations/004-food-delivery.json"
+    },
+    {
+      "id": 5,
+      "titulo": "Introductions",
+      "contexto": "Meeting new neighbors and family",
+      "level": "Beginner",
+      "vocabulary": ["meet", "wife", "husband", "neighborhood", "invite"],
+      "tips": [
+        "Link 'How are you' → 'Howarya' in natural speech",
+        "Stress the names when introducing people: SUE, JILL, RYAN",
+        "Use warm rising intonation for 'So nice to meet you'",
+        "Practice the 'th' sound in 'thanks', 'brother'"
+      ],
+      "file": "conversations/005-introductions.json"
+    },
+    {
+      "id": 6,
+      "titulo": "What is Your Job?",
+      "contexto": "Talking about careers over lunch",
+      "level": "Beginner",
+      "vocabulary": ["job", "teacher", "college", "study", "grade"],
+      "tips": [
+        "Use rising intonation for 'What is your job?'",
+        "Link 'What do you do' → 'Whaddaya do' naturally",
+        "Stress the professions: TEACHER, STUDENT, SCIENTIST",
+        "Practice the 'j' sound in 'job', 'children'"
+      ],
+      "file": "conversations/006-your-job.json"
+    },
+    {
+      "id": 7,
+      "titulo": "My Family",
+      "contexto": "Talking about siblings and family",
+      "level": "Beginner",
+      "vocabulary": ["siblings", "only child", "close", "uncle", "pets"],
+      "tips": [
+        "Link 'Do you have' → 'Dya have' in casual speech",
+        "Stress 'ONLY child' to emphasize uniqueness",
+        "Practice the 'b' and 'v' distinction in 'brother' vs 'very'",
+        "Use falling intonation for statements about family"
+      ],
+      "file": "conversations/007-my-family.json"
+    },
+    {
+      "id": 8,
+      "titulo": "What does She Look Like?",
+      "contexto": "Describing someone's appearance",
+      "level": "Intermediate",
+      "vocabulary": ["hair", "eyes", "tall", "figure", "beauty"],
+      "tips": [
+        "Stress adjectives of description: LONG, BLACK, ROUND, GREEN",
+        "Practice the 'th' sound in 'they', 'their', 'that'",
+        "Link 'What does she' → 'Whadushee' in fast speech",
+        "Use natural rhythm when describing physical traits"
+      ],
+      "file": "conversations/008-she-look-like.json"
+    },
+    {
+      "id": 9,
+      "titulo": "What are Your Hobbies?",
+      "contexto": "Sharing free-time activities",
+      "level": "Intermediate",
+      "vocabulary": ["hobbies", "bike", "traveling", "language", "practice"],
+      "tips": [
+        "Link 'What are your' → 'Whadaya' in casual speech",
+        "Stress hobby words: BIKE, MUSIC, BOOKS, TRAVELING",
+        "Practice the 'r' sound in 'reading', 'traveling', 'morning'",
+        "Use falling intonation for listing items naturally"
+      ],
+      "file": "conversations/009-hobbies.json"
+    },
+    {
+      "id": 10,
+      "titulo": "What's the Weather?",
+      "contexto": "Talking about the weather at home",
+      "level": "Beginner",
+      "vocabulary": ["weather", "mountain", "sunshine", "snow", "field"],
+      "tips": [
+        "Link 'Is it hot or cold' → 'Izit hot or cold'",
+        "Stress the contrasting words: HOT / COLD, SNOW / RAIN",
+        "Use rising intonation for 'Can I have a group of friends come over?'",
+        "Practice the 'w' sound in 'weather', 'winter', 'warm', 'white'"
+      ],
+      "file": "conversations/010-weather.json"
+    },
+    {
+      "id": 11,
+      "titulo": "What's your Favorite Season?",
+      "contexto": "Comparing weather on different coasts",
+      "level": "Intermediate",
+      "vocabulary": ["coast", "season", "extreme", "herbs", "garden"],
+      "tips": [
+        "Link 'You live on the' → 'Yuliv on the' naturally",
+        "Stress the direction words: WEST coast, EAST coast",
+        "Practice the 's' vs 'sh' in 'season', 'sunshine'",
+        "Use falling intonation when comparing preferences"
+      ],
+      "file": "conversations/011-favorite-season.json"
+    },
+    {
+      "id": 12,
+      "titulo": "Making Plans",
+      "contexto": "Planning a movie night with a friend",
+      "level": "Intermediate",
+      "vocabulary": ["perhaps", "drama", "schedule", "fresh air", "text"],
+      "tips": [
+        "Link 'What's your' → 'Whatsyer' in casual speech",
+        "Practice time expressions clearly: from 5 to 8, between 5 and 5:30",
+        "Use falling intonation for confirming information",
+        "Stress the key words: MOVIE, SATURDAY, WALK, DOOR"
+      ],
+      "file": "conversations/012-making-plans.json"
+    },
+    {
+      "id": 13,
+      "titulo": "Real Life Chat",
+      "contexto": "Talking about work-life balance",
+      "level": "Intermediate",
+      "vocabulary": ["schedule", "clear", "alone", "spirit", "company"],
+      "tips": [
+        "Link 'Do you like to' → 'Dya like to' in fast speech",
+        "Stress the emotional words: BUSY, TIRED, ALONE, UNDERSTAND",
+        "Practice the 'ch' sound in 'chat', 'change', 'changing'",
+        "Use rising intonation for reflective questions"
+      ],
+      "file": "conversations/013-real-life-chat.json"
+    },
+    {
+      "id": 14,
+      "titulo": "My Morning Routine",
+      "contexto": "Describing daily morning habits",
+      "level": "Beginner",
+      "vocabulary": ["routine", "alarm", "coffee beans", "shower", "newspaper"],
+      "tips": [
+        "Practice time expressions clearly: 6 a.m., 6:30",
+        "Link 'wake up' naturally — the 'k' blends into 'up'",
+        "Stress routine verbs: WASH, MAKE, MOVE, RUN, EAT",
+        "Use falling intonation when listing your routine"
+      ],
+      "file": "conversations/014-morning-routine.json"
+    }
+  ]
+}

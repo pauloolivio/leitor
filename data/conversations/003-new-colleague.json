@@ -1,0 +1,15 @@
+{
+  "id": 3,
+  "dialogo": [
+            { "speaker": "Sarah", "text": "Hi! You must be the new designer. I'm Sarah.", "translation": "Oi! Você deve ser o novo designer. Eu sou Sarah." },
+            { "speaker": "Alex", "text": "Yes, that's me! I'm Alex. Nice to meet you, Sarah.", "translation": "Sim, sou eu! Sou Alex. Prazer em conhecê-la, Sarah." },
+            { "speaker": "Sarah", "text": "Nice to meet you too! What department are you joining?", "translation": "Prazer em conhecê-lo também! Em qual departamento você está entrando?" },
+            { "speaker": "Alex", "text": "I'm joining the product design team. I'll be working on mobile apps.", "translation": "Estou entrando na equipe de design de produto. Vou trabalhar com aplicativos móveis." },
+            { "speaker": "Sarah", "text": "Oh, that's great! I work in marketing. We'll probably collaborate a lot.", "translation": "Ah, que ótimo! Eu trabalho no marketing. Provavelmente vamos colaborar muito." },
+            { "speaker": "Alex", "text": "I hope so! I'm still settling in. Do you have any tips for the first week?", "translation": "Espero que sim! Ainda estou me adaptando. Você tem alguma dica para a primeira semana?" },
+            { "speaker": "Sarah", "text": "Definitely! The coffee machine on the third floor is much better than the one here.", "translation": "Com certeza! A máquina de café do terceiro andar é muito melhor que a daqui." },
+            { "speaker": "Alex", "text": "Good to know! I'll definitely check it out. Thanks for the tip!", "translation": "Bom saber! Vou conferir com certeza. Obrigado pela dica!" },
+            { "speaker": "Sarah", "text": "No problem! Let me know if you need anything. I'm looking forward to working with you.", "translation": "Sem problema! Me avise se precisar de algo. Estou ansiosa para trabalhar com você." },
+            { "speaker": "Alex", "text": "Thanks, Sarah! I'm looking forward to it too.", "translation": "Obrigado, Sarah! Também estou ansioso para isso." }
+        ]
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>English Practice - Stories & Shadowing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fa-regular fa-flag"></i> English Practice</h1>
+        <p>Improve your reading and speaking skills with classic stories and shadowing conversations.</p>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stats-left">
+            <span><i class="fa-regular fa-bookmark"></i> My English Library</span>
+            <span><i class="fa-solid fa-language"></i> Stories & Conversations</span>
+            <span><i class="fa-regular fa-clock"></i> Click to expand</span>
+        </div>
+        <button class="btn-voltar" id="btnVoltarInicio">
+            <i class="fa-solid fa-arrow-left"></i> Back to home
+        </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="stories">
+            <i class="fa-solid fa-book-open"></i> Stories
+        </button>
+        <button class="tab-btn" data-tab="shadowing">
+            <i class="fa-solid fa-microphone"></i> Shadowing
+        </button>
+    </div>
+
+    <!-- Stories Section -->
+    <div class="biblioteca-section tab-content active" id="stories-tab">
+        <div class="section-title">
+            <i class="fa-solid fa-book-open"></i>
+            <span>📖 Stories I've Read</span>
+        </div>
+        <div id="contosContainer"></div>
+        <div class="info-msg">
+            <i class="fa-regular fa-lightbulb"></i> Click on any story to see the summary and key vocabulary. Then use the "Read full story" button to read the complete text in English.
+        </div>
+    </div>
+
+    <!-- Shadowing Section -->
+    <div class="biblioteca-section tab-content" id="shadowing-tab">
+        <div class="section-title">
+            <i class="fa-solid fa-microphone"></i>
+            <span>🎤 Shadowing Practice</span>
+        </div>
+        <div class="info-msg" style="margin-bottom: 1.2rem;">
+            <i class="fa-regular fa-lightbulb"></i> 
+            <strong>How to practice shadowing:</strong> 1) Listen to the audio (or read the text aloud). 
+            2) Repeat immediately after each sentence, imitating the rhythm, intonation, and pronunciation. 
+            3) Do it multiple times until it feels natural.
+        </div>
+        <div id="conversationsContainer"></div>
+    </div>
+
+    <div class="footer">
+        <p>📚 Learn English through stories and conversations — Practice makes perfect!</p>
+    </div>
+</div>
+
+<!-- ⚙️ FONT SIZE CONTROL PANEL -->
+<button class="font-toggle-btn" id="fontToggleBtn" title="Adjust font size" aria-label="Adjust font size">
+    <i class="fa-solid fa-gear"></i>
+</button>
+
+<div class="font-panel" id="fontPanel" aria-hidden="true">
+    <div class="font-panel-header">
+        <span><i class="fa-solid fa-text-height"></i> Text Size</span>
+        <button class="font-panel-close" id="fontPanelClose" aria-label="Close">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="font-panel-body">
+        <div class="font-value-display">
+            <span id="fontValueLabel">100%</span>
+            <span class="font-value-hint">Dialogue & Story text</span>
+        </div>
+
+        <div class="font-controls">
+            <button class="font-btn" id="fontDecrease" title="Decrease">
+                <i class="fa-solid fa-minus"></i> A
+            </button>
+            <button class="font-btn font-btn-reset" id="fontReset" title="Reset to default">
+                <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button class="font-btn" id="fontIncrease" title="Increase">
+                A <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
+        <div class="font-slider-wrap">
+            <input type="range" id="fontSlider" min="70" max="180" step="5" value="100" aria-label="Font size slider">
+            <div class="font-slider-marks">
+                <span>70%</span>
+                <span>100%</span>
+                <span>180%</span>
+            </div>
+        </div>
+
+        <div class="font-preview">
+            <span class="font-preview-label">Preview:</span>
+            <p class="font-preview-text">Hi! How are you today?</p>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

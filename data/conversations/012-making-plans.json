@@ -1,0 +1,22 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Luke", "text": "I have a question.", "translation": "Tenho uma pergunta." },
+            { "speaker": "Lane", "text": "Perhaps I have an answer.", "translation": "Talvez eu tenha uma resposta." },
+            { "speaker": "Luke", "text": "Haha, funny. What's your favorite kind of movie?", "translation": "Haha, engraçado. Qual é o seu tipo favorito de filme?" },
+            { "speaker": "Lane", "text": "I usually watch American films. And you?", "translation": "Costumo assistir filmes americanos. E você?" },
+            { "speaker": "Luke", "text": "I like war movies.", "translation": "Eu gosto de filmes de guerra." },
+            { "speaker": "Lane", "text": "I never watch war movies. I like deep stories, dramas.", "translation": "Nunca assisto filmes de guerra. Gosto de histórias profundas, dramas." },
+            { "speaker": "Luke", "text": "I am not against those.", "translation": "Não sou contra esses." },
+            { "speaker": "Lane", "text": "We can watch one together next week. I will be free from 5-8 on Saturday.", "translation": "Podemos assistir um juntos na próxima semana. Estarei livre das 5 às 8 no sábado." },
+            { "speaker": "Luke", "text": "Sure. I could come after work. I will be there between 5 and 5:30.", "translation": "Claro. Eu poderia vir depois do trabalho. Estarei aí entre 5 e 5:30." },
+            { "speaker": "Lane", "text": "Perfect. Bring some food too.", "translation": "Perfeito. Traga um pouco de comida também." },
+            { "speaker": "Luke", "text": "I just bought some yesterday.", "translation": "Eu acabei de comprar um pouco ontem." },
+            { "speaker": "Lane", "text": "Nice. Since your home is near, will you walk?", "translation": "Legal. Como sua casa é perto, você vai a pé?" },
+            { "speaker": "Luke", "text": "It's possible. You're just a few streets away and I need some fresh air.", "translation": "É possível. Você está a apenas algumas ruas de distância e eu preciso de ar fresco." },
+            { "speaker": "Lane", "text": "Text me when you're on your way and I will leave the door open.", "translation": "Me mande uma mensagem quando estiver a caminho e vou deixar a porta aberta." },
+            { "speaker": "Luke", "text": "I will. Your house is at the end of the road, right? The one with the three big green trees in the front?", "translation": "Vou sim. Sua casa é no final da rua, certo? A que tem as três grandes árvores verdes na frente?" },
+            { "speaker": "Lane", "text": "Exactly. Well, it's all set. I can't wait!", "translation": "Exatamente. Bem, está tudo combinado. Mal posso esperar!" },
+            { "speaker": "Luke", "text": "Me neither. See you soon.", "translation": "Eu também não. Até logo." }
+        ]
+}

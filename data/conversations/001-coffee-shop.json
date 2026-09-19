@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "dialogo": [
+    { "speaker": "Barista", "text": "Hi there! What can I get for you today?", "translation": "Olá! O que posso te servir hoje?" },
+    { "speaker": "Customer", "text": "Hi! Can I get a medium latte, please?", "translation": "Oi! Pode me dar um latte médio, por favor?" },
+    { "speaker": "Barista", "text": "Sure! Would you like that hot or iced?", "translation": "Claro! Você gostaria quente ou gelado?" },
+    { "speaker": "Customer", "text": "Iced, please. And can I also get a blueberry muffin?", "translation": "Gelado, por favor. E também pode me dar um muffin de mirtilo?" },
+    { "speaker": "Barista", "text": "Of course. Anything else?", "translation": "Claro. Mais alguma coisa?" },
+    { "speaker": "Customer", "text": "No, that's it. How much is it?", "translation": "Não, é só isso. Quanto custa?" },
+    { "speaker": "Barista", "text": "That'll be eight fifty. Will that be cash or card?", "translation": "Vai dar oito e cinquenta. Vai ser dinheiro ou cartão?" },
+    { "speaker": "Customer", "text": "Card, please. Here you go.", "translation": "Cartão, por favor. Aqui está." },
+    { "speaker": "Barista", "text": "Great! Here's your receipt. Your order will be ready in a few minutes.", "translation": "Ótimo! Aqui está o seu recibo. Seu pedido ficará pronto em alguns minutos." },
+    { "speaker": "Customer", "text": "Thank you so much!", "translation": "Muito obrigado!" }
+  ]
+}

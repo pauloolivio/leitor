@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "stories": [
+    {
+      "id": 1,
+      "titulo": "The Tortoise and the Hare",
+      "personagens": "Tortoise, Hare, Forest Animals",
+      "level": "Beginner",
+      "vocabulary": ["proud", "steady", "confident", "nap", "victory"],
+      "resumo": "A hare boasts about how fast he can run and makes fun of the slow tortoise. The tortoise, tired of the hare's arrogance, challenges him to a race. The hare, confident in his speed, takes a nap during the race. Meanwhile, the tortoise continues slowly but steadily. When the hare wakes up, he sees the tortoise crossing the finish line. The story teaches that slow and steady wins the race.",
+      "file": "stories/001-tortoise-hare.json"
+    },
+    {
+      "id": 2,
+      "titulo": "The Boy Who Cried Wolf",
+      "personagens": "Shepherd Boy, Villagers, Wolf",
+      "level": "Beginner",
+      "vocabulary": ["bored", "trick", "alert", "ignore", "consequences"],
+      "resumo": "A young shepherd boy watches the village sheep. Feeling bored, he plays a trick on the villagers by shouting 'Wolf! Wolf!' even though there is no wolf. The villagers rush to help him, but they find nothing. He does this twice. Later, when a real wolf appears, the boy cries for help, but no one believes him. The wolf eats the sheep, teaching the boy that liars are not believed even when they tell the truth.",
+      "file": "stories/002-boy-cried-wolf.json"
+    },
+    {
+      "id": 3,
+      "titulo": "The Lion and the Mouse",
+      "personagens": "Lion, Mouse",
+      "level": "Beginner",
+      "vocabulary": ["spare", "favor", "grateful", "trapped", "rescue"],
+      "resumo": "A tiny mouse accidentally wakes up a sleeping lion. The lion catches the mouse and is about to eat him. The mouse begs for his life and promises to help the lion one day. The lion laughs at the idea but lets the mouse go. Later, the lion is caught in a hunter's net. The mouse hears his roars and comes to help. The mouse gnaws through the ropes and frees the lion. Even the smallest friend can be a great help.",
+      "file": "stories/003-lion-mouse.json"
+    },
+    {
+      "id": 4,
+      "titulo": "The Ant and the Grasshopper",
+      "personagens": "Ant, Grasshopper",
+      "level": "Beginner",
+      "vocabulary": ["prepare", "idle", "starve", "colony", "store"],
+      "resumo": "During summer, an ant works hard every day gathering food for winter. A grasshopper watches her and laughs, spending his days singing and playing. When winter arrives, the ant has plenty of food in her colony. The grasshopper has nothing to eat and is starving. He asks the ant for food, but she reminds him of his laziness. The story teaches that it's important to prepare for the future.",
+      "file": "stories/004-ant-grasshopper.json"
+    },
+    {
+      "id": 5,
+      "titulo": "The Fox and the Grapes",
+      "personagens": "Fox, Grape Vine",
+      "level": "Beginner",
+      "vocabulary": ["juicy", "leap", "sour", "disappointment", "justify"],
+      "resumo": "A hungry fox sees a bunch of juicy grapes hanging from a high vine. He tries many times to reach the grapes. He jumps and leaps, but the grapes are too high. After many attempts, he gives up. As he walks away, he says, 'Those grapes are probably sour anyway.' This story gives us the phrase 'sour grapes,' which means pretending not to want something because you cannot have it.",
+      "file": "stories/005-fox-grapes.json"
+    }
+  ]
+}

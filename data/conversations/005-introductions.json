@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Ben", "text": "Hi. How are you?", "translation": "Oi. Como você está?" },
+            { "speaker": "Julia", "text": "I'm great, thanks. And you?", "translation": "Estou ótima, obrigada. E você?" },
+            { "speaker": "Ben", "text": "Doing well. Meet my wife Sue, our little girl Jill, and her baby brother Ryan.", "translation": "Indo bem. Conheça minha esposa Sue, nossa filhinha Jill, e o irmãozinho dela, Ryan." },
+            { "speaker": "Julia", "text": "So nice to meet you all. This is my husband Luca and our wild, yet sweet dog Zippy.", "translation": "Muito prazer em conhecer todos vocês. Este é meu marido Luca e nosso cachorro selvagem, mas doce, Zippy." },
+            { "speaker": "Ben", "text": "It's so fun to meet you all too. We have never been to this part of the town before.", "translation": "É muito legal conhecer todos vocês também. Nunca estivemos nesta parte da cidade antes." },
+            { "speaker": "Julia", "text": "We love the streets. Let's walk to the center.", "translation": "Adoramos as ruas. Vamos caminhar até o centro." },
+            { "speaker": "Ben", "text": "Sure, we would love to go eat after. You said there is a lot of good food around here, right?", "translation": "Claro, adoraríamos comer depois. Você disse que há muita comida boa por aqui, certo?" },
+            { "speaker": "Julia", "text": "Yes. I think you will be happy with it.", "translation": "Sim. Acho que você vai ficar feliz com isso." },
+            { "speaker": "Ben", "text": "Great. Thanks again for inviting us.", "translation": "Ótimo. Obrigado novamente por nos convidar." },
+            { "speaker": "Julia", "text": "Of course!", "translation": "Claro!" }
+        ]
+}

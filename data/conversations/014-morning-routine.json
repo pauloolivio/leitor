@@ -1,0 +1,21 @@
+{
+  "id": 14,
+  "dialogo": [
+            { "speaker": "Lisa", "text": "Tell me about your morning routine.", "translation": "Me conte sobre sua rotina matinal." },
+            { "speaker": "Tom", "text": "I wake up around 6 a.m. I don't use an alarm.", "translation": "Eu acordo por volta das 6 da manhã. Não uso despertador." },
+            { "speaker": "Lisa", "text": "Your day begins early! Then what do you do?", "translation": "Seu dia começa cedo! E depois, o que você faz?" },
+            { "speaker": "Tom", "text": "I wash my face. My wife wakes up at 6:30. I like to have coffee already made for her. I even measure the coffee beans the night before.", "translation": "Lavo meu rosto. Minha esposa acorda às 6:30. Gosto de deixar o café já pronto para ela. Eu até meço os grãos de café na noite anterior." },
+            { "speaker": "Lisa", "text": "That's nice of you.", "translation": "Isso é gentil da sua parte." },
+            { "speaker": "Tom", "text": "Yes. After coffee, I always move my body. Sometimes I bike, sometimes I run.", "translation": "Sim. Depois do café, eu sempre movimento meu corpo. Às vezes ando de bicicleta, às vezes corro." },
+            { "speaker": "Lisa", "text": "Health is important.", "translation": "Saúde é importante." },
+            { "speaker": "Tom", "text": "It is. Then I lay out my clothes for work and I take a fast shower. I like to be clean.", "translation": "É sim. Depois separo minhas roupas para o trabalho e tomo um banho rápido. Gosto de estar limpo." },
+            { "speaker": "Lisa", "text": "Haha, who doesn't?", "translation": "Haha, quem não gosta?" },
+            { "speaker": "Tom", "text": "True. Finally I eat breakfast and talk to my wife. If I have a minute, I read the newspaper.", "translation": "Verdade. Por fim, tomo café da manhã e converso com minha esposa. Se eu tiver um minuto, leio o jornal." },
+            { "speaker": "Lisa", "text": "Does your wife work?", "translation": "Sua esposa trabalha?" },
+            { "speaker": "Tom", "text": "Yes. She drives to work. We only have one car, so I take the train.", "translation": "Sim. Ela vai de carro para o trabalho. Temos apenas um carro, então eu pego o trem." },
+            { "speaker": "Lisa", "text": "Do you like to go to work by train?", "translation": "Você gosta de ir ao trabalho de trem?" },
+            { "speaker": "Tom", "text": "I like the train more than the car because I can read or work a little.", "translation": "Gosto mais do trem do que do carro porque posso ler ou trabalhar um pouco." },
+            { "speaker": "Lisa", "text": "You make a good point.", "translation": "Você tem um bom argumento." },
+            { "speaker": "Tom", "text": "Plus, it doesn't cost much money. On the way home, it's usually dark so I close my eyes and rest my head against the seat.", "translation": "Além disso, não custa muito dinheiro. Na volta para casa, geralmente está escuro, então fecho os olhos e encosto a cabeça no assento." }
+        ]
+}

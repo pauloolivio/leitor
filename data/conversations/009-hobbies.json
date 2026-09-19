@@ -1,0 +1,21 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Kaylea", "text": "What are your hobbies?", "translation": "Quais são os seus hobbies?" },
+            { "speaker": "Matt", "text": "I like to ride my bike and listen to music.", "translation": "Eu gosto de andar de bicicleta e ouvir música." },
+            { "speaker": "Kaylea", "text": "I enjoy reading books and traveling.", "translation": "Eu gosto de ler livros e viajar." },
+            { "speaker": "Matt", "text": "Oh yes, I want to see the world.", "translation": "Ah sim, eu quero ver o mundo." },
+            { "speaker": "Kaylea", "text": "Do you speak another language?", "translation": "Você fala outro idioma?" },
+            { "speaker": "Matt", "text": "I'm trying to learn Portuguese.", "translation": "Estou tentando aprender português." },
+            { "speaker": "Kaylea", "text": "Is it hard?", "translation": "É difícil?" },
+            { "speaker": "Matt", "text": "I practice every morning during breakfast. It's not so simple.", "translation": "Eu pratico todas as manhãs durante o café da manhã. Não é tão simples." },
+            { "speaker": "Kaylea", "text": "I have never learned another language. I probably should, but I don't know where to start.", "translation": "Nunca aprendi outro idioma. Provavelmente deveria, mas não sei por onde começar." },
+            { "speaker": "Matt", "text": "You should choose one that interests you.", "translation": "Você deveria escolher um que te interesse." },
+            { "speaker": "Kaylea", "text": "I have a friend who learns every day while she runs.", "translation": "Tenho uma amiga que aprende todos os dias enquanto corre." },
+            { "speaker": "Matt", "text": "There are many ways to learn. The point is to do something every day.", "translation": "Há muitas maneiras de aprender. O ponto é fazer algo todos os dias." },
+            { "speaker": "Kaylea", "text": "I wonder how long it will take? One thousand hours?", "translation": "Me pergunto quanto tempo vai levar? Mil horas?" },
+            { "speaker": "Matt", "text": "Probably, but time passes quickly. We only have one life.", "translation": "Provavelmente, mas o tempo passa rápido. Só temos uma vida." },
+            { "speaker": "Kaylea", "text": "I will start tomorrow.", "translation": "Vou começar amanhã." },
+            { "speaker": "Matt", "text": "Good idea.", "translation": "Boa ideia." }
+        ]
+}

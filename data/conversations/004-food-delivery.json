@@ -1,0 +1,17 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Restaurant", "text": "Thank you for calling Pizza Palace. How can I help you?", "translation": "Obrigado por ligar para o Pizza Palace. Como posso ajudar?" },
+            { "speaker": "Customer", "text": "Hi! I'd like to place an order for delivery, please.", "translation": "Oi! Eu gostaria de fazer um pedido para entrega, por favor." },
+            { "speaker": "Restaurant", "text": "Sure! What would you like to order?", "translation": "Claro! O que você gostaria de pedir?" },
+            { "speaker": "Customer", "text": "I'd like a large pepperoni pizza and a garden salad.", "translation": "Eu gostaria de uma pizza grande de pepperoni e uma salada de jardim." },
+            { "speaker": "Restaurant", "text": "Would you like anything to drink with that?", "translation": "Você gostaria de algo para beber com isso?" },
+            { "speaker": "Customer", "text": "Yes, a bottle of sparkling water, please.", "translation": "Sim, uma garrafa de água com gás, por favor." },
+            { "speaker": "Restaurant", "text": "Great. Can I have your address and phone number?", "translation": "Ótimo. Pode me dar seu endereço e número de telefone?" },
+            { "speaker": "Customer", "text": "It's 42 Oak Street, apartment 3B. My number is 555-0123.", "translation": "É Rua Oak, 42, apartamento 3B. Meu número é 555-0123." },
+            { "speaker": "Restaurant", "text": "Let me confirm: large pepperoni pizza, garden salad, sparkling water, to 42 Oak Street, apartment 3B. Correct?", "translation": "Deixe-me confirmar: pizza grande de pepperoni, salada de jardim, água com gás, para Rua Oak, 42, apartamento 3B. Correto?" },
+            { "speaker": "Customer", "text": "That's correct! How long will it take?", "translation": "Está correto! Quanto tempo vai levar?" },
+            { "speaker": "Restaurant", "text": "About 30 to 40 minutes. Your total is $24.50.", "translation": "Cerca de 30 a 40 minutos. Seu total é $24,50." },
+            { "speaker": "Customer", "text": "Perfect. Thank you!", "translation": "Perfeito. Obrigado!" }
+        ]
+}

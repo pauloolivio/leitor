@@ -1,0 +1,19 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Angel", "text": "Do you have any siblings?", "translation": "Você tem irmãos?" },
+            { "speaker": "Jack", "text": "Yes. I have one brother and one sister. You?", "translation": "Sim. Tenho um irmão e uma irmã. E você?" },
+            { "speaker": "Angel", "text": "No, I'm an only child.", "translation": "Não, sou filha única." },
+            { "speaker": "Jack", "text": "Wow. Were you bored growing up?", "translation": "Uau. Você ficava entediada crescendo?" },
+            { "speaker": "Angel", "text": "No, because my dad has a large family. 5 brothers! I know, a lot of men.", "translation": "Não, porque meu pai tem uma família grande. 5 irmãos! Eu sei, muitos homens." },
+            { "speaker": "Jack", "text": "I guess so.", "translation": "Acho que sim." },
+            { "speaker": "Angel", "text": "Are you close to both of your siblings?", "translation": "Você é próximo dos dois irmãos?" },
+            { "speaker": "Jack", "text": "Yes. My sister lives far away but we often get together. She has a baby girl.", "translation": "Sim. Minha irmã mora longe, mas nos encontramos com frequência. Ela tem uma menininha." },
+            { "speaker": "Angel", "text": "That's good. I'm sure you're the best uncle.", "translation": "Que bom. Tenho certeza que você é o melhor tio." },
+            { "speaker": "Jack", "text": "I love to play with her. She makes a lot of funny sounds. She is only one year old.", "translation": "Adoro brincar com ela. Ela faz muitos sons engraçados. Ela tem apenas um ano." },
+            { "speaker": "Angel", "text": "That age is the best. I have a two, almost three year old cat.", "translation": "Essa idade é a melhor. Eu tenho um gato de dois, quase três anos." },
+            { "speaker": "Jack", "text": "That's nice. I don't have any pets.", "translation": "Que legal. Eu não tenho animais de estimação." },
+            { "speaker": "Angel", "text": "They are like babies, little and free.", "translation": "Eles são como bebês, pequenos e livres." },
+            { "speaker": "Jack", "text": "True, you're right.", "translation": "Verdade, você tem razão." }
+        ]
+}

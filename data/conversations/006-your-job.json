@@ -1,0 +1,20 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Sam", "text": "Thanks for meeting me over lunch.", "translation": "Obrigado por se encontrar comigo no almoço." },
+            { "speaker": "Alice", "text": "Of course. I actually remember this place. I've been here before.", "translation": "Claro. Na verdade eu me lembro deste lugar. Já estive aqui antes." },
+            { "speaker": "Sam", "text": "Wow, cool. What is your job?", "translation": "Uau, legal. Qual é o seu trabalho?" },
+            { "speaker": "Alice", "text": "I am a history teacher. And what do you do?", "translation": "Sou professora de história. E você, o que faz?" },
+            { "speaker": "Sam", "text": "I am a student. I'm in college.", "translation": "Sou estudante. Estou na faculdade." },
+            { "speaker": "Alice", "text": "That's great. What do you study?", "translation": "Que ótimo. O que você estuda?" },
+            { "speaker": "Sam", "text": "I study science. I want to be a scientist like my father.", "translation": "Estudo ciências. Quero ser cientista como meu pai." },
+            { "speaker": "Alice", "text": "That's special. I'm sure he is happy.", "translation": "Isso é especial. Tenho certeza que ele está feliz." },
+            { "speaker": "Sam", "text": "I think so. What grade do you teach?", "translation": "Acho que sim. Que série você ensina?" },
+            { "speaker": "Alice", "text": "I teach young children. I love that age.", "translation": "Eu ensino crianças pequenas. Adoro essa idade." },
+            { "speaker": "Sam", "text": "Do you like the school? How long have you taught there?", "translation": "Você gosta da escola? Há quanto tempo você ensina lá?" },
+            { "speaker": "Alice", "text": "I do like it. It's nothing like my old school. I've been there for 2 years now.", "translation": "Eu gosto sim. Não é nada parecida com minha antiga escola. Estou lá há 2 anos." },
+            { "speaker": "Sam", "text": "I'm sure everybody loves you.", "translation": "Tenho certeza que todos te amam." },
+            { "speaker": "Alice", "text": "I hope so. Do you want to order now?", "translation": "Espero que sim. Você quer pedir agora?" },
+            { "speaker": "Sam", "text": "Yes! I'm so hungry.", "translation": "Sim! Estou com muita fome." }
+        ]
+}

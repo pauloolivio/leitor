@@ -1,0 +1,18 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Olivia", "text": "You live on the west coast, right?", "translation": "Você mora na costa oeste, certo?" },
+            { "speaker": "Corey", "text": "Yes. Our house is on the sea in southern California.", "translation": "Sim. Nossa casa fica no mar, no sul da Califórnia." },
+            { "speaker": "Olivia", "text": "Is it hot or cold there? I live on the other side of the country, on the east coast, and we have a lot of cold weather.", "translation": "Está quente ou frio lá? Eu moro do outro lado do país, na costa leste, e temos muito tempo frio." },
+            { "speaker": "Corey", "text": "It's mostly warm, but up in the mountains it can get cooler.", "translation": "É principalmente quente, mas nas montanhas pode ficar mais fresco." },
+            { "speaker": "Olivia", "text": "We have about six months of nice weather here.", "translation": "Temos cerca de seis meses de clima agradável aqui." },
+            { "speaker": "Corey", "text": "Do you prefer summer or winter?", "translation": "Você prefere verão ou inverno?" },
+            { "speaker": "Olivia", "text": "Actually I prefer both spring and fall because the weather isn't so extreme.", "translation": "Na verdade, prefiro tanto a primavera quanto o outono, porque o clima não é tão extremo." },
+            { "speaker": "Corey", "text": "That makes sense. I like summer weather best. We plant a garden every year.", "translation": "Faz sentido. Eu gosto mais do clima de verão. Plantamos uma horta todo ano." },
+            { "speaker": "Olivia", "text": "I would love to grow some herbs this summer.", "translation": "Eu adoraria cultivar algumas ervas neste verão." },
+            { "speaker": "Corey", "text": "You should try. You just need to make sure to water them.", "translation": "Você deveria tentar. Só precisa se certificar de regá-las." },
+            { "speaker": "Olivia", "text": "I may need to ask you for help.", "translation": "Talvez eu precise pedir sua ajuda." },
+            { "speaker": "Corey", "text": "I'll be here, call me if you need anything.", "translation": "Estarei aqui, me ligue se precisar de algo." },
+            { "speaker": "Olivia", "text": "I will.", "translation": "Vou sim." }
+        ]
+}

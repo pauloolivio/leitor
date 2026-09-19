@@ -1,0 +1,22 @@
+{
+  "id": 2,
+  "dialogo": [
+            { "speaker": "Elodie", "text": "You talk a lot about her. What color is her hair?", "translation": "Você fala muito sobre ela. Qual é a cor do cabelo dela?" },
+            { "speaker": "Taylor", "text": "She has long black hair and a round face.", "translation": "Ela tem cabelo longo e preto e um rosto redondo." },
+            { "speaker": "Elodie", "text": "And her eyes?", "translation": "E os olhos dela?" },
+            { "speaker": "Taylor", "text": "They are deep sea green.", "translation": "Eles são verde-azulados profundos como o mar." },
+            { "speaker": "Elodie", "text": "Is she tall or short?", "translation": "Ela é alta ou baixa?" },
+            { "speaker": "Taylor", "text": "She is small. Not too tall.", "translation": "Ela é pequena. Não muito alta." },
+            { "speaker": "Elodie", "text": "Really? What's her weight?", "translation": "Sério? Qual é o peso dela?" },
+            { "speaker": "Taylor", "text": "Probably around 120 pounds. She's in good shape.", "translation": "Provavelmente uns 120 libras. Ela está em boa forma." },
+            { "speaker": "Elodie", "text": "It seems like she has a great figure.", "translation": "Parece que ela tem um ótimo corpo." },
+            { "speaker": "Taylor", "text": "She does. Look at this picture.", "translation": "Ela tem sim. Olhe esta foto." },
+            { "speaker": "Elodie", "text": "You're right. She's a beauty. I can see why you're interested.", "translation": "Você tem razão. Ela é uma beldade. Consigo ver por que você está interessado." },
+            { "speaker": "Taylor", "text": "I'm trying to find the right moment to ask her out.", "translation": "Estou tentando encontrar o momento certo para convidá-la para sair." },
+            { "speaker": "Elodie", "text": "Maybe wait a day or two. Follow your heart.", "translation": "Talvez espere um dia ou dois. Siga seu coração." },
+            { "speaker": "Taylor", "text": "That's a good idea. I will write her a note or draw her favorite animal.", "translation": "É uma boa ideia. Vou escrever um bilhete para ela ou desenhar o animal favorito dela." },
+            { "speaker": "Elodie", "text": "Just make sure to spell her name correctly!", "translation": "Só se certifique de escrever o nome dela corretamente!" },
+            { "speaker": "Taylor", "text": "Wish me luck!", "translation": "Deseje-me sorte!" },
+            { "speaker": "Elodie", "text": "Good luck!", "translation": "Boa sorte!" }
+        ]
+}
