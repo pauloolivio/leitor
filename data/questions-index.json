@@ -1,0 +1,1075 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "daily-routine",
+      "name": "Daily Routine",
+      "icon": "fa-sun",
+      "questions": [
+        {
+          "id": "q001",
+          "question": "What time do you usually wake up?",
+          "translation": "A que horas você costuma acordar?",
+          "level": "Beginner",
+          "vocabulary": ["wake up", "usually", "early", "around", "alarm"],
+          "tips": ["Link 'wake up' → 'waykup'", "Stress the TIME: SEVEN, EIGHT"],
+          "sampleAnswer": "I usually wake up around seven o'clock on weekdays. On weekends, I sleep a little later.",
+          "sampleAnswerTranslation": "Eu costumo acordar por volta das sete nos dias de semana. Nos fins de semana, durmo um pouco mais."
+        },
+        {
+          "id": "q002",
+          "question": "What did you do today after you got up?",
+          "translation": "O que você fez hoje depois de se levantar?",
+          "level": "Beginner",
+          "vocabulary": ["got up", "brushed", "shower", "breakfast", "got dressed"],
+          "tips": ["Use past tense: got, brushed, took, had", "Stress FIRST, THEN, AFTER THAT"],
+          "sampleAnswer": "After I got up, I brushed my teeth, took a shower, and had breakfast. Then I got dressed and started my day.",
+          "sampleAnswerTranslation": "Depois que me levantei, escovei os dentes, tomei banho e tomei café da manhã. Depois me vesti e comecei o meu dia."
+        },
+        {
+          "id": "q003",
+          "question": "What is the first thing you usually do in the morning?",
+          "translation": "Qual é a primeira coisa que você geralmente faz de manhã?",
+          "level": "Beginner",
+          "vocabulary": ["first thing", "usually", "check", "stretch", "alarm"],
+          "tips": ["Stress the FIRST thing", "Practice the 'th' in 'thing'"],
+          "sampleAnswer": "The first thing I usually do is check my phone. Then I stretch and get out of bed.",
+          "sampleAnswerTranslation": "A primeira coisa que eu geralmente faço é olhar o celular. Depois eu me espreguiço e saio da cama."
+        },
+        {
+          "id": "q004",
+          "question": "What do you usually have for breakfast?",
+          "translation": "O que você costuma tomar no café da manhã?",
+          "level": "Beginner",
+          "vocabulary": ["breakfast", "usually", "coffee", "bread", "eggs"],
+          "tips": ["Link 'have for' → 'havfer'", "Stress the FOOD words"],
+          "sampleAnswer": "I usually have coffee with milk, bread, and some fruit. Sometimes I eat eggs on the weekend.",
+          "sampleAnswerTranslation": "Eu geralmente tomo café com leite, pão e um pouco de fruta. Às vezes como ovos no fim de semana."
+        },
+        {
+          "id": "q005",
+          "question": "How do you usually get to work or school?",
+          "translation": "Como você costuma ir para o trabalho ou para a escola?",
+          "level": "Beginner",
+          "vocabulary": ["get to", "by bus", "by car", "walk", "drive"],
+          "tips": ["Link 'get to' smoothly", "Stress the MODE: BUS, CAR, WALK"],
+          "sampleAnswer": "I usually get to work by bus. It takes about thirty minutes. Sometimes I walk if the weather is nice.",
+          "sampleAnswerTranslation": "Eu geralmente vou ao trabalho de ônibus. Leva cerca de trinta minutos. Às vezes vou a pé, se o tempo estiver bom."
+        },
+        {
+          "id": "q006",
+          "question": "What do you usually do in the evening?",
+          "translation": "O que você costuma fazer à noite?",
+          "level": "Beginner",
+          "vocabulary": ["evening", "watch", "relax", "dinner", "read"],
+          "tips": ["Use 'usually' for habits", "Stress the ACTIVITY"],
+          "sampleAnswer": "In the evening, I usually cook dinner, watch some TV, and read a book before bed.",
+          "sampleAnswerTranslation": "À noite, eu geralmente faço o jantar, assisto um pouco de TV e leio um livro antes de dormir."
+        },
+        {
+          "id": "q007",
+          "question": "What time do you usually go to bed?",
+          "translation": "A que horas você costuma ir dormir?",
+          "level": "Beginner",
+          "vocabulary": ["go to bed", "around", "early", "late", "tired"],
+          "tips": ["Link 'go to bed' → 'goduh bed'", "Stress the TIME"],
+          "sampleAnswer": "I usually go to bed around eleven o'clock. On weekends, I stay up later.",
+          "sampleAnswerTranslation": "Eu geralmente vou dormir por volta das onze. Nos fins de semana, fico acordado até mais tarde."
+        },
+        {
+          "id": "q008",
+          "question": "Do you prefer mornings or evenings? Why?",
+          "translation": "Você prefere manhãs ou noites? Por quê?",
+          "level": "Beginner",
+          "vocabulary": ["prefer", "mornings", "evenings", "because", "productive"],
+          "tips": ["Use 'I prefer... because...'", "Stress MORNINGS / EVENINGS"],
+          "sampleAnswer": "I prefer mornings because I feel more productive. I can get more done before lunch.",
+          "sampleAnswerTranslation": "Eu prefiro as manhãs porque me sinto mais produtivo. Consigo fazer mais coisas antes do almoço."
+        },
+        {
+          "id": "q009",
+          "question": "How do you usually relax after a long day?",
+          "translation": "Como você costuma relaxar depois de um longo dia?",
+          "level": "Beginner",
+          "vocabulary": ["relax", "after", "long day", "music", "bath"],
+          "tips": ["Link 'after a' → 'aftera'", "Stress the RELAXING word"],
+          "sampleAnswer": "After a long day, I like to listen to music and take a warm shower. It helps me unwind.",
+          "sampleAnswerTranslation": "Depois de um longo dia, gosto de ouvir música e tomar um banho quente. Isso me ajuda a relaxar."
+        },
+        {
+          "id": "q010",
+          "question": "What is your favorite part of the day?",
+          "translation": "Qual é a sua parte favorita do dia?",
+          "level": "Beginner",
+          "vocabulary": ["favorite part", "day", "morning", "afternoon", "night"],
+          "tips": ["Stress FAVORITE", "Link 'part of' → 'partov'"],
+          "sampleAnswer": "My favorite part of the day is the early morning. It's quiet and I can enjoy my coffee in peace.",
+          "sampleAnswerTranslation": "Minha parte favorita do dia é o início da manhã. É tranquilo e posso tomar meu café em paz."
+        }
+      ]
+    },
+    {
+      "id": "food-drinks",
+      "name": "Food & Drinks",
+      "icon": "fa-utensils",
+      "questions": [
+        {
+          "id": "q011",
+          "question": "What is your favorite food?",
+          "translation": "Qual é a sua comida favorita?",
+          "level": "Beginner",
+          "vocabulary": ["favorite", "food", "delicious", "dish", "meal"],
+          "tips": ["Stress FAVORITE and the FOOD name"],
+          "sampleAnswer": "My favorite food is pizza. I love the combination of cheese, tomato, and fresh basil.",
+          "sampleAnswerTranslation": "Minha comida favorita é pizza. Adoro a combinação de queijo, tomate e manjericão fresco."
+        },
+        {
+          "id": "q012",
+          "question": "Do you like to cook? Why or why not?",
+          "translation": "Você gosta de cozinhar? Por quê ou por que não?",
+          "level": "Beginner",
+          "vocabulary": ["cook", "enjoy", "recipe", "kitchen", "prepare"],
+          "tips": ["Use 'I like to...' or 'I don't like to...'", "Stress COOK and the reason"],
+          "sampleAnswer": "Yes, I love to cook. It helps me relax, and I can control what I eat. I try new recipes every week.",
+          "sampleAnswerTranslation": "Sim, adoro cozinhar. Me ajuda a relaxar e posso controlar o que como. Tento novas receitas toda semana."
+        },
+        {
+          "id": "q013",
+          "question": "What did you eat for lunch today?",
+          "translation": "O que você comeu no almoço hoje?",
+          "level": "Beginner",
+          "vocabulary": ["ate", "lunch", "rice", "chicken", "salad"],
+          "tips": ["Use past tense: ate, had, drank", "Stress the FOOD items"],
+          "sampleAnswer": "For lunch today, I ate rice, beans, and grilled chicken. I also had a small salad.",
+          "sampleAnswerTranslation": "No almoço hoje, comi arroz, feijão e frango grelhado. Também comi uma pequena salada."
+        },
+        {
+          "id": "q014",
+          "question": "Do you prefer eating at home or eating out?",
+          "translation": "Você prefere comer em casa ou comer fora?",
+          "level": "Beginner",
+          "vocabulary": ["eating out", "at home", "restaurant", "prefer", "cheaper"],
+          "tips": ["Stress HOME / OUT for contrast", "Link 'eating out' smoothly"],
+          "sampleAnswer": "I prefer eating at home because it's healthier and cheaper. But I enjoy eating out on special occasions.",
+          "sampleAnswerTranslation": "Prefiro comer em casa porque é mais saudável e mais barato. Mas gosto de comer fora em ocasiões especiais."
+        },
+        {
+          "id": "q015",
+          "question": "What is a typical dish from your country?",
+          "translation": "Qual é um prato típico do seu país?",
+          "level": "Beginner",
+          "vocabulary": ["typical", "dish", "country", "traditional", "ingredients"],
+          "tips": ["Stress TYPICAL and the DISH name"],
+          "sampleAnswer": "A typical dish from my country is feijoada. It's a black bean stew with pork, served with rice and orange slices.",
+          "sampleAnswerTranslation": "Um prato típico do meu país é a feijoada. É um ensopado de feijão preto com porco, servido com arroz e rodelas de laranja."
+        },
+        {
+          "id": "q016",
+          "question": "Do you drink coffee or tea? How often?",
+          "translation": "Você toma café ou chá? Com que frequência?",
+          "level": "Beginner",
+          "vocabulary": ["coffee", "tea", "how often", "every day", "cups"],
+          "tips": ["Stress the FREQUENCY: EVERY DAY, TWICE, ONCE"],
+          "sampleAnswer": "I drink coffee every morning. I usually have two or three cups a day. I rarely drink tea.",
+          "sampleAnswerTranslation": "Eu tomo café toda manhã. Costumo tomar dois ou três copos por dia. Raramente tomo chá."
+        },
+        {
+          "id": "q017",
+          "question": "What is your favorite restaurant?",
+          "translation": "Qual é o seu restaurante favorito?",
+          "level": "Beginner",
+          "vocabulary": ["favorite", "restaurant", "near", "service", "menu"],
+          "tips": ["Stress the RESTAURANT name", "Link 'kind of' → 'kaindov'"],
+          "sampleAnswer": "My favorite restaurant is a small Italian place near my house. The pasta is amazing, and the service is great.",
+          "sampleAnswerTranslation": "Meu restaurante favorito é um pequeno italiano perto da minha casa. O macarrão é incrível, e o atendimento é ótimo."
+        },
+        {
+          "id": "q018",
+          "question": "Do you have any food allergies or restrictions?",
+          "translation": "Você tem alguma alergia ou restrição alimentar?",
+          "level": "Intermediate",
+          "vocabulary": ["allergy", "restriction", "lactose", "gluten", "avoid"],
+          "tips": ["Stress ALLERGY / RESTRICTION", "Link 'do you have' → 'dya hav'"],
+          "sampleAnswer": "Yes, I'm lactose intolerant, so I avoid milk and cheese. I usually choose plant-based alternatives.",
+          "sampleAnswerTranslation": "Sim, sou intolerante à lactose, então evito leite e queijo. Costumo escolher alternativas de origem vegetal."
+        },
+        {
+          "id": "q019",
+          "question": "What is a food you would never try?",
+          "translation": "Qual é uma comida que você nunca experimentaria?",
+          "level": "Intermediate",
+          "vocabulary": ["never", "try", "would", "weird", "disgusting"],
+          "tips": ["Use 'I would never...'", "Stress NEVER and the FOOD"],
+          "sampleAnswer": "I would never try fried insects. I know some cultures eat them, but I just can't imagine the taste.",
+          "sampleAnswerTranslation": "Eu nunca experimentaria insetos fritos. Sei que algumas culturas os comem, mas simplesmente não consigo imaginar o sabor."
+        },
+        {
+          "id": "q020",
+          "question": "What do you usually drink with your meals?",
+          "translation": "O que você costuma beber com as refeições?",
+          "level": "Beginner",
+          "vocabulary": ["drink", "meals", "water", "juice", "soda"],
+          "tips": ["Stress the DRINK", "Link 'with your' → 'withyer'"],
+          "sampleAnswer": "I usually drink water with my meals. Sometimes I have fresh juice, but I try to avoid soda.",
+          "sampleAnswerTranslation": "Costumo beber água com as refeições. Às vezes tomo suco natural, mas tento evitar refrigerante."
+        }
+      ]
+    },
+    {
+      "id": "work-career",
+      "name": "Work & Career",
+      "icon": "fa-briefcase",
+      "questions": [
+        {
+          "id": "q021",
+          "question": "What do you do for a living?",
+          "translation": "O que você faz para viver? (Qual é a sua profissão?)",
+          "level": "Beginner",
+          "vocabulary": ["job", "work", "profession", "company", "role"],
+          "tips": ["Link 'What do you do' → 'Whaddaya do'", "Stress the PROFESSION"],
+          "sampleAnswer": "I work as a software developer at a tech company. I build websites and mobile apps.",
+          "sampleAnswerTranslation": "Eu trabalho como desenvolvedor de software em uma empresa de tecnologia. Eu construo sites e aplicativos móveis."
+        },
+        {
+          "id": "q022",
+          "question": "How long have you been working in your current job?",
+          "translation": "Há quanto tempo você trabalha no seu emprego atual?",
+          "level": "Intermediate",
+          "vocabulary": ["how long", "been working", "current", "since", "for"],
+          "tips": ["Use present perfect continuous: I've been working...", "Stress the TIME period"],
+          "sampleAnswer": "I've been working in my current job for about three years. I started right after college.",
+          "sampleAnswerTranslation": "Trabalho no meu emprego atual há cerca de três anos. Comecei logo depois da faculdade."
+        },
+        {
+          "id": "q023",
+          "question": "What do you like most about your job?",
+          "translation": "O que você mais gosta no seu trabalho?",
+          "level": "Beginner",
+          "vocabulary": ["like most", "job", "challenge", "team", "learning"],
+          "tips": ["Stress MOST and the KEY word"],
+          "sampleAnswer": "What I like most about my job is the team. My colleagues are supportive, and we learn from each other every day.",
+          "sampleAnswerTranslation": "O que mais gosto no meu trabalho é a equipe. Meus colegas são prestativos, e aprendemos uns com os outros todos os dias."
+        },
+        {
+          "id": "q024",
+          "question": "What are your main responsibilities at work?",
+          "translation": "Quais são suas principais responsabilidades no trabalho?",
+          "level": "Intermediate",
+          "vocabulary": ["responsibilities", "main", "manage", "handle", "projects"],
+          "tips": ["Stress MAIN and the ACTION verbs"],
+          "sampleAnswer": "My main responsibilities include managing projects, meeting with clients, and reviewing the work of my team.",
+          "sampleAnswerTranslation": "Minhas principais responsabilidades incluem gerenciar projetos, reunir-me com clientes e revisar o trabalho da minha equipe."
+        },
+        {
+          "id": "q025",
+          "question": "Do you prefer working alone or in a team?",
+          "translation": "Você prefere trabalhar sozinho ou em equipe?",
+          "level": "Intermediate",
+          "vocabulary": ["prefer", "alone", "team", "collaborate", "focus"],
+          "tips": ["Stress ALONE / TEAM", "Link 'working in a' → 'working ina'"],
+          "sampleAnswer": "I prefer working in a team because I can share ideas and learn from others. But sometimes I need quiet time alone to focus.",
+          "sampleAnswerTranslation": "Prefiro trabalhar em equipe porque posso compartilhar ideias e aprender com os outros. Mas às vezes preciso de um tempo sozinho e tranquilo para me concentrar."
+        },
+        {
+          "id": "q026",
+          "question": "What is the most challenging part of your job?",
+          "translation": "Qual é a parte mais desafiadora do seu trabalho?",
+          "level": "Intermediate",
+          "vocabulary": ["challenging", "part", "deadline", "pressure", "difficult"],
+          "tips": ["Stress CHALLENGING", "Use falling intonation for statements"],
+          "sampleAnswer": "The most challenging part is meeting tight deadlines. Sometimes we have to deliver high-quality work under pressure.",
+          "sampleAnswerTranslation": "A parte mais desafiadora é cumprir prazos apertados. Às vezes temos que entregar um trabalho de alta qualidade sob pressão."
+        },
+        {
+          "id": "q027",
+          "question": "How do you handle stress at work?",
+          "translation": "Como você lida com o estresse no trabalho?",
+          "level": "Intermediate",
+          "vocabulary": ["handle", "stress", "breaks", "organize", "breathe"],
+          "tips": ["Link 'handle stress' smoothly", "Stress the STRATEGY"],
+          "sampleAnswer": "I handle stress by taking short breaks and organizing my tasks. I also go for a walk to clear my head.",
+          "sampleAnswerTranslation": "Lido com o estresse fazendo pequenas pausas e organizando minhas tarefas. Também dou uma caminhada para clarear a mente."
+        },
+        {
+          "id": "q028",
+          "question": "What are your career goals for the next five years?",
+          "translation": "Quais são seus objetivos de carreira para os próximos cinco anos?",
+          "level": "Advanced",
+          "vocabulary": ["career goals", "next five years", "achieve", "grow", "leadership"],
+          "tips": ["Stress FIVE YEARS", "Use future forms: I hope to, I plan to"],
+          "sampleAnswer": "In the next five years, I hope to grow into a leadership role and lead my own team. I also want to improve my public speaking skills.",
+          "sampleAnswerTranslation": "Nos próximos cinco anos, espero crescer para uma posição de liderança e liderar minha própria equipe. Também quero melhorar minhas habilidades de falar em público."
+        },
+        {
+          "id": "q029",
+          "question": "What do you usually do during your lunch break?",
+          "translation": "O que você costuma fazer durante o intervalo do almoço?",
+          "level": "Beginner",
+          "vocabulary": ["lunch break", "usually", "walk", "eat", "chat"],
+          "tips": ["Link 'lunch break' smoothly", "Stress the ACTIVITY"],
+          "sampleAnswer": "During my lunch break, I usually eat with my colleagues and then take a short walk outside.",
+          "sampleAnswerTranslation": "Durante o intervalo do almoço, costumo comer com meus colegas e depois dar uma pequena caminhada lá fora."
+        },
+        {
+          "id": "q030",
+          "question": "Do you have a work-from-home routine?",
+          "translation": "Você tem uma rotina de trabalho em casa?",
+          "level": "Intermediate",
+          "vocabulary": ["work from home", "routine", "office", "dress", "schedule"],
+          "tips": ["Link 'work from home' → 'workfrum home'", "Stress ROUTINE"],
+          "sampleAnswer": "Yes, I have a work-from-home routine. I get dressed, set up my desk, and start work at the same time every day.",
+          "sampleAnswerTranslation": "Sim, tenho uma rotina de trabalho em casa. Me visto, arrumo minha mesa e começo a trabalhar no mesmo horário todos os dias."
+        }
+      ]
+    },
+    {
+      "id": "hobbies-leisure",
+      "name": "Hobbies & Leisure",
+      "icon": "fa-gamepad",
+      "questions": [
+        {
+          "id": "q031",
+          "question": "What are your hobbies?",
+          "translation": "Quais são os seus hobbies?",
+          "level": "Beginner",
+          "vocabulary": ["hobbies", "enjoy", "free time", "activity", "passion"],
+          "tips": ["Stress the HOBBY names", "Use falling intonation when listing"],
+          "sampleAnswer": "I have a few hobbies. I enjoy reading, playing guitar, and going for long walks in the park.",
+          "sampleAnswerTranslation": "Tenho alguns hobbies. Gosto de ler, tocar violão e fazer longas caminhadas no parque."
+        },
+        {
+          "id": "q032",
+          "question": "What do you do in your free time?",
+          "translation": "O que você faz no seu tempo livre?",
+          "level": "Beginner",
+          "vocabulary": ["free time", "usually", "watch", "play", "hang out"],
+          "tips": ["Link 'in your' → 'inyer'", "Stress the ACTION"],
+          "sampleAnswer": "In my free time, I usually watch movies, play video games, or hang out with friends.",
+          "sampleAnswerTranslation": "No meu tempo livre, costumo assistir filmes, jogar videogame ou sair com amigos."
+        },
+        {
+          "id": "q033",
+          "question": "Do you play any sports?",
+          "translation": "Você pratica algum esporte?",
+          "level": "Beginner",
+          "vocabulary": ["play sports", "soccer", "tennis", "swim", "gym"],
+          "tips": ["Stress the SPORT name", "Use 'I play...' or 'I don't play...'"],
+          "sampleAnswer": "Yes, I play soccer with my friends every Saturday. I also go to the gym three times a week.",
+          "sampleAnswerTranslation": "Sim, jogo futebol com meus amigos todo sábado. Também vou à academia três vezes por semana."
+        },
+        {
+          "id": "q034",
+          "question": "What kind of music do you like?",
+          "translation": "Que tipo de música você gosta?",
+          "level": "Beginner",
+          "vocabulary": ["kind of music", "like", "listen", "band", "genre"],
+          "tips": ["Link 'kind of' → 'kaindov'", "Stress the GENRE"],
+          "sampleAnswer": "I like many kinds of music, but my favorite is rock. I also enjoy jazz and some Brazilian music.",
+          "sampleAnswerTranslation": "Gosto de muitos tipos de música, mas meu favorito é rock. Também curto jazz e um pouco de música brasileira."
+        },
+        {
+          "id": "q035",
+          "question": "Do you prefer reading books or watching movies?",
+          "translation": "Você prefere ler livros ou assistir filmes?",
+          "level": "Beginner",
+          "vocabulary": ["prefer", "reading", "watching", "movies", "books"],
+          "tips": ["Stress BOOKS / MOVIES", "Use 'I prefer... because...'"],
+          "sampleAnswer": "I prefer reading books because I can imagine the scenes in my own way. Movies are great too, but books feel more personal.",
+          "sampleAnswerTranslation": "Prefiro ler livros porque posso imaginar as cenas do meu jeito. Filmes também são ótimos, mas os livros parecem mais pessoais."
+        },
+        {
+          "id": "q036",
+          "question": "What is the last book you read?",
+          "translation": "Qual foi o último livro que você leu?",
+          "level": "Intermediate",
+          "vocabulary": ["last book", "read", "author", "story", "recommend"],
+          "tips": ["Use past tense: read (pronounced 'red')", "Stress the BOOK title"],
+          "sampleAnswer": "The last book I read was 'The Alchemist' by Paulo Coelho. It's a beautiful story about following your dreams.",
+          "sampleAnswerTranslation": "O último livro que li foi 'O Alquimista', de Paulo Coelho. É uma história bonita sobre seguir seus sonhos."
+        },
+        {
+          "id": "q037",
+          "question": "Do you like traveling? Where would you like to go?",
+          "translation": "Você gosta de viajar? Para onde você gostaria de ir?",
+          "level": "Beginner",
+          "vocabulary": ["traveling", "would like", "abroad", "visit", "dream"],
+          "tips": ["Link 'would like to' → 'would like to'", "Stress the PLACE"],
+          "sampleAnswer": "Yes, I love traveling! I would like to visit Japan next. I'm fascinated by the culture and the food.",
+          "sampleAnswerTranslation": "Sim, adoro viajar! Gostaria de visitar o Japão em seguida. Sou fascinado pela cultura e pela comida."
+        },
+        {
+          "id": "q038",
+          "question": "What do you usually do on weekends?",
+          "translation": "O que você costuma fazer nos fins de semana?",
+          "level": "Beginner",
+          "vocabulary": ["weekends", "usually", "relax", "family", "friends"],
+          "tips": ["Stress WEEKENDS", "Link 'on weekends' smoothly"],
+          "sampleAnswer": "On weekends, I usually relax at home, meet friends, and sometimes go to the beach if the weather is good.",
+          "sampleAnswerTranslation": "Nos fins de semana, costumo relaxar em casa, encontrar amigos e às vezes ir à praia se o tempo estiver bom."
+        },
+        {
+          "id": "q039",
+          "question": "Do you have a pet? Tell me about it.",
+          "translation": "Você tem um animal de estimação? Fale sobre ele.",
+          "level": "Beginner",
+          "vocabulary": ["pet", "dog", "cat", "playful", "cute"],
+          "tips": ["Stress the PET type", "Use 'He/She is...' for description"],
+          "sampleAnswer": "Yes, I have a dog named Max. He's a golden retriever, very playful and friendly. He loves to run in the park.",
+          "sampleAnswerTranslation": "Sim, tenho um cachorro chamado Max. Ele é um golden retriever, muito brincalhão e amigável. Adora correr no parque."
+        },
+        {
+          "id": "q040",
+          "question": "What is a hobby you would like to start?",
+          "translation": "Qual é um hobby que você gostaria de começar?",
+          "level": "Intermediate",
+          "vocabulary": ["hobby", "start", "learn", "would like", "try"],
+          "tips": ["Use 'I would like to...'", "Stress the HOBBY"],
+          "sampleAnswer": "I would like to start learning photography. I think it's a great way to capture memories and be creative.",
+          "sampleAnswerTranslation": "Eu gostaria de começar a aprender fotografia. Acho que é uma ótima maneira de capturar memórias e ser criativo."
+        }
+      ]
+    },
+    {
+      "id": "travel-places",
+      "name": "Travel & Places",
+      "icon": "fa-plane",
+      "questions": [
+        {
+          "id": "q041",
+          "question": "What is your favorite place to visit?",
+          "translation": "Qual é o seu lugar favorito para visitar?",
+          "level": "Beginner",
+          "vocabulary": ["favorite place", "visit", "beautiful", "relaxing", "atmosphere"],
+          "tips": ["Stress FAVORITE PLACE", "Link 'place to' → 'plais to'"],
+          "sampleAnswer": "My favorite place to visit is the mountains. The fresh air and the views always make me feel peaceful.",
+          "sampleAnswerTranslation": "Meu lugar favorito para visitar é a montanha. O ar fresco e as vistas sempre me deixam em paz."
+        },
+        {
+          "id": "q042",
+          "question": "Have you ever traveled abroad?",
+          "translation": "Você já viajou para o exterior?",
+          "level": "Intermediate",
+          "vocabulary": ["traveled abroad", "ever", "been to", "trip", "country"],
+          "tips": ["Use present perfect: Have you ever...", "Stress ABROAD"],
+          "sampleAnswer": "Yes, I've traveled abroad a few times. I've been to Argentina, Chile, and Portugal. Each trip was amazing.",
+          "sampleAnswerTranslation": "Sim, já viajei para o exterior algumas vezes. Já estive na Argentina, no Chile e em Portugal. Cada viagem foi incrível."
+        },
+        {
+          "id": "q043",
+          "question": "What is the best trip you have ever taken?",
+          "translation": "Qual foi a melhor viagem que você já fez?",
+          "level": "Intermediate",
+          "vocabulary": ["best trip", "ever taken", "memorable", "experience", "adventure"],
+          "tips": ["Use present perfect: have ever taken", "Stress BEST and the PLACE"],
+          "sampleAnswer": "The best trip I've ever taken was to Patagonia. The landscapes were breathtaking, and I met wonderful people.",
+          "sampleAnswerTranslation": "A melhor viagem que já fiz foi para a Patagônia. As paisagens eram de tirar o fôlego, e conheci pessoas maravilhosas."
+        },
+        {
+          "id": "q044",
+          "question": "Do you prefer the beach or the mountains?",
+          "translation": "Você prefere a praia ou a montanha?",
+          "level": "Beginner",
+          "vocabulary": ["prefer", "beach", "mountains", "relax", "nature"],
+          "tips": ["Stress BEACH / MOUNTAINS", "Use 'I prefer... because...'"],
+          "sampleAnswer": "I prefer the beach because I love the sound of the waves and the warm sun. It helps me relax completely.",
+          "sampleAnswerTranslation": "Prefiro a praia porque adoro o som das ondas e o sol quente. Me ajuda a relaxar completamente."
+        },
+        {
+          "id": "q045",
+          "question": "What do you always take with you when you travel?",
+          "translation": "O que você sempre leva com você quando viaja?",
+          "level": "Beginner",
+          "vocabulary": ["always take", "travel", "passport", "phone", "charger"],
+          "tips": ["Stress ALWAYS", "Use falling intonation when listing"],
+          "sampleAnswer": "I always take my passport, phone, charger, and a good book. I also pack comfortable shoes.",
+          "sampleAnswerTranslation": "Sempre levo meu passaporte, celular, carregador e um bom livro. Também coloco sapatos confortáveis na mala."
+        },
+        {
+          "id": "q046",
+          "question": "What is a city you would love to live in?",
+          "translation": "Qual é uma cidade em que você adoraria morar?",
+          "level": "Intermediate",
+          "vocabulary": ["city", "live in", "would love", "culture", "opportunities"],
+          "tips": ["Stress the CITY name", "Link 'love to' → 'luv to'"],
+          "sampleAnswer": "I would love to live in Lisbon. The city is beautiful, the people are friendly, and the food is amazing.",
+          "sampleAnswerTranslation": "Eu adoraria morar em Lisboa. A cidade é linda, as pessoas são simpáticas e a comida é incrível."
+        },
+        {
+          "id": "q047",
+          "question": "How do you usually plan your trips?",
+          "translation": "Como você costuma planejar suas viagens?",
+          "level": "Intermediate",
+          "vocabulary": ["plan", "trips", "research", "book", "itinerary"],
+          "tips": ["Stress PLAN and the ACTION verbs", "Link 'usually plan' smoothly"],
+          "sampleAnswer": "I usually research the destination online, book the flights and hotels, and create a simple itinerary.",
+          "sampleAnswerTranslation": "Costumo pesquisar o destino online, reservar os voos e hotéis e criar um roteiro simples."
+        },
+        {
+          "id": "q048",
+          "question": "What is the most beautiful place you have seen?",
+          "translation": "Qual é o lugar mais bonito que você já viu?",
+          "level": "Intermediate",
+          "vocabulary": ["most beautiful", "seen", "place", "landscape", "view"],
+          "tips": ["Stress MOST BEAUTIFUL", "Use present perfect: have seen"],
+          "sampleAnswer": "The most beautiful place I've seen is the Iguazu Falls. The power and the size of the waterfalls are unforgettable.",
+          "sampleAnswerTranslation": "O lugar mais bonito que já vi são as Cataratas do Iguaçu. A força e o tamanho das quedas d'água são inesquecíveis."
+        },
+        {
+          "id": "q049",
+          "question": "Do you like to travel alone or with other people?",
+          "translation": "Você gosta de viajar sozinho ou com outras pessoas?",
+          "level": "Intermediate",
+          "vocabulary": ["travel alone", "with people", "company", "freedom", "share"],
+          "tips": ["Stress ALONE / WITH PEOPLE", "Use 'I like to...'"],
+          "sampleAnswer": "I like to travel with other people because I can share the experience. But traveling alone also has its charm — total freedom.",
+          "sampleAnswerTranslation": "Gosto de viajar com outras pessoas porque posso compartilhar a experiência. Mas viajar sozinho também tem seu charme — liberdade total."
+        },
+        {
+          "id": "q050",
+          "question": "What is the next place you want to visit?",
+          "translation": "Qual é o próximo lugar que você quer visitar?",
+          "level": "Beginner",
+          "vocabulary": ["next place", "want to visit", "plan", "dream", "someday"],
+          "tips": ["Stress NEXT PLACE", "Link 'want to' → 'wanna'"],
+          "sampleAnswer": "The next place I want to visit is Canada. I've heard the national parks are incredible, and I want to see the snow.",
+          "sampleAnswerTranslation": "O próximo lugar que quero visitar é o Canadá. Ouvi dizer que os parques nacionais são incríveis, e quero ver a neve."
+        }
+      ]
+    },
+    {
+      "id": "technology-internet",
+      "name": "Technology & Internet",
+      "icon": "fa-mobile-screen",
+      "questions": [
+        {
+          "id": "q051",
+          "question": "How much time do you spend on your phone every day?",
+          "translation": "Quanto tempo você passa no celular todos os dias?",
+          "level": "Beginner",
+          "vocabulary": ["spend time", "phone", "every day", "hours", "screen time"],
+          "tips": ["Stress the TIME amount", "Link 'spend on' smoothly"],
+          "sampleAnswer": "I spend about four hours on my phone every day. Most of that time is for work and messages.",
+          "sampleAnswerTranslation": "Passo cerca de quatro horas no celular todos os dias. A maior parte desse tempo é para trabalho e mensagens."
+        },
+        {
+          "id": "q052",
+          "question": "What is your favorite app?",
+          "translation": "Qual é o seu aplicativo favorito?",
+          "level": "Beginner",
+          "vocabulary": ["favorite app", "use", "download", "useful", "entertaining"],
+          "tips": ["Stress FAVORITE APP", "Name the app clearly"],
+          "sampleAnswer": "My favorite app is Spotify. I use it every day to listen to music and podcasts while I work.",
+          "sampleAnswerTranslation": "Meu aplicativo favorito é o Spotify. Uso todos os dias para ouvir música e podcasts enquanto trabalho."
+        },
+        {
+          "id": "q053",
+          "question": "Do you think technology makes life easier or more complicated?",
+          "translation": "Você acha que a tecnologia torna a vida mais fácil ou mais complicada?",
+          "level": "Intermediate",
+          "vocabulary": ["technology", "easier", "complicated", "opinion", "balance"],
+          "tips": ["Use 'I think...'", "Stress EASIER / COMPLICATED for contrast"],
+          "sampleAnswer": "I think technology makes life easier in many ways, but it can also be distracting. It's all about balance.",
+          "sampleAnswerTranslation": "Acho que a tecnologia torna a vida mais fácil de muitas maneiras, mas também pode ser uma distração. É tudo uma questão de equilíbrio."
+        },
+        {
+          "id": "q054",
+          "question": "How do you usually communicate with friends and family?",
+          "translation": "Como você costuma se comunicar com amigos e familiares?",
+          "level": "Beginner",
+          "vocabulary": ["communicate", "friends", "family", "messages", "calls"],
+          "tips": ["Stress the METHOD: MESSAGES, CALLS, VIDEO"],
+          "sampleAnswer": "I usually communicate with friends through messages and social media. For family, I prefer video calls.",
+          "sampleAnswerTranslation": "Costumo me comunicar com amigos por mensagens e redes sociais. Com a família, prefiro chamadas de vídeo."
+        },
+        {
+          "id": "q055",
+          "question": "Do you play video games? What kind?",
+          "translation": "Você joga videogame? De que tipo?",
+          "level": "Beginner",
+          "vocabulary": ["play video games", "kind", "online", "console", "strategy"],
+          "tips": ["Stress the GAME type", "Use 'I play...'"],
+          "sampleAnswer": "Yes, I play video games occasionally. I enjoy strategy games and some online multiplayer games with friends.",
+          "sampleAnswerTranslation": "Sim, jogo videogame ocasionalmente. Gosto de jogos de estratégia e alguns jogos online multijogador com amigos."
+        },
+        {
+          "id": "q056",
+          "question": "Do you prefer reading on paper or on a screen?",
+          "translation": "Você prefere ler no papel ou na tela?",
+          "level": "Intermediate",
+          "vocabulary": ["prefer", "reading", "paper", "screen", "tablet"],
+          "tips": ["Stress PAPER / SCREEN", "Use 'I prefer... because...'"],
+          "sampleAnswer": "I prefer reading on paper because it feels more focused and it's easier on my eyes. But for travel, a screen is more practical.",
+          "sampleAnswerTranslation": "Prefiro ler no papel porque me sinto mais concentrado e é mais fácil para os olhos. Mas para viajar, uma tela é mais prática."
+        },
+        {
+          "id": "q057",
+          "question": "What is the most useful website you know?",
+          "translation": "Qual é o site mais útil que você conhece?",
+          "level": "Intermediate",
+          "vocabulary": ["useful", "website", "visit", "information", "learn"],
+          "tips": ["Stress USEFUL and the SITE name", "Use falling intonation for statements"],
+          "sampleAnswer": "The most useful website I know is YouTube. I use it for tutorials, music, and learning new things.",
+          "sampleAnswerTranslation": "O site mais útil que conheço é o YouTube. Uso para tutoriais, música e aprender coisas novas."
+        },
+        {
+          "id": "q058",
+          "question": "How do you protect your personal information online?",
+          "translation": "Como você protege suas informações pessoais online?",
+          "level": "Advanced",
+          "vocabulary": ["protect", "personal information", "password", "security", "privacy"],
+          "tips": ["Stress PROTECT and SECURITY", "Link 'personal information' smoothly"],
+          "sampleAnswer": "I use strong passwords, enable two-factor authentication, and I never share personal details on unknown websites.",
+          "sampleAnswerTranslation": "Uso senhas fortes, ativo a autenticação em dois fatores e nunca compartilho detalhes pessoais em sites desconhecidos."
+        },
+        {
+          "id": "q059",
+          "question": "What was the first phone you ever had?",
+          "translation": "Qual foi o primeiro celular que você teve?",
+          "level": "Intermediate",
+          "vocabulary": ["first phone", "ever had", "old", "model", "brand"],
+          "tips": ["Use past tense: had, was", "Stress FIRST PHONE"],
+          "sampleAnswer": "The first phone I ever had was a simple Nokia. It was small, had a tiny screen, and the battery lasted for days.",
+          "sampleAnswerTranslation": "O primeiro celular que tive foi um Nokia simples. Era pequeno, tinha uma tela minúscula e a bateria durava dias."
+        },
+        {
+          "id": "q060",
+          "question": "Do you think social media is good or bad for society?",
+          "translation": "Você acha que as redes sociais são boas ou ruins para a sociedade?",
+          "level": "Advanced",
+          "vocabulary": ["social media", "society", "connection", "harmful", "influence"],
+          "tips": ["Stress GOOD / BAD for contrast", "Use 'On the one hand... on the other hand...'"],
+          "sampleAnswer": "Social media has both good and bad sides. It connects people, but it can also spread misinformation and harm mental health.",
+          "sampleAnswerTranslation": "As redes sociais têm lados bons e ruins. Elas conectam as pessoas, mas também podem espalhar desinformação e prejudicar a saúde mental."
+        }
+      ]
+    },
+    {
+      "id": "family-relationships",
+      "name": "Family & Relationships",
+      "icon": "fa-users",
+      "questions": [
+        {
+          "id": "q061",
+          "question": "How many people are there in your family?",
+          "translation": "Quantas pessoas há na sua família?",
+          "level": "Beginner",
+          "vocabulary": ["how many", "family", "siblings", "parents", "members"],
+          "tips": ["Link 'How many' smoothly", "Stress the NUMBER"],
+          "sampleAnswer": "There are five people in my family: my parents, my two siblings, and me. We're very close.",
+          "sampleAnswerTranslation": "Há cinco pessoas na minha família: meus pais, meus dois irmãos e eu. Somos muito unidos."
+        },
+        {
+          "id": "q062",
+          "question": "Do you have any siblings?",
+          "translation": "Você tem irmãos?",
+          "level": "Beginner",
+          "vocabulary": ["siblings", "brother", "sister", "older", "younger"],
+          "tips": ["Link 'Do you have' → 'Dya have'", "Stress OLDER / YOUNGER"],
+          "sampleAnswer": "Yes, I have one older brother and one younger sister. We get along very well.",
+          "sampleAnswerTranslation": "Sim, tenho um irmão mais velho e uma irmã mais nova. Nos damos muito bem."
+        },
+        {
+          "id": "q063",
+          "question": "What do you usually do with your family on weekends?",
+          "translation": "O que você costuma fazer com sua família nos fins de semana?",
+          "level": "Beginner",
+          "vocabulary": ["family", "weekends", "usually", "lunch", "gather"],
+          "tips": ["Stress WEEKENDS", "Link 'with your' → 'withyer'"],
+          "sampleAnswer": "On weekends, we usually have lunch together and watch a movie. Sometimes we go to the park.",
+          "sampleAnswerTranslation": "Nos fins de semana, geralmente almoçamos juntos e assistimos a um filme. Às vezes vamos ao parque."
+        },
+        {
+          "id": "q064",
+          "question": "Who are you closest to in your family?",
+          "translation": "Com quem você tem mais proximidade na sua família?",
+          "level": "Intermediate",
+          "vocabulary": ["closest to", "family", "relationship", "trust", "share"],
+          "tips": ["Stress CLOSEST TO", "Use 'I'm closest to...'"],
+          "sampleAnswer": "I'm closest to my mother. We talk every day, and I can share everything with her.",
+          "sampleAnswerTranslation": "Tenho mais proximidade com minha mãe. Conversamos todos os dias e posso compartilhar tudo com ela."
+        },
+        {
+          "id": "q065",
+          "question": "Are you married or single?",
+          "translation": "Você é casado ou solteiro?",
+          "level": "Beginner",
+          "vocabulary": ["married", "single", "relationship", "partner", "engaged"],
+          "tips": ["Stress MARRIED / SINGLE", "Use falling intonation for statements"],
+          "sampleAnswer": "I'm single right now. I'm focusing on my career and personal growth.",
+          "sampleAnswerTranslation": "Estou solteiro no momento. Estou focado na minha carreira e no meu crescimento pessoal."
+        },
+        {
+          "id": "q066",
+          "question": "Do you have children? How old are they?",
+          "translation": "Você tem filhos? Quantos anos eles têm?",
+          "level": "Beginner",
+          "vocabulary": ["children", "how old", "son", "daughter", "years old"],
+          "tips": ["Stress the AGE numbers", "Use 'They are... years old'"],
+          "sampleAnswer": "Yes, I have two children. My son is ten, and my daughter is seven years old.",
+          "sampleAnswerTranslation": "Sim, tenho dois filhos. Meu filho tem dez anos, e minha filha tem sete anos."
+        },
+        {
+          "id": "q067",
+          "question": "What is your favorite memory with your family?",
+          "translation": "Qual é a sua memória favorita com sua família?",
+          "level": "Intermediate",
+          "vocabulary": ["favorite memory", "family", "remember", "childhood", "special"],
+          "tips": ["Stress FAVORITE MEMORY", "Use past tense to describe"],
+          "sampleAnswer": "My favorite memory is our family trip to the beach when I was a child. We played all day and watched the sunset together.",
+          "sampleAnswerTranslation": "Minha memória favorita é a viagem da nossa família à praia quando eu era criança. Brincamos o dia todo e vimos o pôr do sol juntos."
+        },
+        {
+          "id": "q068",
+          "question": "How often do you see your extended family?",
+          "translation": "Com que frequência você vê sua família estendida?",
+          "level": "Intermediate",
+          "vocabulary": ["how often", "extended family", "cousins", "uncles", "gather"],
+          "tips": ["Stress HOW OFTEN", "Use frequency adverbs: often, rarely, sometimes"],
+          "sampleAnswer": "I see my extended family a few times a year, usually during holidays. We always have a big lunch together.",
+          "sampleAnswerTranslation": "Vejo minha família estendida algumas vezes por ano, geralmente durante os feriados. Sempre almoçamos juntos em grande estilo."
+        },
+        {
+          "id": "q069",
+          "question": "What values did your parents teach you?",
+          "translation": "Que valores seus pais te ensinaram?",
+          "level": "Advanced",
+          "vocabulary": ["values", "teach", "honesty", "respect", "hard work"],
+          "tips": ["Stress VALUES and the KEY word", "Use past tense: taught"],
+          "sampleAnswer": "My parents taught me the importance of honesty, respect, and hard work. Those values guide me every day.",
+          "sampleAnswerTranslation": "Meus pais me ensinaram a importância da honestidade, do respeito e do trabalho duro. Esses valores me guiam todos os dias."
+        },
+        {
+          "id": "q070",
+          "question": "Do you want to have a big or a small family?",
+          "translation": "Você quer ter uma família grande ou pequena?",
+          "level": "Intermediate",
+          "vocabulary": ["big family", "small family", "want", "future", "dream"],
+          "tips": ["Stress BIG / SMALL", "Use 'I want to...' or 'I'd like to...'"],
+          "sampleAnswer": "I'd like to have a small family. I think it's easier to give attention and love to a few people.",
+          "sampleAnswerTranslation": "Eu gostaria de ter uma família pequena. Acho mais fácil dar atenção e amor a poucas pessoas."
+        }
+      ]
+    },
+    {
+      "id": "health-fitness",
+      "name": "Health & Fitness",
+      "icon": "fa-heart-pulse",
+      "questions": [
+        {
+          "id": "q071",
+          "question": "How often do you exercise?",
+          "translation": "Com que frequência você se exercita?",
+          "level": "Beginner",
+          "vocabulary": ["how often", "exercise", "gym", "run", "workout"],
+          "tips": ["Stress HOW OFTEN", "Use 'I exercise... times a week'"],
+          "sampleAnswer": "I exercise about four times a week. I go to the gym and sometimes run in the park.",
+          "sampleAnswerTranslation": "Me exercito cerca de quatro vezes por semana. Vou à academia e às vezes corro no parque."
+        },
+        {
+          "id": "q072",
+          "question": "What do you do to stay healthy?",
+          "translation": "O que você faz para se manter saudável?",
+          "level": "Beginner",
+          "vocabulary": ["stay healthy", "eat well", "sleep", "exercise", "water"],
+          "tips": ["Stress the ACTION", "Link 'to stay' smoothly"],
+          "sampleAnswer": "To stay healthy, I eat vegetables every day, drink a lot of water, and sleep at least seven hours.",
+          "sampleAnswerTranslation": "Para me manter saudável, como vegetais todos os dias, bebo bastante água e durmo pelo menos sete horas."
+        },
+        {
+          "id": "q073",
+          "question": "How many hours do you sleep at night?",
+          "translation": "Quantas horas você dorme à noite?",
+          "level": "Beginner",
+          "vocabulary": ["how many hours", "sleep", "night", "rest", "tired"],
+          "tips": ["Stress the NUMBER of hours", "Link 'at night' smoothly"],
+          "sampleAnswer": "I usually sleep about seven hours a night. Sometimes I sleep eight if I'm very tired.",
+          "sampleAnswerTranslation": "Costumo dormir cerca de sete horas por noite. Às vezes durmo oito, se estiver muito cansado."
+        },
+        {
+          "id": "q074",
+          "question": "What is your favorite way to relax?",
+          "translation": "Qual é a sua maneira favorita de relaxar?",
+          "level": "Beginner",
+          "vocabulary": ["favorite way", "relax", "music", "meditation", "bath"],
+          "tips": ["Stress FAVORITE WAY", "Use falling intonation for statements"],
+          "sampleAnswer": "My favorite way to relax is listening to calm music and taking a long bath. It helps me clear my mind.",
+          "sampleAnswerTranslation": "Minha maneira favorita de relaxar é ouvir música calma e tomar um banho demorado. Me ajuda a clarear a mente."
+        },
+        {
+          "id": "q075",
+          "question": "Do you eat fast food? How often?",
+          "translation": "Você come fast food? Com que frequência?",
+          "level": "Beginner",
+          "vocabulary": ["fast food", "how often", "occasionally", "avoid", "healthy"],
+          "tips": ["Stress HOW OFTEN", "Use 'I try to avoid...'"],
+          "sampleAnswer": "I eat fast food occasionally, maybe once a month. I try to cook at home most of the time.",
+          "sampleAnswerTranslation": "Como fast food ocasionalmente, talvez uma vez por mês. Tento cozinhar em casa na maior parte do tempo."
+        },
+        {
+          "id": "q076",
+          "question": "Do you drink enough water every day?",
+          "translation": "Você bebe água suficiente todos os dias?",
+          "level": "Beginner",
+          "vocabulary": ["drink water", "enough", "every day", "hydrated", "bottle"],
+          "tips": ["Stress ENOUGH WATER", "Link 'every day' smoothly"],
+          "sampleAnswer": "Yes, I drink about two liters of water every day. I always carry a bottle with me.",
+          "sampleAnswerTranslation": "Sim, bebo cerca de dois litros de água todos os dias. Sempre levo uma garrafa comigo."
+        },
+        {
+          "id": "q077",
+          "question": "What is your biggest health goal right now?",
+          "translation": "Qual é o seu maior objetivo de saúde agora?",
+          "level": "Intermediate",
+          "vocabulary": ["health goal", "right now", "achieve", "improve", "focus"],
+          "tips": ["Stress HEALTH GOAL", "Use 'My goal is to...'"],
+          "sampleAnswer": "My biggest health goal right now is to build more muscle. I'm going to the gym regularly and eating more protein.",
+          "sampleAnswerTranslation": "Meu maior objetivo de saúde agora é ganhar mais massa muscular. Estou indo à academia regularmente e comendo mais proteína."
+        },
+        {
+          "id": "q078",
+          "question": "Do you prefer exercising alone or with others?",
+          "translation": "Você prefere se exercitar sozinho ou com outras pessoas?",
+          "level": "Intermediate",
+          "vocabulary": ["exercising", "alone", "with others", "motivation", "company"],
+          "tips": ["Stress ALONE / WITH OTHERS", "Use 'I prefer... because...'"],
+          "sampleAnswer": "I prefer exercising with others because it keeps me motivated. It's also more fun to share the effort.",
+          "sampleAnswerTranslation": "Prefiro me exercitar com outras pessoas porque me mantém motivado. Também é mais divertido compartilhar o esforço."
+        },
+        {
+          "id": "q079",
+          "question": "Have you ever tried meditation or yoga?",
+          "translation": "Você já experimentou meditação ou yoga?",
+          "level": "Intermediate",
+          "vocabulary": ["tried", "meditation", "yoga", "calm", "practice"],
+          "tips": ["Use present perfect: Have you ever...", "Stress MEDITATION / YOGA"],
+          "sampleAnswer": "Yes, I've tried meditation. I practice for ten minutes every morning. It helps me stay calm and focused.",
+          "sampleAnswerTranslation": "Sim, já experimentei meditação. Pratico dez minutos todas as manhãs. Me ajuda a ficar calmo e focado."
+        },
+        {
+          "id": "q080",
+          "question": "What do you usually do when you feel stressed?",
+          "translation": "O que você costuma fazer quando se sente estressado?",
+          "level": "Intermediate",
+          "vocabulary": ["stressed", "usually do", "breathe", "walk", "music"],
+          "tips": ["Stress STRESSED", "Use 'When I feel... I usually...'"],
+          "sampleAnswer": "When I feel stressed, I usually take a deep breath, go for a walk, or listen to music. It helps me reset.",
+          "sampleAnswerTranslation": "Quando me sinto estressado, costumo respirar fundo, dar uma caminhada ou ouvir música. Me ajuda a recomeçar."
+        }
+      ]
+    },
+    {
+      "id": "feelings-emotions",
+      "name": "Feelings & Emotions",
+      "icon": "fa-face-smile",
+      "questions": [
+        {
+          "id": "q081",
+          "question": "How are you feeling today?",
+          "translation": "Como você está se sentindo hoje?",
+          "level": "Beginner",
+          "vocabulary": ["feeling", "today", "happy", "tired", "excited"],
+          "tips": ["Link 'How are you' → 'Howarya'", "Stress the FEELING word"],
+          "sampleAnswer": "I'm feeling pretty good today. I slept well, and the weather is nice. How about you?",
+          "sampleAnswerTranslation": "Estou me sentindo bem hoje. Dormi bem, e o tempo está agradável. E você?"
+        },
+        {
+          "id": "q082",
+          "question": "What makes you happy?",
+          "translation": "O que te faz feliz?",
+          "level": "Beginner",
+          "vocabulary": ["makes you happy", "family", "friends", "music", "nature"],
+          "tips": ["Stress MAKES YOU HAPPY", "Use falling intonation for statements"],
+          "sampleAnswer": "Spending time with family and friends makes me happy. A good book and a cup of coffee also do the trick.",
+          "sampleAnswerTranslation": "Passar tempo com família e amigos me faz feliz. Um bom livro e uma xícara de café também fazem o truque."
+        },
+        {
+          "id": "q083",
+          "question": "What makes you angry or annoyed?",
+          "translation": "O que te deixa com raiva ou irritado?",
+          "level": "Intermediate",
+          "vocabulary": ["angry", "annoyed", "traffic", "rudeness", "noise"],
+          "tips": ["Stress ANGRY / ANNOYED", "Use 'It makes me...'"],
+          "sampleAnswer": "Traffic jams and rude people annoy me. I try to stay calm and breathe when it happens.",
+          "sampleAnswerTranslation": "Engarrafamentos e pessoas rudes me irritam. Tento ficar calmo e respirar quando isso acontece."
+        },
+        {
+          "id": "q084",
+          "question": "When was the last time you felt really proud of yourself?",
+          "translation": "Quando foi a última vez que você se sentiu realmente orgulhoso de si mesmo?",
+          "level": "Intermediate",
+          "vocabulary": ["proud", "last time", "achievement", "accomplish", "hard work"],
+          "tips": ["Use present perfect: have felt", "Stress PROUD"],
+          "sampleAnswer": "I felt really proud last month when I finished a big project at work. It took months of effort and dedication.",
+          "sampleAnswerTranslation": "Me senti realmente orgulhoso no mês passado quando terminei um grande projeto no trabalho. Levou meses de esforço e dedicação."
+        },
+        {
+          "id": "q085",
+          "question": "What is something that always makes you laugh?",
+          "translation": "O que sempre te faz rir?",
+          "level": "Beginner",
+          "vocabulary": ["always makes you laugh", "funny", "jokes", "memes", "comedy"],
+          "tips": ["Stress ALWAYS", "Use 'It always makes me laugh'"],
+          "sampleAnswer": "Funny cat videos always make me laugh. I also love watching stand-up comedy with friends.",
+          "sampleAnswerTranslation": "Vídeos engraçados de gatos sempre me fazem rir. Também adoro assistir stand-up com amigos."
+        },
+        {
+          "id": "q086",
+          "question": "Do you consider yourself an introvert or an extrovert?",
+          "translation": "Você se considera introvertido ou extrovertido?",
+          "level": "Intermediate",
+          "vocabulary": ["consider yourself", "introvert", "extrovert", "personality", "energy"],
+          "tips": ["Stress INTROVERT / EXTROVERT", "Use 'I consider myself...'"],
+          "sampleAnswer": "I consider myself more of an introvert. I enjoy quiet time alone, but I also love being with close friends.",
+          "sampleAnswerTranslation": "Me considero mais introvertido. Gosto de tempo tranquilo sozinho, mas também adoro estar com amigos próximos."
+        },
+        {
+          "id": "q087",
+          "question": "How do you usually deal with bad days?",
+          "translation": "Como você costuma lidar com dias ruins?",
+          "level": "Intermediate",
+          "vocabulary": ["deal with", "bad days", "rest", "talk", "music"],
+          "tips": ["Stress DEAL WITH", "Use 'I usually...'"],
+          "sampleAnswer": "When I have a bad day, I usually rest, listen to music, and talk to a close friend. It always helps.",
+          "sampleAnswerTranslation": "Quando tenho um dia ruim, costumo descansar, ouvir música e conversar com um amigo próximo. Sempre ajuda."
+        },
+        {
+          "id": "q088",
+          "question": "What is something you are afraid of?",
+          "translation": "O que te dá medo?",
+          "level": "Intermediate",
+          "vocabulary": ["afraid of", "fear", "heights", "spiders", "flying"],
+          "tips": ["Use 'I'm afraid of...'", "Stress the FEAR"],
+          "sampleAnswer": "I'm afraid of heights. I don't mind flying, but I can't stand on high places without feeling nervous.",
+          "sampleAnswerTranslation": "Tenho medo de altura. Não me importo de voar, mas não consigo ficar em lugares altos sem ficar nervoso."
+        },
+        {
+          "id": "q089",
+          "question": "What is your biggest dream in life?",
+          "translation": "Qual é o seu maior sonho na vida?",
+          "level": "Advanced",
+          "vocabulary": ["biggest dream", "life", "achieve", "goal", "someday"],
+          "tips": ["Stress BIGGEST DREAM", "Use 'My biggest dream is to...'"],
+          "sampleAnswer": "My biggest dream is to travel the world and write a book about my experiences. I want to inspire people.",
+          "sampleAnswerTranslation": "Meu maior sonho é viajar pelo mundo e escrever um livro sobre minhas experiências. Quero inspirar as pessoas."
+        },
+        {
+          "id": "q090",
+          "question": "How do you usually show love to people you care about?",
+          "translation": "Como você costuma mostrar amor pelas pessoas que se importa?",
+          "level": "Advanced",
+          "vocabulary": ["show love", "care about", "attention", "gifts", "quality time"],
+          "tips": ["Stress SHOW LOVE", "Use 'I show love by...'"],
+          "sampleAnswer": "I show love by spending quality time with people, listening to them, and being present. Small gestures mean a lot.",
+          "sampleAnswerTranslation": "Mostro amor passando tempo de qualidade com as pessoas, ouvindo-as e estando presente. Pequenos gestos significam muito."
+        }
+      ]
+    },
+    {
+      "id": "goals-dreams",
+      "name": "Goals & Dreams",
+      "icon": "fa-star",
+      "questions": [
+        {
+          "id": "q091",
+          "question": "What is your biggest goal for this year?",
+          "translation": "Qual é o seu maior objetivo para este ano?",
+          "level": "Intermediate",
+          "vocabulary": ["biggest goal", "this year", "achieve", "focus", "progress"],
+          "tips": ["Stress BIGGEST GOAL", "Use 'My goal is to...'"],
+          "sampleAnswer": "My biggest goal this year is to improve my English fluency. I practice every day, even if only for fifteen minutes.",
+          "sampleAnswerTranslation": "Meu maior objetivo este ano é melhorar minha fluência em inglês. Pratico todos os dias, mesmo que só por quinze minutos."
+        },
+        {
+          "id": "q092",
+          "question": "What would you do if you had a million dollars?",
+          "translation": "O que você faria se tivesse um milhão de dólares?",
+          "level": "Advanced",
+          "vocabulary": ["if I had", "million dollars", "would", "invest", "travel"],
+          "tips": ["Use 2nd conditional: If I had..., I would...", "Stress WOULD"],
+          "sampleAnswer": "If I had a million dollars, I would invest part of it, travel the world, and help my family. I'd also donate to charity.",
+          "sampleAnswerTranslation": "Se eu tivesse um milhão de dólares, investiria parte, viajaria pelo mundo e ajudaria minha família. Também doaria para caridade."
+        },
+        {
+          "id": "q093",
+          "question": "What is a skill you want to learn?",
+          "translation": "Qual é uma habilidade que você quer aprender?",
+          "level": "Intermediate",
+          "vocabulary": ["skill", "want to learn", "improve", "practice", "challenge"],
+          "tips": ["Stress the SKILL", "Use 'I want to learn...'"],
+          "sampleAnswer": "I want to learn how to play the piano. It's a beautiful instrument, and I think it would be very rewarding.",
+          "sampleAnswerTranslation": "Quero aprender a tocar piano. É um instrumento bonito, e acho que seria muito gratificante."
+        },
+        {
+          "id": "q094",
+          "question": "Where do you see yourself in ten years?",
+          "translation": "Onde você se vê daqui a dez anos?",
+          "level": "Advanced",
+          "vocabulary": ["see yourself", "in ten years", "future", "imagine", "hope"],
+          "tips": ["Stress TEN YEARS", "Use future forms: I'll be, I hope to"],
+          "sampleAnswer": "In ten years, I see myself living in another country, fluent in English, and working on projects I truly love.",
+          "sampleAnswerTranslation": "Daqui a dez anos, me vejo morando em outro país, fluente em inglês e trabalhando em projetos que realmente amo."
+        },
+        {
+          "id": "q095",
+          "question": "What is something you want to change about yourself?",
+          "translation": "O que você quer mudar em si mesmo?",
+          "level": "Advanced",
+          "vocabulary": ["change about yourself", "improve", "habit", "grow", "patience"],
+          "tips": ["Stress CHANGE", "Use 'I want to...' or 'I'd like to...'"],
+          "sampleAnswer": "I want to be more patient. Sometimes I rush things, and I'd like to slow down and enjoy the process more.",
+          "sampleAnswerTranslation": "Quero ser mais paciente. Às vezes apresso as coisas, e gostaria de desacelerar e aproveitar mais o processo."
+        },
+        {
+          "id": "q096",
+          "question": "What is a dream you have had since you were a child?",
+          "translation": "Qual é um sonho que você tem desde criança?",
+          "level": "Intermediate",
+          "vocabulary": ["dream", "since childhood", "always wanted", "achieve", "still"],
+          "tips": ["Use present perfect: I've always wanted", "Stress CHILD"],
+          "sampleAnswer": "Since I was a child, I've dreamed of becoming a writer. I still hope to publish a novel one day.",
+          "sampleAnswerTranslation": "Desde criança, sonho em me tornar escritor. Ainda espero publicar um romance um dia."
+        },
+        {
+          "id": "q097",
+          "question": "What does success mean to you?",
+          "translation": "O que sucesso significa para você?",
+          "level": "Advanced",
+          "vocabulary": ["success", "means", "happiness", "achievement", "balance"],
+          "tips": ["Stress SUCCESS", "Use 'To me, success is...'"],
+          "sampleAnswer": "To me, success means being happy with what I do, having good relationships, and feeling at peace with myself.",
+          "sampleAnswerTranslation": "Para mim, sucesso significa ser feliz com o que faço, ter bons relacionamentos e sentir paz comigo mesmo."
+        },
+        {
+          "id": "q098",
+          "question": "What is a risk you would like to take?",
+          "translation": "Qual é um risco que você gostaria de correr?",
+          "level": "Advanced",
+          "vocabulary": ["risk", "take", "would like", "opportunity", "fear"],
+          "tips": ["Stress RISK", "Use 'I would like to...'"],
+          "sampleAnswer": "I would like to take the risk of starting my own business. It's scary, but it could be a great opportunity.",
+          "sampleAnswerTranslation": "Eu gostaria de correr o risco de abrir meu próprio negócio. É assustador, mas pode ser uma grande oportunidade."
+        },
+        {
+          "id": "q099",
+          "question": "What is a book or movie that changed your perspective?",
+          "translation": "Qual é um livro ou filme que mudou sua perspectiva?",
+          "level": "Advanced",
+          "vocabulary": ["changed your perspective", "book", "movie", "impact", "mindset"],
+          "tips": ["Stress CHANGED YOUR PERSPECTIVE", "Use 'It made me realize...'"],
+          "sampleAnswer": "The movie 'The Pursuit of Happyness' changed my perspective. It taught me to never give up, even in the hardest times.",
+          "sampleAnswerTranslation": "O filme 'À Procura da Felicidade' mudou minha perspectiva. Me ensinou a nunca desistir, mesmo nos momentos mais difíceis."
+        },
+        {
+          "id": "q100",
+          "question": "If today were your last day, what would you do?",
+          "translation": "Se hoje fosse o seu último dia, o que você faria?",
+          "level": "Advanced",
+          "vocabulary": ["if today were", "last day", "would do", "loved ones", "grateful"],
+          "tips": ["Use 2nd conditional: If today were..., I would...", "Stress WOULD DO"],
+          "sampleAnswer": "If today were my last day, I would spend it with the people I love. I'd tell them how much they mean to me and be grateful.",
+          "sampleAnswerTranslation": "Se hoje fosse meu último dia, passaria com as pessoas que amo. Diria a elas o quanto significam para mim e seria grato."
+        }
+      ]
+    }
+  ]
+}

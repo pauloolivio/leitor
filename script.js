@@ -2,6 +2,7 @@
 const DATA_PATH = 'data';
 const STORIES_INDEX = `${DATA_PATH}/stories-index.json`;
 const CONVERSATIONS_INDEX = `${DATA_PATH}/conversations-index.json`;
+const QUESTIONS_INDEX = `${DATA_PATH}/questions-index.json`;
 
 // Cache em memória (evita baixar duas vezes o mesmo arquivo)
 const contentCache = new Map();
@@ -10,6 +11,7 @@ const contentCache = new Map();
 let storiesIndex = [];
 let conversationsIndex = [];
 let conversationsCache = []; // diálogos já carregados (necessário para Play/Practice)
+let questionsIndex = [];
 
 // ==================== UTILITY ====================
 function escapeHTML(str) {
@@ -179,6 +181,9 @@ function renderizarConversas() {
                     <button class="btn-control btn-practice" data-id="${conv.id}" disabled>
                         <i class="fa-solid fa-microphone"></i> Practice Line by Line
                     </button>
+                    <button class="btn-control btn-repeat-practice" data-id="${conv.id}" disabled title="Lê o diálogo inteiro 1 vez + 5 repetições">
+                        <i class="fa-solid fa-rotate-right"></i> Repeat Practice (5x)
+                    </button>
                     <button class="btn-acessar btn-read-conv" data-id="${conv.id}" data-file="${escapeHTML(conv.file)}" style="margin-left:auto;">
                         <i class="fa-solid fa-book-open-reader"></i> Read full conversation
                     </button>
@@ -236,6 +241,7 @@ function renderizarConversas() {
             // Habilita os botões de áudio
             detalhesDiv.querySelector('.btn-play-all').disabled = false;
             detalhesDiv.querySelector('.btn-practice').disabled = false;
+            detalhesDiv.querySelector('.btn-repeat-practice').disabled = false; 
 
             loaded = true;
             return fullConv;
@@ -247,9 +253,17 @@ function renderizarConversas() {
             if (expanded) await ensureLoaded();
         });
 
+
         // Play full dialogue
         detalhesDiv.querySelector('.btn-play-all').addEventListener('click', async (e) => {
             e.stopPropagation();
+            const repeatBtn = detalhesDiv.querySelector('.btn-repeat-practice');
+            // Se o repeat estiver rodando, cancela antes
+            if (repeatBtn.classList.contains('speaking')) {
+                window.speechSynthesis.cancel();
+                repeatBtn.classList.remove('speaking');
+                repeatBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Repeat Practice (5x)';
+            }
             const full = await ensureLoaded();
             if (full) speakFullDialogue(full, e.currentTarget);
         });
@@ -259,6 +273,31 @@ function renderizarConversas() {
             e.stopPropagation();
             const full = await ensureLoaded();
             if (full) practiceLineByLine(full);
+        });
+
+        // Repeat Practice (repete o line by line)
+        detalhesDiv.querySelector('.btn-repeat-practice').addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const btn = e.currentTarget;
+            const playAllBtn = detalhesDiv.querySelector('.btn-play-all');
+
+            // Cancela Play All se estiver ativo
+            if (playAllBtn.classList.contains('speaking')) {
+                window.speechSynthesis.cancel();
+                playAllBtn.classList.remove('speaking');
+                playAllBtn.innerHTML = '<i class="fa-solid fa-play"></i> Play Full Dialogue';
+            }
+
+            // Cancela o próprio repeat (toggle)
+            if (btn.classList.contains('speaking')) {
+                window.speechSynthesis.cancel();
+                btn.classList.remove('speaking');
+                btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Repeat Practice (5x)';
+                return;
+            }
+
+            const full = await ensureLoaded();
+            if (full) repeatFullDialogue(full, btn, 5);
         });
 
         // Read full conversation (clean mode)
@@ -273,40 +312,144 @@ function renderizarConversas() {
     });
 }
 
+// ==================== REPEAT FULL DIALOGUE (N vezes) ====================
+function repeatFullDialogue(conv, button, repeatCount = 5) {
+    const voices = window.speechSynthesis.getVoices();
+    const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
+                         voices.find(v => v.lang.startsWith('en-US')) ||
+                         voices.find(v => v.lang.startsWith('en'));
+
+    const originalLabel = '<i class="fa-solid fa-rotate-right"></i> Repeat Practice (5x)';
+    button.classList.add('speaking');
+    button.innerHTML = `<i class="fa-solid fa-stop"></i> Stop`;
+
+    // Total de rodadas: 1 leitura inicial + N repetições
+    const totalRounds = repeatCount + 1; // 1 + 5 = 6
+    let currentRound = 0;
+    let cancelled = false;
+
+    // Detecta cancelamento (usuário clicou Stop ou Play All iniciou)
+    const cancelCheck = setInterval(() => {
+        if (!window.speechSynthesis.speaking && !button.classList.contains('speaking')) {
+            cancelled = true;
+            clearInterval(cancelCheck);
+        }
+    }, 300);
+
+    function playRound() {
+        if (cancelled) return;
+        if (currentRound >= totalRounds) {
+            clearInterval(cancelCheck);
+            button.classList.remove('speaking');
+            button.innerHTML = originalLabel;
+            return;
+        }
+
+        currentRound++;
+        const roundLabel = currentRound === 1
+            ? `Rodada inicial (1/${totalRounds})`
+            : `Repetição ${currentRound - 1}/${repeatCount}`;
+        button.innerHTML = `<i class="fa-solid fa-stop"></i> ${roundLabel}`;
+
+        let lineIndex = 0;
+
+        function speakLine() {
+            if (cancelled) return;
+            if (lineIndex >= conv.dialogo.length) {
+                // Fim da rodada — pausa antes da próxima
+                setTimeout(playRound, 1000);
+                return;
+            }
+
+            const line = conv.dialogo[lineIndex];
+            const utterance = new SpeechSynthesisUtterance(line.text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            if (englishVoice) utterance.voice = englishVoice;
+
+            utterance.onend = () => {
+                lineIndex++;
+                setTimeout(speakLine, 400);
+            };
+            utterance.onerror = () => {
+                clearInterval(cancelCheck);
+                button.classList.remove('speaking');
+                button.innerHTML = originalLabel;
+            };
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        speakLine();
+    }
+
+    playRound();
+}
+
+function getEnglishVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    return voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
+           voices.find(v => v.lang.startsWith('en-US')) ||
+           voices.find(v => v.lang.startsWith('en')) ||
+           null;
+}
+
 // ==================== SPEECH SYNTHESIS ====================
 function speakFullDialogue(conv, button) {
+    // Se já está falando, para
     if (window.speechSynthesis.speaking) {
         window.speechSynthesis.cancel();
         button.classList.remove('speaking');
         button.innerHTML = '<i class="fa-solid fa-play"></i> Play Full Dialogue';
         return;
     }
+
     button.classList.add('speaking');
     button.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
+
+    const englishVoice = getEnglishVoice();
+    console.log('[Play Full] Voz EN:', englishVoice?.name || 'padrão');
+
+    // Fila: apenas inglês
+    const queue = [];
+    conv.dialogo.forEach(line => {
+        queue.push({
+            text: line.text,
+            lang: 'en-US',
+            voice: englishVoice,
+            rate: 0.85
+        });
+    });
+
     let index = 0;
 
     function speakNext() {
-        if (index >= conv.dialogo.length) {
+        if (index >= queue.length) {
             button.classList.remove('speaking');
             button.innerHTML = '<i class="fa-solid fa-play"></i> Play Full Dialogue';
             return;
         }
-        const line = conv.dialogo[index];
-        const utterance = new SpeechSynthesisUtterance(line.text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.85;
-        const voices = window.speechSynthesis.getVoices();
-        const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
-                             voices.find(v => v.lang.startsWith('en-US')) ||
-                             voices.find(v => v.lang.startsWith('en'));
-        if (englishVoice) utterance.voice = englishVoice;
-        utterance.onend = () => { index++; setTimeout(speakNext, 500); };
+
+        const item = queue[index];
+        const utterance = new SpeechSynthesisUtterance(item.text);
+        utterance.lang = item.lang;
+        utterance.rate = item.rate;
+        if (item.voice) utterance.voice = item.voice;
+
+        utterance.onend = () => {
+            index++;
+            // Pausa curta entre as falas (dá tempo de respirar)
+            setTimeout(speakNext, 400);
+        };
+
         utterance.onerror = () => {
             button.classList.remove('speaking');
             button.innerHTML = '<i class="fa-solid fa-play"></i> Play Full Dialogue';
         };
+
         window.speechSynthesis.speak(utterance);
     }
+
     speakNext();
 }
 
@@ -331,6 +474,190 @@ function practiceLineByLine(conv) {
         window.speechSynthesis.speak(utterance);
     }
     speakLine();
+}
+
+// ==================== RENDER QUESTIONS ====================
+function renderizarQuestoes() {
+    const container = document.getElementById('questionsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (!questionsIndex || questionsIndex.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#7ba9c4;">Nenhuma pergunta carregada.</p>`;
+        return;
+    }
+
+    questionsIndex.forEach(category => {
+        const catDiv = document.createElement('div');
+        catDiv.className = 'question-category';
+
+        const catTitle = document.createElement('div');
+        catTitle.className = 'question-category-title';
+        catTitle.innerHTML = `<i class="fa-solid ${escapeHTML(category.icon || 'fa-folder')}"></i> ${escapeHTML(category.name)}`;
+        catDiv.appendChild(catTitle);
+
+        category.questions.forEach(q => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.dataset.id = q.id;
+
+            // Chips de vocabulário
+            const vocabHTML = `
+                <ul class="vocab-chips">
+                    ${(q.vocabulary || []).map(w => `<li>${escapeHTML(w)}</li>`).join('')}
+                </ul>
+            `;
+
+            // Dicas
+            const tipsHTML = q.tips && q.tips.length ? `
+                <div class="tips-mini">
+                    <strong><i class="fa-regular fa-lightbulb"></i> Pronunciation tips:</strong>
+                    <ul>${q.tips.map(t => `<li>${escapeHTML(t)}</li>`).join('')}</ul>
+                </div>
+            ` : '';
+
+            qDiv.innerHTML = `
+                <div class="question-header">
+                    <div class="question-text">
+                        <i class="fa-solid fa-question"></i> ${escapeHTML(q.question)}
+                        <span class="question-translation">${escapeHTML(q.translation || '')}</span>
+                    </div>
+                    <div class="question-actions">
+                        <button class="btn-listen" title="Listen to the question">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                        <button class="btn-read-qa" title="Read question + sample answer">
+                            <i class="fa-solid fa-headphones"></i> Q + Answer
+                        </button>
+                        <button class="btn-reveal" title="Show sample answer">
+                            <i class="fa-solid fa-eye"></i> Sample Answer
+                        </button>
+                    </div>
+                </div>
+                <div class="question-body">
+                    <span class="section-label">💬 Sample Answer:</span>
+                    <div class="sample-answer">
+                        ${escapeHTML(q.sampleAnswer || '')}
+                        ${q.sampleAnswerTranslation ? `<span class="sample-answer-translation">${escapeHTML(q.sampleAnswerTranslation)}</span>` : ''}
+                    </div>
+                    <span class="section-label">📚 Key Vocabulary:</span>
+                    ${vocabHTML}
+                    ${tipsHTML}
+                </div>
+            `;
+
+            catDiv.appendChild(qDiv);
+
+            // Botão Listen (só inglês)
+            qDiv.querySelector('.btn-listen').addEventListener('click', (e) => {
+                e.stopPropagation();
+                speakQuestion(q.question, e.currentTarget);
+            });
+
+            // Botão "Q + Answer" — lê pergunta + resposta-modelo
+            qDiv.querySelector('.btn-read-qa').addEventListener('click', (e) => {
+                e.stopPropagation();
+                speakQuestionAndAnswer(q, e.currentTarget);
+            });
+
+            // Botão Reveal (mostra/esconde resposta)
+            const btnReveal = qDiv.querySelector('.btn-reveal');
+            btnReveal.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const revealed = qDiv.classList.toggle('revealed');
+                btnReveal.classList.toggle('revealed', revealed);
+                btnReveal.innerHTML = revealed
+                    ? '<i class="fa-solid fa-eye-slash"></i> Hide'
+                    : '<i class="fa-solid fa-eye"></i> Sample Answer';
+            });
+        });
+
+        container.appendChild(catDiv);
+    });
+}
+
+// ==================== SPEAK QUESTION ====================
+function speakQuestion(text, button) {
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        button.classList.remove('speaking');
+        button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
+        return;
+    }
+
+    button.classList.add('speaking');
+    button.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.85;
+
+    const englishVoice = getEnglishVoice();
+    if (englishVoice) utterance.voice = englishVoice;
+
+    utterance.onend = () => {
+        button.classList.remove('speaking');
+        button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
+    };
+
+    utterance.onerror = () => {
+        button.classList.remove('speaking');
+        button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+// ==================== SPEAK QUESTION + SAMPLE ANSWER ====================
+function speakQuestionAndAnswer(q, button) {
+    // Toggle: se já está falando, cancela
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        button.classList.remove('speaking');
+        button.innerHTML = '<i class="fa-solid fa-headphones"></i> Q + Answer';
+        return;
+    }
+
+    button.classList.add('speaking');
+    button.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
+
+    const englishVoice = getEnglishVoice();
+
+    // Fila: [pergunta, resposta]
+    const queue = [
+        { text: q.question, rate: 0.85, pauseAfter: 900 },
+        { text: q.sampleAnswer || '', rate: 0.85, pauseAfter: 0 }
+    ].filter(item => item.text && item.text.trim());
+
+    let index = 0;
+
+    function speakNext() {
+        if (index >= queue.length) {
+            button.classList.remove('speaking');
+            button.innerHTML = '<i class="fa-solid fa-headphones"></i> Q + Answer';
+            return;
+        }
+
+        const item = queue[index];
+        const utterance = new SpeechSynthesisUtterance(item.text);
+        utterance.lang = 'en-US';
+        utterance.rate = item.rate;
+        if (englishVoice) utterance.voice = englishVoice;
+
+        utterance.onend = () => {
+            index++;
+            setTimeout(speakNext, item.pauseAfter);
+        };
+
+        utterance.onerror = () => {
+            button.classList.remove('speaking');
+            button.innerHTML = '<i class="fa-solid fa-headphones"></i> Q + Answer';
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    speakNext();
 }
 
 // ==================== MODAL ====================
@@ -508,19 +835,30 @@ function setupFontControl() {
 document.addEventListener('DOMContentLoaded', async () => {
     setupTabs();
     setupVoltarButton();
-    setupFontControl();   // ⬅️ ADICIONE ESTA LINHA
+    setupFontControl();
 
-    // Carrega APENAS os índices (leves)
-    const [storiesData, conversationsData] = await Promise.all([
+    // Força carregamento das vozes
+    if (window.speechSynthesis) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+    }
+
+    // Carrega os índices (leves)
+    const [storiesData, conversationsData, questionsData] = await Promise.all([
         fetchJSON(STORIES_INDEX),
-        fetchJSON(CONVERSATIONS_INDEX)
+        fetchJSON(CONVERSATIONS_INDEX),
+        fetchJSON(QUESTIONS_INDEX)
     ]);
 
     storiesIndex = storiesData ? storiesData.stories : [];
     conversationsIndex = conversationsData ? conversationsData.conversations : [];
+    questionsIndex = questionsData ? questionsData.categories : [];
 
     renderizarContos();
     renderizarConversas();
+    renderizarQuestoes();   // ⬅️ NOVO
 
     if (window.speechSynthesis) window.speechSynthesis.getVoices();
 });
