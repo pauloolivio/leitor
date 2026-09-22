@@ -1,0 +1,455 @@
+/* ============================================ */
+/* 🧠 QUESTIONS TAB                             */
+/* ============================================ */
+
+/* ---------- Categoria ---------- */
+.question-category {
+    margin-bottom: 1.5rem;
+}
+
+.question-category-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0369a1;
+    margin-bottom: 0.8rem;
+    padding: 0.5rem 0.8rem;
+    background: #e0f2fe;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ---------- Toolbar multi-select ---------- */
+.questions-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #b8e0ff;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0.5rem;
+    z-index: 50;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+}
+
+.questions-toolbar-left,
+.questions-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.qt-btn {
+    background: white;
+    border: 1px solid #b8e0ff;
+    color: #0284c7;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+}
+
+.qt-btn:hover:not(:disabled) {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    transform: translateY(-1px);
+}
+
+.qt-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.qt-btn-play {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: white;
+    border-color: #0284c7;
+}
+
+.qt-btn-play:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+}
+
+.qt-btn-stop {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+    animation: pulseStop 1s ease-in-out infinite;
+}
+
+.qt-btn-stop:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+}
+
+@keyframes pulseStop {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+}
+
+.qt-counter {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #0369a1;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    background: white;
+    border-radius: 30px;
+    border: 1px solid #b8e0ff;
+}
+
+.qt-counter.active {
+    background: #dcfce7;
+    color: #15803d;
+    border-color: #86efac;
+}
+
+/* ---------- Question item ---------- */
+.question-item {
+    background: #fefef8;
+    border: 1px solid #b8e0ff;
+    border-radius: 20px;
+    margin-bottom: 0.8rem;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.question-item:hover {
+    border-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
+}
+
+.question-content {
+    /* wrapper organizacional — sem estilo visual */
+}
+
+.question-header {
+    padding: 1.2rem 1.2rem 0.8rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================ */
+/* 📝 QUESTION TEXT + INLINE CHECKBOX           */
+/* ============================================ */
+
+.question-text {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #075985;
+    font-family: 'Georgia', serif;
+    line-height: 1.4;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+/* Checkbox circular */
+.question-checkbox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2.5px solid #bae6fd;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: transparent;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    user-select: none;
+    padding: 0;
+    margin-top: 2px;
+}
+
+.question-checkbox:hover {
+    border-color: #0284c7;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.2);
+}
+
+.question-checkbox:focus-visible {
+    outline: 2px solid #0284c7;
+    outline-offset: 2px;
+}
+
+.question-checkbox.checked {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    border-color: #0284c7;
+    color: white;
+}
+
+.question-checkbox.checked:hover {
+    background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+}
+
+/* Ícone `?` laranja */
+.question-text .question-icon {
+    color: #f59e0b;
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+/* Bloco do texto + tradução */
+.question-main {
+    flex: 1;
+    min-width: 0;
+    display: block;
+    line-height: 1.4;
+}
+
+/* Tradução — quebra abaixo do texto */
+.question-translation {
+    display: block;
+    font-size: 0.85rem;
+    color: #7ba9c4;
+    font-style: italic;
+    font-weight: 400;
+    margin-top: 2px;
+    font-family: system-ui, sans-serif;
+    line-height: 1.3;
+}
+
+/* ---------- Actions ---------- */
+.question-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.question-actions .btn-listen {
+    background: white;
+    color: #0284c7;
+    border: 1px solid #b8e0ff;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.question-actions .btn-listen:hover {
+    background: #e0f2fe;
+    border-color: #0284c7;
+}
+
+.question-actions .btn-listen.speaking {
+    background: #0284c7;
+    color: white;
+    border-color: #0284c7;
+}
+
+.question-actions .btn-read-qa {
+    background: #0284c7;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.question-actions .btn-read-qa:hover {
+    background: #0369a1;
+}
+
+.question-actions .btn-read-qa.speaking {
+    background: #b45309;
+}
+
+.question-actions .btn-reveal {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.question-actions .btn-reveal:hover {
+    background: #d97706;
+}
+
+.question-actions .btn-reveal.revealed {
+    background: #0284c7;
+}
+
+/* ---------- Body (resposta) ---------- */
+.question-body {
+    padding: 0 1.2rem 1.2rem 1.2rem;
+    display: none;
+}
+
+.question-item.revealed .question-body {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.question-body .section-label {
+    font-size: 0.7rem;
+    color: #7ba9c4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.question-body .sample-answer {
+    font-family: 'Georgia', serif;
+    font-size: calc(var(--dialogue-font-scale) * 0.95rem);
+    line-height: 1.6;
+    color: #2c5a6e;
+    background: #f0f9ff;
+    padding: 1rem;
+    border-radius: 16px;
+    border-left: 4px solid #0284c7;
+    margin-bottom: 1rem;
+}
+
+.question-body .sample-answer-translation {
+    display: block;
+    font-size: calc(var(--dialogue-font-scale) * 0.8rem);
+    color: #7ba9c4;
+    font-style: italic;
+    font-family: system-ui, sans-serif;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed #b8e0ff;
+    line-height: 1.5;
+}
+
+.question-body .vocab-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.question-body .vocab-chips li {
+    font-size: 0.75rem;
+    background: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: #0284c7;
+    font-weight: 600;
+    border: 1px solid #b8e0ff;
+}
+
+.question-body .tips-mini {
+    font-size: 0.75rem;
+    color: #78350f;
+    background: #fef3c7;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border-left: 3px solid #f59e0b;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.question-body .tips-mini strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #92400e;
+}
+
+.question-body .tips-mini ul {
+    margin-left: 1.2rem;
+}
+
+/* ---------- Playing state (destaque da questão ativa) ---------- */
+.question-item.playing-question {
+    background: linear-gradient(90deg, #fef3c7 0%, #fde68a 100%);
+    border-color: #f59e0b !important;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+    transform: scale(1.01);
+    transition: all 0.3s ease;
+}
+
+.question-item.playing-question .question-text {
+    color: #78350f;
+}
+
+.question-item.playing-question .question-text > i.fa-question {
+    color: #dc2626;
+    animation: pulsePlaying 1s ease-in-out infinite;
+}
+
+.question-item.playing-question .question-checkbox {
+    border-color: #f59e0b;
+}
+
+@keyframes pulsePlaying {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* ============================================ */
+/* 📱 RESPONSIVO QUESTIONS                      */
+/* ============================================ */
+@media (max-width: 550px) {
+    .question-text { font-size: 0.95rem; }
+    .question-actions { width: 100%; }
+    .question-actions button { flex: 1; justify-content: center; }
+
+    .questions-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .questions-toolbar-left,
+    .questions-toolbar-right {
+        justify-content: space-between;
+    }
+    .qt-btn {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+}

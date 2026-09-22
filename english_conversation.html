@@ -6,6 +6,9 @@
     <title>English Practice - Stories & Shadowing</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stories.css">
+    <link rel="stylesheet" href="shadowing.css">
+    <link rel="stylesheet" href="questions.css">
 </head>
 <body>
 <div class="container">
@@ -18,7 +21,9 @@
         <div class="stats-left">
             <span><i class="fa-regular fa-bookmark"></i> My English Library</span>
             <span><i class="fa-solid fa-language"></i> Stories & Conversations</span>
-            <span><i class="fa-regular fa-clock"></i> Click to expand</span>
+            <span id="streakIndicator" class="streak-indicator" style="display:none;">
+                <i class="fa-solid fa-fire"></i> <span id="streakText">0 praticados hoje</span>
+            </span>
         </div>
         <button class="btn-voltar" id="btnVoltarInicio">
             <i class="fa-solid fa-arrow-left"></i> Back to home
@@ -56,11 +61,47 @@
             <i class="fa-solid fa-microphone"></i>
             <span>🎤 Shadowing Practice</span>
         </div>
+
+        <!-- Barra de configurações de áudio -->
+        <div class="audio-settings-bar">
+            <div class="setting-group">
+                <label><i class="fa-solid fa-gauge-high"></i> Velocidade:</label>
+                <div class="speed-selector" id="speedSelector">
+                    <button class="speed-btn" data-speed="0.5">0.5x <small>iniciante</small></button>
+                    <button class="speed-btn active" data-speed="0.8">0.8x <small>intermediário</small></button>
+                    <button class="speed-btn" data-speed="1.0">1.0x <small>nativo</small></button>
+                </div>
+            </div>
+            <div class="setting-group">
+                <label><i class="fa-solid fa-user-tie"></i> Voz:</label>
+                <div class="voice-selector" id="voiceSelector">
+                    <button class="voice-btn" data-voice="female" title="Voz feminina">
+                        <i class="fa-solid fa-person-dress"></i> <span>Feminina</span>
+                    </button>
+                    <button class="voice-btn active" data-voice="male" title="Voz masculina">
+                        <i class="fa-solid fa-person"></i> <span>Masculina</span>
+                    </button>
+                </div>
+            </div>
+            <div class="setting-group">
+                <label><i class="fa-solid fa-language"></i> Tradução:</label>
+                <button class="toggle-btn" id="toggleTranslation" title="Mostrar/ocultar tradução">
+                    <i class="fa-solid fa-eye-slash"></i> <span>Oculta</span>
+                </button>
+            </div>
+            <div class="setting-group">
+                <label><i class="fa-solid fa-link"></i> Connected Speech:</label>
+                <button class="toggle-btn active" id="toggleConnected" title="Mostrar/ocultar sons conectados">
+                    <i class="fa-solid fa-eye"></i> <span>Visível</span>
+                </button>
+            </div>
+        </div>
+
         <div class="info-msg" style="margin-bottom: 1.2rem;">
             <i class="fa-regular fa-lightbulb"></i> 
             <strong>How to practice shadowing:</strong> 1) Listen to the audio (or read the text aloud). 
             2) Repeat immediately after each sentence, imitating the rhythm, intonation, and pronunciation. 
-            3) Do it multiple times until it feels natural.
+            3) Use <strong>🔁 Repeat Line</strong> 5-10x on difficult phrases to build muscle memory.
         </div>
         <div id="conversationsContainer"></div>
     </div>
@@ -78,6 +119,27 @@
             3) Say it out loud in English — don't worry about mistakes!
             4) Then click "Show Sample Answer" to compare.
         </div>
+        <div class="questions-toolbar">
+    <div class="questions-toolbar-left">
+        <button class="qt-btn" id="btnSelectAll" title="Selecionar todas">
+            <i class="fa-solid fa-check-double"></i> Selecionar todas
+        </button>
+        <button class="qt-btn" id="btnClearSelection" title="Limpar seleção">
+            <i class="fa-solid fa-xmark"></i> Limpar
+        </button>
+        <span class="qt-counter" id="selectionCounter">
+            <i class="fa-solid fa-list-check"></i> 0 selecionadas
+        </span>
+    </div>
+        <div class="questions-toolbar-right">
+            <button class="qt-btn qt-btn-play" id="btnPlaySelected" disabled>
+                <i class="fa-solid fa-play"></i> Ouvir selecionadas
+            </button>
+            <button class="qt-btn qt-btn-stop" id="btnStopSelected" style="display:none;">
+                <i class="fa-solid fa-stop"></i> Parar
+            </button>
+        </div>
+    </div>
         <div id="questionsContainer"></div>
     </div>
 

@@ -1,0 +1,124 @@
+/* ============================================ */
+/* 📖 STORIES TAB                               */
+/* ============================================ */
+
+/* Acordeon de contos */
+.conto-item {
+    background: #fefef8;
+    border: 1px solid #b8e0ff;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.conto-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    background: #fefef8;
+    transition: background 0.2s;
+}
+
+.conto-header:hover {
+    background: #f0f9ff;
+}
+
+.conto-info {
+    flex: 1;
+}
+
+.conto-titulo {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #075985;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.conto-titulo i {
+    color: #0284c7;
+    font-size: 1rem;
+    width: 24px;
+}
+
+.personagem-badge {
+    background: #e0f2fe;
+    color: #0284c7;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 30px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.level-badge {
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 30px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.expand-icon {
+    color: #0284c7;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    width: 30px;
+    text-align: center;
+}
+
+.conto-detalhes {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #fffefa;
+    border-top: 1px solid transparent;
+}
+
+.conto-item.expanded .conto-detalhes {
+    max-height: 3000px;
+    transition: max-height 0.5s ease-in;
+    border-top-color: #b8e0ff;
+}
+
+.conto-item.expanded .expand-icon i {
+    transform: rotate(180deg);
+}
+
+.detalhes-content {
+    padding: 1rem 1.2rem 1.2rem 1.8rem;
+}
+
+.resumo-texto {
+    font-size: calc(var(--dialogue-font-scale) * 0.85rem);
+    color: #2c5a6e;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    background: #f8fafc;
+    padding: 0.8rem;
+    border-radius: 16px;
+    font-family: 'Georgia', serif;
+}
+
+.resumo-texto i {
+    color: #0284c7;
+}
+
+/* ============================================ */
+/* 📱 RESPONSIVO STORIES                        */
+/* ============================================ */
+@media (max-width: 550px) {
+    .conto-header { flex-wrap: wrap; }
+    .detalhes-content { padding-left: 0.8rem; }
+}
