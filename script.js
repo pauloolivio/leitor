@@ -386,12 +386,34 @@ function repeatFullDialogue(conv, button, repeatCount = 5) {
     playRound();
 }
 
+/*
 function getEnglishVoice() {
     const voices = window.speechSynthesis.getVoices();
     return voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
            voices.find(v => v.lang.startsWith('en-US')) ||
            voices.find(v => v.lang.startsWith('en')) ||
            null;
+}
+*/
+
+function getEnglishVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices || voices.length === 0) return null;
+
+    // 1. Tenta voz neural da Microsoft (PC)
+    const msVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Online')));
+    if (msVoice) return msVoice;
+
+    // 2. Tenta voz do Google (Android / Chrome)
+    const googleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google'));
+    if (googleVoice) return googleVoice;
+
+    // 3. Tenta voz em inglês americano genérica
+    const enUsVoice = voices.find(v => v.lang === 'en-US');
+    if (enUsVoice) return enUsVoice;
+
+    // 4. Qualquer voz em inglês (en-GB, en-AU, etc.)
+    return voices.find(v => v.lang.startsWith('en')) || null;
 }
 
 // ==================== SPEECH SYNTHESIS ====================
@@ -831,22 +853,36 @@ function setupFontControl() {
     });
 }
 
+// ==================== VOICE INITIALIZATION ====================
+function initVoices() {
+    return new Promise((resolve) => {
+        if (!('speechSynthesis' in window)) {
+            resolve([]);
+            return;
+        }
+
+        let voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+            resolve(voices);
+            return;
+        }
+
+        window.speechSynthesis.onvoiceschanged = () => {
+            voices = window.speechSynthesis.getVoices();
+            resolve(voices);
+        };
+    });
+}
+
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', async () => {
     setupTabs();
     setupVoltarButton();
     setupFontControl();
 
-    // Força carregamento das vozes
-    if (window.speechSynthesis) {
-        window.speechSynthesis.getVoices();
-        window.speechSynthesis.onvoiceschanged = () => {
-            window.speechSynthesis.getVoices();
-        };
-    }
-
-    // Carrega os índices (leves)
-    const [storiesData, conversationsData, questionsData] = await Promise.all([
+    // Carrega vozes em segundo plano e dados da aplicação em paralelo
+    const [, storiesData, conversationsData, questionsData] = await Promise.all([
+        initVoices(),
         fetchJSON(STORIES_INDEX),
         fetchJSON(CONVERSATIONS_INDEX),
         fetchJSON(QUESTIONS_INDEX)
@@ -858,7 +894,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     renderizarContos();
     renderizarConversas();
-    renderizarQuestoes();   // ⬅️ NOVO
-
-    if (window.speechSynthesis) window.speechSynthesis.getVoices();
+    renderizarQuestoes();
 });
