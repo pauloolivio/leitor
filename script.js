@@ -51,6 +51,50 @@ function setButtonLoading(btn, loading, labelDefault) {
     }
 }
 
+// ==================== FUNÇÃO PRINCIPAL DE VOZ (Android/Edge compatible) ====================
+/**
+ * Função principal para reprodução de voz (compatível com Android/iOS e PC)
+ * Prioriza vozes do Edge (Microsoft Natural/Online) e Google
+ */
+function falarTexto(texto, lang = 'en-US') {
+    if (!('speechSynthesis' in window)) {
+        alert('Seu navegador não suporta leitura em voz alta.');
+        return null;
+    }
+
+    // Cancela leituras anteriores para não empilhar o áudio no Android
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = lang;
+
+    // Busca as vozes disponíveis no momento do clique
+    const voices = window.speechSynthesis.getVoices();
+    const langPrefix = lang.slice(0, 2);
+
+    if (voices.length > 0) {
+        // Busca priorizada: Edge (Natural/Online) > Google > qualquer voz no idioma
+        const vozSelecionada = 
+            voices.find(v => v.lang.startsWith(langPrefix) && (v.name.includes('Natural') || v.name.includes('Online'))) ||
+            voices.find(v => v.lang.startsWith(langPrefix) && v.name.includes('Google')) ||
+            voices.find(v => v.lang.startsWith(langPrefix)) ||
+            voices[0];
+
+        if (vozSelecionada) {
+            utterance.voice = vozSelecionada;
+            console.log(`[Voz] Usando: ${vozSelecionada.name} (${vozSelecionada.lang})`);
+        }
+    }
+
+    // Configurações recomendadas para Android/Edge
+    utterance.rate = 0.9;   // Velocidade ligeiramente reduzida para melhor clareza
+    utterance.pitch = 1.0;
+
+    // Dispara a leitura no Android
+    window.speechSynthesis.speak(utterance);
+    return utterance;
+}
+
 // ==================== RENDER STORIES ====================
 function renderizarContos() {
     const container = document.getElementById('contosContainer');
@@ -253,7 +297,6 @@ function renderizarConversas() {
             if (expanded) await ensureLoaded();
         });
 
-
         // Play full dialogue
         detalhesDiv.querySelector('.btn-play-all').addEventListener('click', async (e) => {
             e.stopPropagation();
@@ -314,11 +357,6 @@ function renderizarConversas() {
 
 // ==================== REPEAT FULL DIALOGUE (N vezes) ====================
 function repeatFullDialogue(conv, button, repeatCount = 5) {
-    const voices = window.speechSynthesis.getVoices();
-    const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
-                         voices.find(v => v.lang.startsWith('en-US')) ||
-                         voices.find(v => v.lang.startsWith('en'));
-
     const originalLabel = '<i class="fa-solid fa-rotate-right"></i> Repeat Practice (5x)';
     button.classList.add('speaking');
     button.innerHTML = `<i class="fa-solid fa-stop"></i> Stop`;
@@ -327,6 +365,7 @@ function repeatFullDialogue(conv, button, repeatCount = 5) {
     const totalRounds = repeatCount + 1; // 1 + 5 = 6
     let currentRound = 0;
     let cancelled = false;
+    let currentUtterance = null;
 
     // Detecta cancelamento (usuário clicou Stop ou Play All iniciou)
     const cancelCheck = setInterval(() => {
@@ -362,10 +401,29 @@ function repeatFullDialogue(conv, button, repeatCount = 5) {
             }
 
             const line = conv.dialogo[lineIndex];
+            
+            // Usa a função principal falarTexto com callback
+            if (!('speechSynthesis' in window)) {
+                alert('Seu navegador não suporta leitura em voz alta.');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(line.text);
             utterance.lang = 'en-US';
             utterance.rate = 0.85;
-            if (englishVoice) utterance.voice = englishVoice;
+
+            // Seleção de voz priorizada
+            const voices = window.speechSynthesis.getVoices();
+            const langPrefix = 'en';
+            if (voices.length > 0) {
+                const vozSelecionada = 
+                    voices.find(v => v.lang.startsWith(langPrefix) && (v.name.includes('Natural') || v.name.includes('Online'))) ||
+                    voices.find(v => v.lang.startsWith(langPrefix) && v.name.includes('Google')) ||
+                    voices.find(v => v.lang.startsWith(langPrefix)) ||
+                    voices[0];
+                if (vozSelecionada) utterance.voice = vozSelecionada;
+            }
 
             utterance.onend = () => {
                 lineIndex++;
@@ -377,6 +435,7 @@ function repeatFullDialogue(conv, button, repeatCount = 5) {
                 button.innerHTML = originalLabel;
             };
 
+            currentUtterance = utterance;
             window.speechSynthesis.speak(utterance);
         }
 
@@ -384,36 +443,6 @@ function repeatFullDialogue(conv, button, repeatCount = 5) {
     }
 
     playRound();
-}
-
-/*
-function getEnglishVoice() {
-    const voices = window.speechSynthesis.getVoices();
-    return voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
-           voices.find(v => v.lang.startsWith('en-US')) ||
-           voices.find(v => v.lang.startsWith('en')) ||
-           null;
-}
-*/
-
-function getEnglishVoice() {
-    const voices = window.speechSynthesis.getVoices();
-    if (!voices || voices.length === 0) return null;
-
-    // 1. Tenta voz neural da Microsoft (PC)
-    const msVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Online')));
-    if (msVoice) return msVoice;
-
-    // 2. Tenta voz do Google (Android / Chrome)
-    const googleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google'));
-    if (googleVoice) return googleVoice;
-
-    // 3. Tenta voz em inglês americano genérica
-    const enUsVoice = voices.find(v => v.lang === 'en-US');
-    if (enUsVoice) return enUsVoice;
-
-    // 4. Qualquer voz em inglês (en-GB, en-AU, etc.)
-    return voices.find(v => v.lang.startsWith('en')) || null;
 }
 
 // ==================== SPEECH SYNTHESIS ====================
@@ -477,24 +506,30 @@ function speakFullDialogue(conv, button) {
 
 function practiceLineByLine(conv) {
     let index = 0;
+    
     function speakLine() {
         if (index >= conv.dialogo.length) {
             alert('Practice complete! Great job! 🎉');
             return;
         }
+        
         const line = conv.dialogo[index];
-        const utterance = new SpeechSynthesisUtterance(line.text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.8;
-        const voices = window.speechSynthesis.getVoices();
-        const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
-                             voices.find(v => v.lang.startsWith('en-US')) ||
-                             voices.find(v => v.lang.startsWith('en'));
-        if (englishVoice) utterance.voice = englishVoice;
-        utterance.onend = () => { setTimeout(() => { index++; speakLine(); }, 2000); };
-        utterance.onerror = () => alert('Speech error. Please try again.');
-        window.speechSynthesis.speak(utterance);
+        
+        // Usa a função principal falarTexto
+        const utterance = falarTexto(line.text, 'en-US');
+        
+        if (utterance) {
+            utterance.rate = 0.8; // Velocidade mais lenta para prática
+            utterance.onend = () => { 
+                setTimeout(() => { 
+                    index++; 
+                    speakLine(); 
+                }, 2000); 
+            };
+            utterance.onerror = () => alert('Speech error. Please try again.');
+        }
     }
+    
     speakLine();
 }
 
@@ -610,24 +645,19 @@ function speakQuestion(text, button) {
     button.classList.add('speaking');
     button.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.85;
+    const utterance = falarTexto(text, 'en-US');
 
-    const englishVoice = getEnglishVoice();
-    if (englishVoice) utterance.voice = englishVoice;
+    if (utterance) {
+        utterance.onend = () => {
+            button.classList.remove('speaking');
+            button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
+        };
 
-    utterance.onend = () => {
-        button.classList.remove('speaking');
-        button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
-    };
-
-    utterance.onerror = () => {
-        button.classList.remove('speaking');
-        button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
-    };
-
-    window.speechSynthesis.speak(utterance);
+        utterance.onerror = () => {
+            button.classList.remove('speaking');
+            button.innerHTML = '<i class="fa-solid fa-volume-high"></i> Listen';
+        };
+    }
 }
 
 // ==================== SPEAK QUESTION + SAMPLE ANSWER ====================
@@ -642,8 +672,6 @@ function speakQuestionAndAnswer(q, button) {
 
     button.classList.add('speaking');
     button.innerHTML = '<i class="fa-solid fa-stop"></i> Stop';
-
-    const englishVoice = getEnglishVoice();
 
     // Fila: [pergunta, resposta]
     const queue = [
@@ -661,22 +689,20 @@ function speakQuestionAndAnswer(q, button) {
         }
 
         const item = queue[index];
-        const utterance = new SpeechSynthesisUtterance(item.text);
-        utterance.lang = 'en-US';
-        utterance.rate = item.rate;
-        if (englishVoice) utterance.voice = englishVoice;
+        const utterance = falarTexto(item.text, 'en-US');
+        
+        if (utterance) {
+            utterance.rate = item.rate;
+            utterance.onend = () => {
+                index++;
+                setTimeout(speakNext, item.pauseAfter);
+            };
 
-        utterance.onend = () => {
-            index++;
-            setTimeout(speakNext, item.pauseAfter);
-        };
-
-        utterance.onerror = () => {
-            button.classList.remove('speaking');
-            button.innerHTML = '<i class="fa-solid fa-headphones"></i> Q + Answer';
-        };
-
-        window.speechSynthesis.speak(utterance);
+            utterance.onerror = () => {
+                button.classList.remove('speaking');
+                button.innerHTML = '<i class="fa-solid fa-headphones"></i> Q + Answer';
+            };
+        }
     }
 
     speakNext();
@@ -880,9 +906,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupVoltarButton();
     setupFontControl();
 
-    // Carrega vozes em segundo plano e dados da aplicação em paralelo
-    const [, storiesData, conversationsData, questionsData] = await Promise.all([
-        initVoices(),
+    // Carrega os índices JSON normalmente
+    const [storiesData, conversationsData, questionsData] = await Promise.all([
         fetchJSON(STORIES_INDEX),
         fetchJSON(CONVERSATIONS_INDEX),
         fetchJSON(QUESTIONS_INDEX)
@@ -895,4 +920,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderizarContos();
     renderizarConversas();
     renderizarQuestoes();
+
+    // Pré-carrega vozes para garantir disponibilidade no Android
+    await initVoices();
+    console.log('[Init] Vozes carregadas:', window.speechSynthesis.getVoices().length);
 });
